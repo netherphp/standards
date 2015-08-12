@@ -248,6 +248,10 @@ class Project {
 }
 ```
 
+Methods and functions will not "just end"  - they will include explicit
+return when they are done. Arguments will be defined in PascalCase. When
+PHP 7 lands, arguments will be defined with their strict type identifier.
+
 ## Methods with Variable or Optional Arguments
 
 If a method will take a lot of arguments, or has a handful of optional ones,
@@ -284,11 +288,6 @@ class Project {
 
 }
 ```
-
-Methods and functions will not "just end"  - they will include explicit
-return when they are done. Arguments will be defined in PascalCase. When
-PHP 7 lands, arguments will be defined with their strict type identifier.
-
 ## Method Reduction of Concerns
 
 You would not follow this naming convention if the split methods are going
