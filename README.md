@@ -129,6 +129,60 @@ $Dataset = [
 Arrays will be defined using their [] syntax unless you specifically require
 to support PHP 5.3 or older.
 
+## Strings
+
+If a string does not require data evaluation then single quotes will be used.
+If a string requires data evaluation then double quotes may be used, if
+the resulting string will not cause the line length to get unwieldy. The
+preferred method for building or concatinating long strings is via the
+`sprintf` function.
+
+```php
+<?php
+
+$Straight = 'some straight string without eval';
+$Evaluated = "not {$Straight}";
+
+$PageURL = sprintf(
+	'%s://%s/%s',
+	$RequestProtocol,
+	$RequestDomain,
+	$RequestPath
+);
+```
+
+Even in simple cases, the overhead of `sprintf` is is preferred for readability
+when indecisive. Both evaluation and `sprintf` is acceptable so it is left to
+the author to determine the best choice based on what the code needs to do.
+
+```php
+<?php
+
+$String = "User: {$Name}";
+$String = sprintf('User: %s',$Name);
+```
+
+However, anytime you need to do something like call a method to build a string
+then the `sprintf` is the only acceptable choice.
+
+```php
+<?php
+
+$String = sprintf(
+	'User: %s',
+	$User->GetName()
+);
+```
+
+Literal concationation with the dot operator is only acceptable in extremely
+narrow use cases that I cannot even think of right now.
+
+```php
+<?php
+
+$String = 'User: ' . {$Name}; // no.
+```
+
 ## Files and Class Autoloading
 
 Each class will be in its own file. The fully qualified name of the class
