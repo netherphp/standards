@@ -21,6 +21,8 @@ developer has actually thought about what their code is doing. Second, it
 helps lessen backwards compatbility issues in the future when a default
 behaviour changes. And yes, it does happen.
 
+This document will receive multiple extensions once PHP 7 goes gold.
+
 ## General Standards
 
 * PascalCaseAllTheThings
