@@ -67,7 +67,7 @@ nether the access keywords. This is to prevent your eyes from having to jump
 left and right constantly while scrolling through the file. If you have
 concerns with finding methods by doing something like doing a search for
 "ion SetSomething" then you should instead famliarise yourself with the symbol
-finding feature of your editor. Opening breaces will be after the method
+finding feature of your editor. Opening braces will be after the method
 identifier.
 
 ```php
