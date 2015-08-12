@@ -14,6 +14,13 @@ be cut with the same rules we used in 1976. These rules will typically depend
 on the flexiblity of PHP, but some of the general formatting may be portable
 to other languges depending on their parsers.
 
+A lot of the rules here are based on the concept of being explicit. The
+developer will always explictly state their intentions, never allowing for
+default behaviours. This is for two reasons. First being it shows that the
+developer has actually thought about what their code is doing. Second, it
+helps lessen backwards compatbility issues in the future when a default
+behaviour changes. And yes, it does happen.
+
 ## General Standards
 
 * PascalCaseAllTheThings
