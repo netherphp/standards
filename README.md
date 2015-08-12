@@ -226,7 +226,8 @@ left and right constantly while scrolling through the file. If you have
 concerns with finding methods by doing something like doing a search for
 "ion SetSomething" then you should instead famliarise yourself with the symbol
 finding feature of your editor. Opening braces will be after the method
-identifier.
+identifier. Methods will always have an access keyword. If the access keyword
+was going to be omitted, then it will be unomitted with the keyword `public`.
 
 ```php
 <?php
