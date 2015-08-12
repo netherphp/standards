@@ -21,6 +21,7 @@ to other languges depending on their parsers.
 * \n for new lines.
 * explicit "return" at end of functions.
 * design for strict types in mind.
+* attempt to keep lines shorter than 80 characters.
 
 # Files and Class Autoloading
 
