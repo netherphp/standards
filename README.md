@@ -24,11 +24,113 @@ to other languges depending on their parsers.
 * attempt to keep lines shorter than 80 characters.
 * prefer single quotes when not using string evaluation.
 
+## Inline Documentation.
+
+All symbol documentation is done with Nether Senpai format documentation.
+Unlike typical docblocks, these come after the symbol they define on the
+same indention level. Senpai blocks are opened with /*// and closed with
+//*/ - more on the documentation when I finish writing this document
+and start writing that one.
+
+Nether Senpai generates as much documentation from the code itself before
+reading the comment that describes it. This reduces the amount of junk
+you need to manually write in the documentation. Once PHP 7 lands and you
+can use primative typehints and return declarations, you will be able
+to write even less documentation.
+
+NN will use Senpai notation until the day PHP has real annotation support
+that is not via the slow Reflection system you do not want to use within
+a production project.
+
+## Logical Control Blocks
+
+Statements like IF or WHERE may be written with or without their braces
+that denote the block of code. It is your choice. Nether code prefers
+omitting the braces when the control block is super simple. When omitting the
+braces it is preferred that the code remains on the same indention level
+as the control structure. When braces are included, the opening brace will
+come after the control structure, and the code within indented to the next
+level.
+
+**A WHILE with omitted braces.**
+
+```php
+<?php
+
+$list = [];
+
+while($Row = $Query->Next())
+$list[] = $Row;
+
+```
+
+**A WHILE with braces.**
+```php
+<?php
+
+$list = [];
+
+while($Row = $Query->Next()) {
+	$Row->Cached = false;
+	$list[] = $Row;
+}
+```
+
+## Argument Lists and Array Definitions
+
+If a call to a function or method requires multiple arguments, and that list
+may get lengthy or hard to read, arguments will be defined on new lines on the
+next level of indention.
+
+```php
+<?php
+
+preg_match(
+	'/^https?:\/\/([^\/]+)/',
+	$InputURL,
+	$Matches
+);
+```
+
+The same rules apply when defining an array with data, with the added feature
+that it is preferable to align the deliminters via extra space characters to
+pad the alignment. The alignment should match the longest element in that
+definition.
+
+```php
+<?php
+
+$Dataset = [
+	'Something' => 1,
+	'Else'      => 2,
+	'MoreData'  => 3
+];
+```
+
+If items in the array are being grouped during their definition it is
+acceptable to have multiple levels of padding unique to each group.
+
+```php
+<?php
+
+$Dataset = [
+	// these are the main system options.
+	'Something' => 1,
+	'Else'      => 2,
+	'MoreData'  => 3,
+
+	// mostly optional for whatever.
+	'Four' => 4,
+	'Five' => 5,
+	'Six'  => 6
+];
+```
+
 ## Files and Class Autoloading
 
 Each class will be in its own file. The fully qualified name of the class
 including the namespace will match the file path on disk. This will allow
-you to use your choice of PSR-0 either PSR-4 style autoloading. File
+you to use your choice of either PSR-0 or PSR-4 style autoloading. File
 names are case sensitive and should match the namespace and class
 definition exactly.
 
@@ -60,7 +162,7 @@ implements SomeInterface {
 }
 ```
 
-## Method definitions.
+## Method Definitions.
 
 Methods will be defined in PascalCase. The method name itself will be defined
 nether the access keywords. This is to prevent your eyes from having to jump
@@ -108,6 +210,11 @@ class Project {
 
 	public function
 	GetFileContents($Filename) {
+	/*//
+	@argv string Filename
+	@return object or false
+	given a filename return the object built from the contents of that file.
+	//*/
 
 		try {
 			$Data = $this->GetFileContents_ReadFile($Filename);
@@ -124,6 +231,10 @@ class Project {
 
 	protected function
 	GetFileContents_ReadFile($Filename) {
+	/*//
+	@return string
+	check that the file is readable from the filesystem.
+	//*/
 
 		if(!file_exists($Filename) || !is_readable($Filename)
 		throw new Exception("{$Filename} not found or unreadable.");
@@ -133,6 +244,10 @@ class Project {
 
 	protected function
 	GetFileContents_ParseData($Data) {
+	/*//
+	@return object
+	check that the file was parsable.
+	//*/
 
 		$Obj = json_decode($Data);
 
