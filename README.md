@@ -42,20 +42,22 @@ separately a line away. Followed by the class definition provided by the file.
 Classes will be defined in PascalCase. Extension and Implementations will be
 described nether. Opening braces will be on the last line of the definition.
 
-	<?php
+```php
+<?php
 
-	namespace Nether\OneScript;
-	use \ThirdParty1;
-	use \ThirdParty2;
+namespace Nether\OneScript;
+use \ThirdParty1;
+use \ThirdParty2;
 
-	use \ThirdParty3\Somespace\SomeClass;
-	use \ThirdParty3\Filterspace\SomeInterface;
+use \ThirdParty3\Somespace\SomeClass;
+use \ThirdParty3\Filterspace\SomeInterface;
 
-	class Project
-	extends SomeClass
-	implements SomeInterface {
-		// ...
-	}
+class Project
+extends SomeClass
+implements SomeInterface {
+	// ...
+}
+```
 
 # Method definitions.
 
@@ -66,12 +68,16 @@ concerns with finding methods by doing something like doing a search for
 "ion SetSomething" then you should instead famliarise yourself with the symbol
 finding feature of your editor.
 
-	class Project {
+```php
+<?php
 
-		public function
-		SetSomething() {
-			// ...
-			return;
-		}
+class Project {
 
+	public function
+	SetSomething() {
+		// ...
+		return;
 	}
+
+}
+```
