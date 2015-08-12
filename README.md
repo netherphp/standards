@@ -92,7 +92,7 @@ preg_match(
 ```
 
 The same rules apply when defining an array with data, with the added feature
-that it is preferable to align the deliminters via extra space characters to
+that it is preferable to align the delimiters via extra space characters to
 pad the alignment. The alignment should match the longest element in that
 definition.
 
