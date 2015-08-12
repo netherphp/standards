@@ -50,7 +50,7 @@ omitting the braces when the control block is super simple. When omitting the
 braces it is preferred that the code remains on the same indention level
 as the control structure. When braces are included, the opening brace will
 come after the control structure, and the code within indented to the next
-level.
+level. Structures with omitted braces will be isolated by empty lines.
 
 **A WHILE with omitted braces.**
 
@@ -69,7 +69,6 @@ $list[] = $Row;
 <?php
 
 $list = [];
-
 while($Row = $Query->Next()) {
 	$Row->Cached = false;
 	$list[] = $Row;
@@ -324,3 +323,31 @@ class Project {
 
 ```
 
+## Method Chaining
+
+When using chained methods and the line may potentially become unwieldy, then
+each link in the chain will be placed on a new line at the same indention level
+as the symbol the chain originates from. Calls like this will be isolated by
+empty lines above and below them.
+
+```php
+<?php
+
+$DB = new Nether\Database;
+$Query = $DB->NewVerse();
+
+$Query
+->Select('table')
+->Fields(['one','two','three'])
+->Where([
+	'five=six',
+	'seven=eight'
+])
+->Sort(
+	'nine',
+	$Query::SortDesc
+);
+
+$Result = $DB->Query($Query,$Input);
+
+```
