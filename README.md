@@ -28,8 +28,8 @@ to other languges depending on their parsers.
 
 All symbol documentation is done with Nether Senpai format documentation.
 Unlike typical docblocks, these come after the symbol they define on the
-same indention level. Senpai blocks are opened with /*// and closed with
-//*/ - more on the documentation when I finish writing this document
+same indention level. Senpai blocks are opened with /\*// and closed with
+//\*/ - more on the documentation when I finish writing this document
 and start writing that one.
 
 Nether Senpai generates as much documentation from the code itself before
