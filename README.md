@@ -207,7 +207,7 @@ To split a long method into smaller units of code, of which may not be
 usuable on their own, it is your desgression at how to structure your methods
 for your preferred method of unit testing. These reduced concern methods shall
 be prefixed with the method name they are designed to work with, with the
-descriptive action being separated by an underscore in the method name.
+descriptive action being separated by an netherscore in the method name.
 
 ```php
 <?php
