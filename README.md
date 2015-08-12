@@ -10,9 +10,8 @@ to other languges depending on their parsers.
 
 # Nether [ˈne-thər]
 
->> Located toward the bottom or more distant part of something.
-
->> -- Merriam-Webster Dictionary
+> Located toward the bottom or more distant part of something.
+> -- Merriam-Webster Dictionary
 
 # General Standards
 
