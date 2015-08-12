@@ -179,7 +179,7 @@ narrow use cases that I cannot even think of right now.
 ```php
 <?php
 
-$String = 'User: ' . {$Name}; // no.
+$String = 'User: ' . $Name; // no.
 ```
 
 ## Files and Class Autoloading
