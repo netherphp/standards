@@ -33,7 +33,7 @@ same indention level. Senpai blocks are opened with /\*// and closed with
 and start writing that one.
 
 Nether Senpai generates as much documentation from the code itself before
-reading the comment that describes it. This reduces the amount of junk
+noticing the comment that describes it. This reduces the amount of junk
 you need to manually write in the documentation. Once PHP 7 lands and you
 can use primative typehints and return declarations, you will be able
 to write even less documentation.
@@ -248,6 +248,43 @@ class Project {
 }
 ```
 
+## Methods with Variable or Optional Arguments
+
+If a method will take a lot of arguments, or has a handful of optional ones,
+it is preferable that instead of a long argument list that that method accept
+an object or array instead. Something like `Nether\Object` can be used to help
+ensure population for optional arguments with enforced defaults. This eliminates
+the constant nagging feeling of having forgot what order the arguments should
+be presented in as long as you can recall what it needs.
+
+```php
+<?php
+
+class Project {
+
+	public function
+	Search($Input=null) {
+	/*//
+	@argv object Input
+	@argv array Input
+	@return object or false
+	//*/
+
+		$Input = new Nether\Object($Input,[
+			'Query' => null,
+			'Page'  => 1,
+			'Limit' => 25,
+			'Owner' => null
+		]);
+
+		// ...
+
+		return $Result;
+	}
+
+}
+```
+
 Methods and functions will not "just end"  - they will include explicit
 return when they are done. Arguments will be defined in PascalCase. When
 PHP 7 lands, arguments will be defined with their strict type identifier.
@@ -334,20 +371,12 @@ empty lines above and below them.
 <?php
 
 $DB = new Nether\Database;
-$Query = $DB->NewVerse();
 
-$Query
+$Query = $DB->NewVerse()
 ->Select('table')
 ->Fields(['one','two','three'])
-->Where([
-	'five=six',
-	'seven=eight'
-])
-->Sort(
-	'nine',
-	$Query::SortDesc
-);
+->Where(['five=six','seven=eight'])
+->Limit(25);
 
 $Result = $DB->Query($Query,$Input);
-
 ```
