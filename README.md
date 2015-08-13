@@ -51,6 +51,51 @@ NN will use Senpai notation until the day PHP has real annotation support
 that is not via the slow Reflection system you do not want to use within
 a production project.
 
+This means a typical method will look like this:
+
+```php
+<?php
+
+class Project {
+
+	public function
+	DoSomething($Count) {
+	/*//
+	@argv int Count
+	this method does something. we do not know exactly because this example
+	is not important enough to fill with an implementation.
+	//*/
+
+		$Cur = 0;
+		while($Cur < $Count) {
+			// ...
+		}
+
+		return;
+	}
+
+}
+```
+
+And when code folded in an editor like Sublime Text....
+
+```php
+<?php
+
+class Project {
+
+	public function
+	DoSomething($Count) {
+	/*//
+	@argv int Count
+	this method does something. we do not know exactly because this example
+	is not important enough to fill with an implementation.
+	//*/ [...]
+	}
+
+}
+```
+
 ## Logical Control Blocks
 
 Statements like IF or WHERE may be written with or without their braces
@@ -366,7 +411,6 @@ class Project {
 	}
 
 }
-
 ```
 
 ## Method Chaining
