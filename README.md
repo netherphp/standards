@@ -272,6 +272,20 @@ implements SomeInterface {
 }
 ```
 
+You will avoid using preceeding backslashes in your main executing code to
+denote that you wish to pull from the root namespace PHP. Instead it is
+preferred that you set up your Use statements accordingly.
+
+```php
+<?php
+
+namespace MyApp\Subspace;
+use \Nether;
+```
+
+To provide access to the Nether namespace without having to include the \
+each time you want to access a class in the Nether namespace.
+
 ## Method Definitions.
 
 Methods will be defined in PascalCase. The method name itself will be defined
