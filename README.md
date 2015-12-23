@@ -327,8 +327,7 @@ class Project {
 ```
 
 Methods and functions will not "just end"  - they will include explicit
-return when they are done. Arguments will be defined in PascalCase. When
-PHP 7 lands, arguments will be defined with their strict type identifier.
+return when they are done.
 
 ## Methods with Variable or Optional Arguments
 
