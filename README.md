@@ -16,16 +16,18 @@ to other languges depending on their parsers.
 
 A lot of the rules here are based on the concept of being explicit. The
 developer will always explictly state their intentions, never allowing for
-default behaviours. This is for two reasons. First being it shows that the
+default behaviours. This is for a few reasons. First being it shows that the
 developer has actually thought about what their code is doing. Second, it
 helps lessen backwards compatbility issues in the future when a default
-behaviour changes. And yes, it does happen.
-
-This document will receive multiple extensions once PHP 7 goes gold.
+behaviour changes. And yes, it does happen. Finally, the entire format and
+rules are based on the concept that the code can be as self documenting as
+possible to minimise the amount of metadata you need to write to describe
+various entities.
 
 ## General Standards
 
-* PascalCaseAllTheThings
+* PascalCaseAllTheThings except:
+* UPPERCASE for boolean constants.
 * Tabs for indenting.
 * \n for new lines.
 * explicit "return" at end of functions.
@@ -59,9 +61,8 @@ This means a typical method will look like this:
 class Project {
 
 	public function
-	DoSomething($Count) {
+	DoSomething(Int $Count) {
 	/*//
-	@argv int Count
 	this method does something. we do not know exactly because this example
 	is not important enough to fill with an implementation.
 	//*/
@@ -85,7 +86,7 @@ And when code folded in an editor like Sublime Text....
 class Project {
 
 	public function
-	DoSomething($Count) {
+	DoSomething(Int $Count) {
 	/*//
 	@argv int Count
 	this method does something. we do not know exactly because this example
@@ -297,6 +298,13 @@ finding feature of your editor. Opening braces will be after the method
 identifier. Methods will always have an access keyword. If the access keyword
 was going to be omitted, then it will be unomitted with the keyword `public`.
 
+Methods shall be declared as explicit as possible. Their arguments should have
+their accepted types declared as well as the return type of the method. The
+return type shall be placed nether the method.
+
+*NOTE* After PHP 7.1 lands, ALL methods shall have their return type declared
+even if they have no return via the Void keyword.
+
 ```php
 <?php
 
@@ -309,9 +317,10 @@ class Project {
 	}
 
 	static public function
-	GetFromFile($Filename) {
+	GetFromFile(String $Filename):
+	String {
 		// ...
-		return;
+		return $Contents;
 	}
 
 }
@@ -336,11 +345,11 @@ be presented in as long as you can recall what it needs.
 class Project {
 
 	public function
-	Search($Input=null) {
+	Search($Input=null):
+	SearchResult {
 	/*//
 	@argv object Input
 	@argv array Input
-	@return object or false
 	//*/
 
 		$Input = new Nether\Object($Input,[
@@ -376,10 +385,9 @@ descriptive action being separated by a netherscore in the method name.
 class Project {
 
 	public function
-	GetFileContents($Filename) {
+	GetFileContents(String $Filename) {
 	/*//
-	@argv string Filename
-	@return object or false
+	@return StdClass | bool
 	given a filename return the object built from the contents of that file.
 	//*/
 
@@ -397,9 +405,9 @@ class Project {
 	}
 
 	protected function
-	GetFileContents_ReadFile($Filename) {
+	GetFileContents_ReadFile(String $Filename):
+	String {
 	/*//
-	@return string
 	check that the file is readable from the filesystem.
 	//*/
 
@@ -410,9 +418,9 @@ class Project {
 	}
 
 	protected function
-	GetFileContents_ParseData($Data) {
+	GetFileContents_ParseData(String $Data):
+	StdClass {
 	/*//
-	@return object
 	check that the file was parsable.
 	//*/
 
@@ -447,3 +455,15 @@ $Query = $DB->NewVerse()
 
 $Result = $DB->Query($Query,$Input);
 ```
+
+## HTML Templating
+
+When working within the scope of an HTML template code blocks will be written
+using their Alternative Syntax. Short tag echo will not be used.
+
+```php
+<?php if($Stuff): ?>
+<h1><a href="<?php echo $URL ?>"><?php echo $Title ?></a></h1>
+<?php endif; ?>
+```
+
