@@ -34,6 +34,7 @@ various entities.
 * design for strict types in mind.
 * attempt to keep lines shorter than 80 characters.
 * prefer single quotes when not using string evaluation.
+* anything that can have a type, should have a type.
 
 ## Inline Documentation.
 
@@ -61,7 +62,8 @@ This means a typical method will look like this:
 class Project {
 
 	public function
-	DoSomething(Int $Count) {
+	DoSomething(Int $Count):
+	Void {
 	/*//
 	this method does something. we do not know exactly because this example
 	is not important enough to fill with an implementation.
@@ -86,7 +88,8 @@ And when code folded in an editor like Sublime Text....
 class Project {
 
 	public function
-	DoSomething(Int $Count) {
+	DoSomething(Int $Count):
+	Void {
 	/*//
 	@argv int Count
 	this method does something. we do not know exactly because this example
@@ -300,10 +303,11 @@ was going to be omitted, then it will be unomitted with the keyword `public`.
 
 Methods shall be declared as explicit as possible. Their arguments should have
 their accepted types declared as well as the return type of the method. The
-return type shall be placed nether the method.
+return type shall be placed nether the method. Methods which return nothing,
+meaning, not an explicit null, will even have their type declared as Void.
 
-*NOTE* After PHP 7.1 lands, ALL methods shall have their return type declared
-even if they have no return via the Void keyword.
+Nullable types are more than permitted, they are encouraged if the API design
+would help to make your application easier to use.
 
 ```php
 <?php
@@ -311,7 +315,8 @@ even if they have no return via the Void keyword.
 class Project {
 
 	public function
-	SetSomething() {
+	SetSomething():
+	Void {
 		// ...
 		return;
 	}
