@@ -303,11 +303,11 @@ was going to be omitted, then it will be unomitted with the keyword `public`.
 
 Methods shall be declared as explicit as possible. Their arguments should have
 their accepted types declared as well as the return type of the method. The
-return type shall be placed nether the method. Methods which return nothing,
-meaning, not an explicit NULL, will even have their type declared as Void.
+return type shall be placed nether the method.
 
-Nullable types are more than permitted, they are encouraged if the API design
-would help to make your application easier to use.
+Methods which return nothing, meaning, not an explicit NULL, will even have
+their type declared as Void. Void methods and functions will not "just end"
+- they will include explicit return when they are done.
 
 ```php
 <?php
@@ -331,8 +331,42 @@ class Project {
 }
 ```
 
-Methods and functions will not "just end"  - they will include explicit
-return when they are done.
+Nullable types are more than permitted, they are encouraged if the API design
+would help to make your application easier to use.
+
+```php
+<?php
+
+class Project {
+
+	public static function
+	GetByID(Int $ID):
+	?self {
+	/*//
+	search the database for a project with the specified id. returns an object
+	if found or null if not.
+	//*/
+
+		// ...
+
+		if($Row)
+		return new self($Row);
+
+		return NULL;
+	}
+}
+
+// ...
+
+$Selected = Project::Get($ID);
+
+if($Selected === NULL)
+throw new Exception("Project {$ID} not found.");
+
+// ...
+
+```
+
 
 ## Methods with Variable or Optional Arguments
 
