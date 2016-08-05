@@ -307,7 +307,8 @@ return type shall be placed nether the method.
 
 Methods which return nothing, meaning, not an explicit NULL, will even have
 their type declared as Void. Void methods and functions will not "just end"
-- they will include explicit return when they are done.
+they will include explicit return when they are done. Nullable types are
+encouraged where they could make your API more simple to check result against.
 
 ```php
 <?php
@@ -330,44 +331,6 @@ class Project {
 
 }
 ```
-
-Nullable types are more than permitted, they are encouraged if the API design
-would help to make your application easier to use.
-
-```php
-<?php
-
-class Project {
-
-	public static function
-	GetByID(Int $ID):
-	?self {
-	/*//
-	search the database for a project with the specified id. returns an object
-	if found or null if not.
-	//*/
-
-		// ...
-
-		if($Row)
-		return new self($Row);
-
-		return NULL;
-	}
-}
-
-// ...
-
-$Selected = Project::Get($ID);
-
-if($Selected === NULL)
-throw new Exception("Project {$ID} not found.");
-
-// ...
-
-```
-
-
 ## Methods with Variable or Optional Arguments
 
 If a method will take a lot of arguments, or has a handful of optional ones,
