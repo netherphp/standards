@@ -27,7 +27,7 @@ various entities.
 ## General Standards
 
 * PascalCaseAllTheThings except:
-* UPPERCASE for boolean constants.
+* UPPERCASE for boolean constants (TRUE, FALSE) and NULL.
 * Tabs for indenting.
 * \n for new lines.
 * explicit "return" at end of functions.
@@ -304,7 +304,7 @@ was going to be omitted, then it will be unomitted with the keyword `public`.
 Methods shall be declared as explicit as possible. Their arguments should have
 their accepted types declared as well as the return type of the method. The
 return type shall be placed nether the method. Methods which return nothing,
-meaning, not an explicit null, will even have their type declared as Void.
+meaning, not an explicit NULL, will even have their type declared as Void.
 
 Nullable types are more than permitted, they are encouraged if the API design
 would help to make your application easier to use.
@@ -349,7 +349,7 @@ be presented in as long as you can recall what it needs.
 class Project {
 
 	public function
-	Search($Input=null):
+	Search($Input=NULL):
 	SearchResult {
 	/*//
 	@argv object Input
@@ -357,10 +357,10 @@ class Project {
 	//*/
 
 		$Input = new Nether\Object($Input,[
-			'Query' => null,
+			'Query' => NULL,
 			'Page'  => 1,
 			'Limit' => 25,
-			'Owner' => null
+			'Owner' => NULL
 		]);
 
 		// ...
