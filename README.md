@@ -10,7 +10,7 @@ Known as Nether Notation, NN, N2, or N<sup>2</sup>
 This is a project to document the code conventions used by the Nether Project.
 As of the writing of this project there is a 99% chance you have never seen
 code formatted like this before - and that is O.K. - not everything needs to
-be cut with the same rules we used in 1976. These rules will typically depend
+be cut with the same rules we used in 1972. These rules will typically depend
 on the flexiblity of PHP, but some of the general formatting may be portable
 to other languges depending on their parsers.
 
