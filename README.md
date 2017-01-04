@@ -46,9 +46,9 @@ and start writing that one.
 
 Nether Senpai generates as much documentation from the code itself before
 noticing the comment that describes it. This reduces the amount of junk
-you need to manually write in the documentation. Once PHP 7 lands and you
-can use primative typehints and return declarations, you will be able
-to write even less documentation.
+you need to manually write in the documentation. Taking advantage of
+featured added in PHP 7.0 and 7.1 most code can be completely self document
+itself.
 
 NN will use Senpai notation until the day PHP has real annotation support
 that is not via the slow Reflection system you do not want to use within
@@ -115,10 +115,10 @@ level. Structures with omitted braces will be isolated by empty lines.
 ```php
 <?php
 
-$list = [];
+$List = [];
 
 while($Row = $Query->Next())
-$list[] = $Row;
+$List[] = $Row;
 
 ```
 
@@ -126,10 +126,10 @@ $list[] = $Row;
 ```php
 <?php
 
-$list = [];
+$List = [];
 while($Row = $Query->Next()) {
-	$Row->Cached = false;
-	$list[] = $Row;
+	$Row->Cached = FALSE;
+	$List[] = $Row;
 }
 ```
 
