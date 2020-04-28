@@ -30,11 +30,13 @@ various entities.
 * UPPERCASE for boolean constants (TRUE, FALSE) and NULL.
 * Tabs for indenting.
 * \n for new lines.
+* initialize variables in scopes prior to use.
 * explicit "return" at end of functions.
 * design for strict types in mind.
 * attempt to keep lines shorter than 80 characters.
 * prefer single quotes when not using string evaluation.
 * anything that can have a type, should have a type.
+* no trailing commas.
 
 ## Inline Documentation.
 
@@ -91,7 +93,6 @@ class Project {
 	DoSomething(Int $Count):
 	Void {
 	/*//
-	@argv int Count
 	this method does something. we do not know exactly because this example
 	is not important enough to fill with an implementation.
 	//*/ [...]
@@ -231,8 +232,7 @@ $String = sprintf(
 );
 ```
 
-Literal concationation with the dot operator is only acceptable in extremely
-narrow use cases that I cannot even think of right now.
+Literal concationation with the dot operator is not considered acceptable.
 
 ```php
 <?php
@@ -276,9 +276,9 @@ implements SomeInterface {
 }
 ```
 
-You will avoid using preceeding backslashes in your main executing code to
-denote that you wish to pull from the root namespace PHP. Instead it is
-preferred that you set up your Use statements accordingly.
+It is to be avoided using preceeding backslashes in your main executing code
+to denote that we wish to pull from the root namespace PHP. Instead it is
+preferred to set up the Use statements accordingly.
 
 ```php
 <?php
@@ -287,13 +287,13 @@ namespace MyApp\Subspace;
 use \Nether;
 ```
 
-To provide access to the Nether namespace without having to include the \
+To provide access to the Nether namespace without having to include the `\`
 each time you want to access a class in the Nether namespace.
 
 ## Method Definitions.
 
 Methods will be defined in PascalCase. The method name itself will be defined
-nether the access keywords. This is to prevent your eyes from having to jump
+nether to the access keywords. This is to prevent your eyes from having to jump
 left and right constantly while scrolling through the file. If you have
 concerns with finding methods by doing something like doing a search for
 "ion SetSomething" then you should instead famliarise yourself with the symbol
@@ -331,6 +331,7 @@ class Project {
 
 }
 ```
+
 ## Methods with Variable or Optional Arguments
 
 If a method will take a lot of arguments, or has a handful of optional ones,
@@ -367,6 +368,7 @@ class Project {
 
 }
 ```
+
 ## Method Reduction of Concerns
 
 You would not follow this naming convention if the split methods are going
@@ -391,6 +393,9 @@ class Project {
 	@return StdClass | bool
 	given a filename return the object built from the contents of that file.
 	//*/
+
+		$Data = NULL;
+		$Obj = NULL;
 
 		try {
 			$Data = $this->GetFileContents_ReadFile($Filename);
@@ -447,14 +452,55 @@ empty lines above and below them.
 <?php
 
 $DB = new Nether\Database;
+$Query = NULL;
 
-$Query = $DB->NewVerse()
+($Query = $DB->NewVerse())
 ->Select('table')
 ->Fields(['one','two','three'])
 ->Where(['five=six','seven=eight'])
 ->Limit(25);
 
 $Result = $DB->Query($Query,$Input);
+```
+
+It is preferred that you convey context awareness when chaining. In the above
+example all chained methods return the original object. Chaining should stop
+when the object returned is not the same object. The parens that wrap the first
+line of that query chain convey understanding by the authour of the context of
+this chain. This is the object, the following chain follows.
+
+## Variable Scope Initialization.
+
+While not required by PHP variables will be declared prior to later use at the
+beginning of their parent scopes - meaning all variables are to be be declared
+at the top of functions and methods and not invented in the middle of logic. If
+their value cannot be detemrined at declaration time, then they should be
+initialized as NULL until then.
+
+This includes, and even specifically is targeting, any variables you would normally
+invent on the fly in `for` or `foreach` loops.
+
+```php
+<?php
+
+class Project {
+
+	public function
+	DetermineThisValue():
+	Int {
+
+		$Output = 0;
+		$Child = NULL;
+
+		foreach($this->TotallyAnArrayProperty as $Child) {
+			if($Child->TotallyAnBoolProperty === TRUE)
+			$Output++;
+		}
+
+		return $Output;
+	}
+
+}
 ```
 
 ## HTML Templating
