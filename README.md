@@ -49,7 +49,7 @@ and start writing that one.
 Nether Senpai generates as much documentation from the code itself before
 noticing the comment that describes it. This reduces the amount of junk
 you need to manually write in the documentation. Taking advantage of
-featured added in PHP 7.0 and 7.1 most code can be completely self document
+featured added in PHP 7.0+ 7.1 most code can be completely self document
 itself.
 
 NN will use Senpai notation until the day PHP has real annotation support
@@ -184,16 +184,12 @@ $Dataset = [
 ];
 ```
 
-Arrays will be defined using their [] syntax unless you specifically require
-to support PHP 5.3 or older.
-
 ## Strings
 
-If a string does not require data evaluation then single quotes will be used.
-If a string requires data evaluation then double quotes may be used, if
-the resulting string will not cause the line length to get unwieldy. The
-preferred method for building or concatinating long strings is via the
-`sprintf` function.
+If a string DOES NOT require data evaluation then single quotes will be used.
+If a string DOES require data evaluation then double quotes may be used, if the
+resulting string will not cause the line length to get unwieldy. The preferred
+method for building or concatinating long strings is via the `sprintf` function.
 
 ```php
 <?php
@@ -220,7 +216,7 @@ $String = "User: {$Name}";
 $String = sprintf('User: %s',$Name);
 ```
 
-However, anytime you need to do something like call a method to build a string
+However, anytime it is needed to do something like call a method to build a string
 then the `sprintf` is the only acceptable choice.
 
 ```php
@@ -232,7 +228,8 @@ $String = sprintf(
 );
 ```
 
-Literal concationation with the dot operator is not considered acceptable.
+Literal concationation with the dot operator is not considered acceptable in any
+situation.
 
 ```php
 <?php
@@ -243,10 +240,9 @@ $String = 'User: ' . $Name; // no.
 ## Files and Class Autoloading
 
 Each class will be in its own file. The fully qualified name of the class
-including the namespace will match the file path on disk. This will allow
-you to use your choice of either PSR-0 or PSR-4 style autoloading. File
-names are case sensitive and should match the namespace and class
-definition exactly.
+including the namespace will match the file path on disk. This allows use
+of either PSR-0 or PSR-4 style autoloading. File names are case sensitive
+and should match the namespace and class definition exactly.
 
 * File: Nether/OneScript/Project.php
 * Defines: Nether\OneScript\Project
@@ -276,9 +272,9 @@ implements SomeInterface {
 }
 ```
 
-It is to be avoided using preceeding backslashes in your main executing code
-to denote that we wish to pull from the root namespace PHP. Instead it is
-preferred to set up the Use statements accordingly.
+It is to be avoided using preceeding backslashes in main executing code
+to demote pulling from the root namespace PHP. Instead it is preferred
+to set up `use` statements accordingly for the access required.
 
 ```php
 <?php
@@ -288,27 +284,23 @@ use \Nether;
 ```
 
 To provide access to the Nether namespace without having to include the `\`
-each time you want to access a class in the Nether namespace.
+each time access a class in the Nether namespace is needed.
 
 ## Method Definitions.
 
 Methods will be defined in PascalCase. The method name itself will be defined
-nether to the access keywords. This is to prevent your eyes from having to jump
-left and right constantly while scrolling through the file. If you have
-concerns with finding methods by doing something like doing a search for
-"ion SetSomething" then you should instead famliarise yourself with the symbol
-finding feature of your editor. Opening braces will be after the method
-identifier. Methods will always have an access keyword. If the access keyword
-was going to be omitted, then it will be unomitted with the keyword `public`.
+nether to the access keywords. Opening braces will be after the method identifier.
+Methods will always have an access keyword. If the access keyword was going to be
+omitted, then it will be unomitted with the keyword `public`.
 
 Methods shall be declared as explicit as possible. Their arguments should have
 their accepted types declared as well as the return type of the method. The
-return type shall be placed nether the method.
+return type shall be placed nether the method with the opening brace after.
 
-Methods which return nothing, meaning, not an explicit NULL, will even have
-their type declared as Void. Void methods and functions will not "just end"
-they will include explicit return when they are done. Nullable types are
-encouraged where they could make your API more simple to check result against.
+Methods which return nothing, as in not an explicit NULL, will have their type
+declared as Void. Void methods and functions will not "just end", they will
+include explicit return when they are done. Nullable Types are encouraged where
+they could make an API more simple to check result against.
 
 ```php
 <?php
@@ -371,14 +363,11 @@ class Project {
 
 ## Method Reduction of Concerns
 
-You would not follow this naming convention if the split methods are going
-to be reusable by many different processes. This section is mainly for
-separation of concerns where the separated actions are useless on their
-own.
+The this naming convention would not be used if the split methods are to be
+reusable by many different processes. This section is mainly for separation
+of concerns where the separated actions are useless on their own.
 
-To split a long method into smaller units of code, of which may not be
-usuable on their own, it is your desgression at how to structure your methods
-for your preferred method of unit testing. These reduced concern methods shall
+To split a long method into smaller units of code, reduced concern methods shall
 be prefixed with the method name they are designed to work with, with the
 descriptive action being separated by a netherscore in the method name.
 
@@ -390,21 +379,22 @@ class Project {
 	public function
 	GetFileContents(String $Filename) {
 	/*//
-	@return StdClass | bool
+	@return ?StdClass
 	given a filename return the object built from the contents of that file.
 	//*/
 
 		$Data = NULL;
 		$Obj = NULL;
+		$Error = NULL;
 
 		try {
 			$Data = $this->GetFileContents_ReadFile($Filename);
 			$Obj = $this->GetFileContents_ParseData($Data);
 		}
 
-		catch(Exception $e) {
+		catch(Exception $Error) {
 			// log error or something.
-			return false;
+			return NULL;
 		}
 
 		return $Obj;
@@ -455,9 +445,9 @@ $DB = new Nether\Database;
 $Query = NULL;
 
 ($Query = $DB->NewVerse())
-->Select('table')
-->Fields(['one','two','three'])
-->Where(['five=six','seven=eight'])
+->Select('Table')
+->Fields(['One','Two','Three'])
+->Where(['Five=:InputFive','Six=:InputSix'])
 ->Limit(25);
 
 $Result = $DB->Query($Query,$Input);
@@ -477,8 +467,8 @@ at the top of functions and methods and not invented in the middle of logic. If
 their value cannot be detemrined at declaration time, then they should be
 initialized as NULL until then.
 
-This includes, and even specifically is targeting, any variables you would normally
-invent on the fly in `for` or `foreach` loops.
+This includes, and even specifically is targeting, any variables that would normally
+be invented on the fly in `for` or `foreach` loops, `catch`, etc.
 
 ```php
 <?php
@@ -505,8 +495,8 @@ class Project {
 
 ## HTML Templating
 
-When working within the scope of an HTML template code blocks will be written
-using their Alternative Syntax. Short tag echo will not be used.
+When working within the scope of an HTML template file, code structures will be
+written using their Alternative Syntax. Short tag echo will not be used.
 
 ```php
 <?php if($Stuff): ?>
