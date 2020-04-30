@@ -4,37 +4,63 @@ namespace NetherCS;
 
 use \PHP_CodeSniffer as PHPCS;
 
-abstract class SniffTemplate
-implements PHPCS\Sniffs\Sniff {
+abstract class SniffClassMethodTemplate
+extends PHPCS\Sniffs\AbstractScopeSniff {
 
 	protected
-	$TokenTypes = [];
-
-	protected
-	$Stack = NULL;
-
-	protected
-	$StackPtr = NULL;
+	$Stack    = NULL,
+	$StackPtr = NULL,
+	$ScopePtr = NULL;
 
 	public function
-	Register():
-	Array {
-
-		return $this->TokenTypes;
-	}
-
-	public function
-	Process(PHPCS\Files\File $File, $StackPtr):
-	Void {
-
-		$this->File = $File;
-		$this->StackPtr = $StackPtr;
-		$this->Stack = $File->GetTokens();
-
-		$this->Execute();
+	__construct() {
+		parent::__construct(
+			[ T_CLASS, T_ANON_CLASS, T_INTERFACE, T_TRAIT ],
+			[ T_FUNCTION ]
+		);
 
 		return;
 	}
+
+	public function
+	processTokenWithinScope(PHPCS\Files\File $File, $StackPtr, $ScopePtr):
+	Void {
+
+		$Cond = NULL;
+		$DeepEnd = NULL;
+
+		$this->File = $File;
+		$this->StackPtr = $StackPtr;
+		$this->ScopePtr = $ScopePtr;
+		$this->Stack = $File->GetTokens();
+
+		// check that we're really where we expect to be for dicking around
+		// with a class method.
+
+		$Cond = array_reverse(
+			array_keys($this->Stack[$this->StackPtr]['conditions']),
+			FALSE
+		);
+
+		if(!count($Cond))
+		return;
+
+		if($Cond[0] !== $this->ScopePtr)
+		return;
+
+		$this->Execute();
+		return;
+	}
+
+	protected function
+	processTokenOutsideScope(PHPCS\Files\File $File, $StackPtr):
+	Void {
+
+		return;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
 
 	protected function
 	GetContentFromStack($Ptr=NULL):
@@ -114,43 +140,6 @@ implements PHPCS\Sniffs\Sniff {
 
 	abstract public function
 	Execute(): Void;
-
-	////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////
-
-	static public function
-	ConvertToPascalCase(String $Input):
-	String {
-	/*//
-	convert strings into versions that look like pascal case if they
-	are broken with underscores or spaces.
-	//*/
-
-		$Output = str_replace(' ','',ucwords(
-			str_replace( '_',' ',$Input)
-		));
-
-		return $Output;
-	}
-
-	static public function
-	ConvertMethodToPascalCase(String $Input):
-	String {
-	/*//
-	convert strings that are methods to strings that look like pascal
-	case. methods are allowed to have underscores in their reduction
-	of concerns.
-	//*/
-
-		$Parts = explode('_',$Input);
-		$Key = NULL;
-		$Value = NULL;
-
-		foreach($Parts as $Key => $Value)
-		$Parts[$Key] = static::ConvertToPascalCase($Value);
-
-		return join('_',$Parts);
-	}
 
 }
 

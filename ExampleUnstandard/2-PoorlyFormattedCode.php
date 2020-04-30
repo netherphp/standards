@@ -1,19 +1,43 @@
 <?php
 
-class poorlyFormattedCode extends StdClass {
+class poorlyFormattedClass extends StdClass {
 
-	function improperlyKeywordedMethod() {
+	function malformedMethod() {
 
 		$uglyVariable = true;
 		$PascalVariable = Null;
 
 	}
 
-	function GetSomeArray() {
+	function malformedMethod_reducedConcern():
+	Void {
+
+		return;
+	}
+
+	function GetSomeArray():
+	Array {
 
 		$Array = array();
 
 		return $Array;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	public function
+	ProperMethod():
+	Void {
+
+		return;
+	}
+
+	public function
+	ProperMethod_ReducedConcern():
+	Void {
+
+		return;
 	}
 
 }

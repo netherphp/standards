@@ -14,5 +14,7 @@
 	<!-- and now for the main event. -->
 	
 	<rule ref="NetherCS.Formatting.UppercaseBoolsNulls" />
+	<rule ref="NetherCS.Formatting.PascalCaseClassNames" />
+	<rule ref="NetherCS.Formatting.PascalCaseClassMethodNames" />
 
 </ruleset>

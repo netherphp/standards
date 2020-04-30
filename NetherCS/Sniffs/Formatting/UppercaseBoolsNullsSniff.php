@@ -31,12 +31,7 @@ extends NetherCS\SniffTemplate {
 			else
 			$this->BumpMetric(static::MetricName,static::ResultLower);
 
-			$this->SubmitFix(
-				static::FixReason,
-				$Current,
-				$Expected
-			);
-
+			$this->SubmitFixAndShow(static::FixReason,$Current,$Expected);
 			return;
 		}
 
