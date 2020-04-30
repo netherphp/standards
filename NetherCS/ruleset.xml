@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruleset name="Nether Standard" namespace="NetherCS">
+	<description>The Nether Notation CodeSniffer Standard for CodeSniffer.</description>
+
+	<rule ref="Generic.PHP.DisallowShortOpenTag" />
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent" />
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+	<rule ref="Generic.Files.LineEndings">
+		<properties>
+			<property name="eolChar" value="\n"/>
+		</properties>
+	</rule>
+
+	<!-- and now for the main event. -->
+	
+	<rule ref="NetherCS.Formatting.UppercaseBoolsNulls" />
+
+</ruleset>
