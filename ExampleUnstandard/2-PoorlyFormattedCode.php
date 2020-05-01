@@ -9,13 +9,15 @@ class poorlyFormattedClass extends StdClass {
 
 	}
 
-	function malformedMethod_reducedConcern():
+	public function
+	malformedMethod_reducedConcern():
 	Void {
 
 		return;
 	}
 
-	function GetSomeArray():
+	function
+	GetSomeArray():
 	Array {
 
 		$Array = array();

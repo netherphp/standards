@@ -21,13 +21,13 @@ extends NetherCS\SniffClassMethodTemplate {
 		// T_FUNCTION T_WHITESPACE T_STRING
 		// This       +1          +2
 
-		$StackPtr = $this->StackPtr + 2;
-		$Type = $this->GetTypeFromStack($StackPtr);
+		$StackPtr = $this->StackPtr;
+		$Type = T_FUNCTION;
 		$Current = NULL;
 		$Expected = NULL;
 
-		if($Type !== T_STRING)
-		return;
+		while($Type !== T_STRING && $Type)
+		$Type = $this->GetTypeFromStack(++$StackPtr);
 
 		$Current = $this->GetContentFromStack($StackPtr);
 		$Expected = NetherCS\SniffTemplate::ConvertMethodToPascalCase($Current);

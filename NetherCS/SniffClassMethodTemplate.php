@@ -87,6 +87,18 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	}
 
 	protected function
+	GetTypeStringFromStack($Ptr=NULL):
+	?String {
+
+		$Ptr ??= $this->StackPtr;
+
+		if(!array_key_exists($Ptr,$this->Stack))
+		return NULL;
+
+		return $this->Stack[$Ptr]['type'];
+	}
+
+	protected function
 	BumpMetric(String $MetricName,String $MetricValue, Int $Ptr=NULL):
 	Void {
 
