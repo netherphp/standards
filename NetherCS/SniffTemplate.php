@@ -52,8 +52,10 @@ implements PHPCS\Sniffs\Sniff {
 	}
 
 	protected function
-	GetTypeFromStack($Ptr=NULL):
-	?Int {
+	GetTypeFromStack($Ptr=NULL) {
+	/*//
+	turns out not all the T_ consts are ints >_>
+	//*/
 
 		$Ptr ??= $this->StackPtr;
 

@@ -75,15 +75,17 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	}
 
 	protected function
-	GetTypeFromStack($Ptr=NULL):
-	?Int {
+	GetTypeFromStack($Ptr=NULL) {
+	/*//
+	turns out not all the T_ consts are ints >_>
+	//*/
 
 		$Ptr ??= $this->StackPtr;
 
 		if(!array_key_exists($Ptr,$this->Stack))
 		return NULL;
 
-		return (Int)$this->Stack[$Ptr]['code'];
+		return $this->Stack[$Ptr]['code'];
 	}
 
 	protected function

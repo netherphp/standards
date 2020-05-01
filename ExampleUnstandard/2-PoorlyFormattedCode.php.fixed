@@ -1,16 +1,17 @@
 <?php
 
-class poorlyFormattedClass extends StdClass {
+class PoorlyFormattedClass extends StdClass {
 
-	function malformedMethod(): void {
+	public function
+	MalformedMethod(): Void {
 
-		$uglyVariable = true;
-		$PascalVariable = Null;
+		$uglyVariable = TRUE;
+		$PascalVariable = NULL;
 
 	}
 
 	public function
-	malformedMethod_reducedConcern():
+	MalformedMethod_ReducedConcern():
 	Void {
 
 		return;
@@ -20,7 +21,7 @@ class poorlyFormattedClass extends StdClass {
 	GetSomeArray():
 	Array {
 
-		$Array = array();
+		$Array = [];
 
 		return $Array;
 	}
