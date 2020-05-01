@@ -26,6 +26,9 @@ extends NetherCS\SniffClassMethodTemplate {
 		$Current = NULL;
 		$Expected = NULL;
 
+		// in these contexts it seems we can actually have more than one
+		// whitespace token in a row due to a newline.
+
 		while($Type !== T_STRING && $Type)
 		$Type = $this->GetTypeFromStack(++$StackPtr);
 
