@@ -4,5 +4,5 @@
     <file>ExampleUnstandard</file>
 	<arg name="extensions" value="php" />
     <arg phpcs-only="true" name="colors" />
-    <arg phpcbf-only="true" name="suffix" value=".fixed" />
+    <arg phpcbf-only="true" name="suffix" value=".fixed.php" />
 </ruleset>
