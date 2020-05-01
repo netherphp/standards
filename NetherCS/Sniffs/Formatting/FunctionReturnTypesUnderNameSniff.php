@@ -3,13 +3,15 @@
 namespace NetherCS\Sniffs\Formatting;
 
 use \NetherCS;
-use \PHP_CodeSniffer as PHPCS;
 
-class ClassMethodsReturnTypeUnderNameSniff
-extends NetherCS\SniffClassMethodTemplate {
+class FunctionReturnTypesUnderNameSniff
+extends NetherCS\SniffTemplate {
+
+	protected
+	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason       = 'NN: Class Methods Return Types underneath method name',
+	FixReason       = 'NN: Method and Function Return Types underneath method name',
 	MetricName      = 'Methods Return Types Positioned Correctly',
 	ResultIncorrect = 'Incorrect',
 	ResultProper    = 'Proper';
@@ -73,7 +75,7 @@ extends NetherCS\SniffClassMethodTemplate {
 			);
 
 			// it is on the next line but the indent looks fucked.
-			elseif($Whitespace !== $Indent) {
+			elseif($Whitespace !== $Indent && $Whitespace !== "\n") {
 				$this->SubmitFix(
 					sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
 					$Whitespace,

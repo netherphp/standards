@@ -42,3 +42,8 @@ class poorlyFormattedClass extends StdClass {
 	}
 
 }
+
+function whyIsThereFunctionOutHere(): String {
+
+	return 'whatever';
+}

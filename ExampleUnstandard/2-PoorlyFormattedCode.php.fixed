@@ -10,6 +10,7 @@ extends StdClass {
 		$uglyVariable = TRUE;
 		$uglyVariable = NULL;
 
+		return;
 	}
 
 	public function
@@ -45,4 +46,10 @@ extends StdClass {
 		return;
 	}
 
+}
+
+function WhyIsThereFunctionOutHere():
+String {
+
+	return 'whatever';
 }

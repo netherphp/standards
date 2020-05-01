@@ -5,14 +5,14 @@ namespace NetherCS\Sniffs\Formatting;
 use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
-class ClassMethodsPascalCaseSniff
-extends NetherCS\SniffClassMethodTemplate {
+class FunctionNamesPascalCaseSniff
+extends NetherCS\SniffTemplate {
+
+	protected
+	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason       = 'NN: Class Methods should be PascalCased',
-	MetricName      = 'Pascal Cased Methods',
-	ResultIncorrect = 'Incorrect',
-	ResultProper    = 'Proper';
+	FixReason       = 'NN: Methods and Functions should be PascalCased';
 
 	public function
 	Execute():
@@ -35,13 +35,9 @@ extends NetherCS\SniffClassMethodTemplate {
 		$Current = $this->GetContentFromStack($StackPtr);
 		$Expected = NetherCS\SniffTemplate::ConvertMethodToPascalCase($Current);
 		
-		if($Current !== $Expected) {
-			$this->BumpMetric(static::MetricName,static::ResultIncorrect,$StackPtr);
-			$this->SubmitFixAndShow(static::FixReason,$Current,$Expected,$StackPtr);
-			return;
-		}
+		if($Current !== $Expected)
+		$this->SubmitFixAndShow(static::FixReason,$Current,$Expected,$StackPtr);
 
-		$this->BumpMetric(static::MetricName,static::ResultProper,$StackPtr);
 		return;
 	}
 

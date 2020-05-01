@@ -40,6 +40,34 @@ implements PHPCS\Sniffs\Sniff {
 	////////////////////////////////////////////////////////////////
 
 	protected function
+	GetCurrentIndent($Ptr=NULL):
+	?String {
+
+		$Ptr ??= $this->StackPtr;
+		$Start = $Ptr;
+		$Type = '';
+		$Whitespace = NULL;
+		$Indent = '';
+
+
+		while($Start) {
+			$Start--;
+			$Type = $this->GetTypeFromStack($Start);
+
+			if($Type === T_WHITESPACE) {
+				if(strpos($this->GetContentFromStack($Start),"\n") !== FALSE) {
+					if($this->GetTypeFromStack($Start+1) === T_WHITESPACE) {
+						$Indent = $this->GetContentFromStack($Start+1);
+					}
+					break;
+				}
+			}
+		}
+
+		return $Indent;
+	}
+
+	protected function
 	GetContentFromStack($Ptr=NULL):
 	?String {
 
