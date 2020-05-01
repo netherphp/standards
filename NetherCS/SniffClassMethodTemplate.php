@@ -67,19 +67,29 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	?String {
 
 		$Ptr ??= $this->StackPtr;
-		$Find = [ T_STATIC, T_PUBLIC, T_PROTECTED, T_PRIVATE, T_WHITESPACE, T_ABSTRACT, T_FINAL ];
-		$Start = $this->File->FindPrevious($Find,($Ptr-1),NULL,TRUE) + 1;
-		$Indent = NULL;
+		$Start = $Ptr;
+		$Type = '';
+		$Whitespace = NULL;
+		$Indent = '';
 
-		while($Start <= $Ptr) {
-			$Indent = $this->GetContentFromStack($Start++);
-	
-			if(preg_match('/^[ \t]$/',$Indent))
-			break;
+
+		while($Start) {
+			$Start--;
+			$Type = $this->GetTypeFromStack($Start);
+
+			if($Type === T_WHITESPACE) {
+				if(strpos($this->GetContentFromStack($Start),"\n") !== FALSE) {
+					if($this->GetTypeFromStack($Start+1) === T_WHITESPACE) {
+						$Indent = $this->GetContentFromStack($Start+1);
+					}
+					break;
+				}
+			}
 		}
 
 		return $Indent;
 	}
+
 
 	protected function
 	GetContentFromStack($Ptr=NULL):
