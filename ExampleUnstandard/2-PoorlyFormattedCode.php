@@ -2,7 +2,9 @@
 
 class poorlyFormattedClass extends StdClass {
 
-	function malformedMethod(): void {
+	public $uglyProperty = 9;
+
+	function malformedMethod(string $input, bool $yeah_ok): void {
 
 		$uglyVariable = true;
 		$uglyVariable = Null;
@@ -11,6 +13,8 @@ class poorlyFormattedClass extends StdClass {
 
 	public function
 	malformedMethod_reducedConcern():Void {
+
+		$this->GetSomeArray();
 
 		return;
 	}

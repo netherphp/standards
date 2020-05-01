@@ -209,6 +209,26 @@ implements PHPCS\Sniffs\Sniff {
 		return join('_',$Parts);
 	}
 
+	static public function
+	ConvertVariableToPascalCase(String $Input):
+	String {
+	/*//
+	convert strings that are variables to string sthat look like
+	pascal case. take into consideration any special cases.
+	//*/
+
+		// don't mess with this.
+
+		if($Input === '$this')
+		return $Input;
+
+		preg_match('/([$]+)([a-zA-Z0-9_]+)/',$Input,$Match);
+
+		$Match[2] = static::ConvertToPascalCase($Match[2]);
+
+		return "{$Match[1]}{$Match[2]}";
+	}
+
 }
 
 
