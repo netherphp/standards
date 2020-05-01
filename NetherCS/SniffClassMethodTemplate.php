@@ -83,7 +83,7 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 		if(!array_key_exists($Ptr,$this->Stack))
 		return NULL;
 
-		return $this->Stack[$Ptr]['code'];
+		return (Int)$this->Stack[$Ptr]['code'];
 	}
 
 	protected function

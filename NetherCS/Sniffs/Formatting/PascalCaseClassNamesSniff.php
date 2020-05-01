@@ -12,7 +12,7 @@ extends NetherCS\SniffTemplate {
 	$TokenTypes = [ T_CLASS, T_INTERFACE, T_TRAIT ];
 
 	const
-	FixReason       = 'Classes, Interfaces, and Traits, should be PascalCased',
+	FixReason       = 'NN: Classes, Interfaces, and Traits, should be PascalCased',
 	MetricName      = 'Pascal Cased Classes',
 	ResultIncorrect = 'Incorrect',
 	ResultProper    = 'Proper';

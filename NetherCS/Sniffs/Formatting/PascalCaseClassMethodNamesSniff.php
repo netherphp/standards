@@ -9,7 +9,7 @@ class PascalCaseClassMethodNamesSniff
 extends NetherCS\SniffClassMethodTemplate {
 
 	const
-	FixReason       = 'Class Methods should be PascalCased',
+	FixReason       = 'NN: Class Methods should be PascalCased',
 	MetricName      = 'Pascal Cased Methods',
 	ResultIncorrect = 'Incorrect',
 	ResultProper    = 'Proper';

@@ -16,5 +16,6 @@
 	<rule ref="NetherCS.Formatting.UppercaseBoolsNulls" />
 	<rule ref="NetherCS.Formatting.PascalCaseClassNames" />
 	<rule ref="NetherCS.Formatting.PascalCaseClassMethodNames" />
+	<rule ref="NetherCS.Formatting.ClassMethodsMustHaveVisiblity" />
 
 </ruleset>

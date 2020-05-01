@@ -16,7 +16,7 @@ class poorlyFormattedClass extends StdClass {
 		return;
 	}
 
-	function
+	public function
 	GetSomeArray():
 	Array {
 

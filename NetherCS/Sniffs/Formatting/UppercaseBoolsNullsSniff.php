@@ -12,7 +12,7 @@ extends NetherCS\SniffTemplate {
 	$TokenTypes = [ T_TRUE, T_FALSE, T_NULL ];
 
 	const
-	FixReason = 'TRUE, FALSE, and NULL must be uppercase',
+	FixReason = 'NN: TRUE, FALSE, and NULL must be uppercase',
 	MetricName = 'BOOL and NULL Constant Case',
 	ResultMixed = 'Mixed',
 	ResultLower = 'Lower',
