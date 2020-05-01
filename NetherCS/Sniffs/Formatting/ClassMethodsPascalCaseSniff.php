@@ -5,7 +5,7 @@ namespace NetherCS\Sniffs\Formatting;
 use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
-class PascalCaseClassMethodNamesSniff
+class ClassMethodsPascalCaseSniff
 extends NetherCS\SniffClassMethodTemplate {
 
 	const
