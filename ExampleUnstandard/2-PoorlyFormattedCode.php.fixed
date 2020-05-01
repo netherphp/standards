@@ -1,6 +1,7 @@
 <?php
 
-class PoorlyFormattedClass extends StdClass {
+class PoorlyFormattedClass
+extends StdClass {
 
 	public function
 	MalformedMethod():
