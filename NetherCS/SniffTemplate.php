@@ -66,6 +66,18 @@ implements PHPCS\Sniffs\Sniff {
 	}
 
 	protected function
+	GetLineFromStack($Ptr=NULL):
+	?Int {
+
+		$Ptr ??= $this->StackPtr;
+
+		if(!array_key_exists($Ptr,$this->Stack))
+		return NULL;
+
+		return (Int)$this->Stack[$Ptr]['line'];
+	}
+
+	protected function
 	GetTypeStringFromStack($Ptr=NULL):
 	?String {
 

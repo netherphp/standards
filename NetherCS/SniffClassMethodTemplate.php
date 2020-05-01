@@ -63,6 +63,25 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	////////////////////////////////////////////////////////////////
 
 	protected function
+	GetCurrentIndent($Ptr=NULL):
+	?String {
+
+		$Ptr ??= $this->StackPtr;
+		$Find = [ T_STATIC, T_PUBLIC, T_PROTECTED, T_PRIVATE, T_WHITESPACE, T_ABSTRACT, T_FINAL ];
+		$Start = $this->File->FindPrevious($Find,($Ptr-1),NULL,TRUE) + 1;
+		$Indent = NULL;
+
+		while($Start <= $Ptr) {
+			$Indent = $this->GetContentFromStack($Start++);
+	
+			if(preg_match('/^[ \t]$/',$Indent))
+			break;
+		}
+
+		return $Indent;
+	}
+
+	protected function
 	GetContentFromStack($Ptr=NULL):
 	?String {
 
@@ -86,6 +105,18 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 		return NULL;
 
 		return $this->Stack[$Ptr]['code'];
+	}
+
+	protected function
+	GetLineFromStack($Ptr=NULL):
+	?Int {
+
+		$Ptr ??= $this->StackPtr;
+
+		if(!array_key_exists($Ptr,$this->Stack))
+		return NULL;
+
+		return (Int)$this->Stack[$Ptr]['line'];
 	}
 
 	protected function

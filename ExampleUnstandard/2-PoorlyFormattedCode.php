@@ -5,13 +5,12 @@ class poorlyFormattedClass extends StdClass {
 	function malformedMethod(): void {
 
 		$uglyVariable = true;
-		$PascalVariable = Null;
+		$uglyVariable = Null;
 
 	}
 
 	public function
-	malformedMethod_reducedConcern():
-	Void {
+	malformedMethod_reducedConcern():Void {
 
 		return;
 	}
