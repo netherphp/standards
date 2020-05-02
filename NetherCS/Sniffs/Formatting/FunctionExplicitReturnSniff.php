@@ -23,9 +23,10 @@ extends NetherCS\SniffGenericTemplate {
 		$ClosePtr = NULL;
 		$Indent = NULL;
 		$HasReturn = FALSE;
+		$Seek = NULL;
 
 
-        while($this->GetTypeFromStack($StackPtr) !== T_OPEN_CURLY_BRACKET)
+        while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET)
 		$StackPtr++;
 		
 		// now we know where this function body starts ane ends.

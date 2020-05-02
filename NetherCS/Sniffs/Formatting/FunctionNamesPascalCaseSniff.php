@@ -29,8 +29,9 @@ extends NetherCS\SniffGenericTemplate {
 		// in these contexts it seems we can actually have more than one
 		// whitespace token in a row due to a newline.
 
-		while($Type !== T_STRING && $Type)
-		$Type = $this->GetTypeFromStack(++$StackPtr);
+		while($Type && $Type !== T_STRING) {
+			$Type = $this->GetTypeFromStack(++$StackPtr);
+		}
 
 		$Current = $this->GetContentFromStack($StackPtr);
 		$Expected = NetherCS\SniffGenericTemplate::ConvertMethodToPascalCase($Current);

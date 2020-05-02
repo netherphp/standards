@@ -24,7 +24,7 @@ extends NetherCS\SniffGenericTemplate {
 		$Current = NULL;
 		$Expected = NULL;
 
-        while($this->GetTypeFromStack($StackPtr) !== T_OPEN_CURLY_BRACKET)
+        while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET)
 		$StackPtr++;
 		
 		$OpenPtr = $this->Stack[$StackPtr]['scope_opener'];
