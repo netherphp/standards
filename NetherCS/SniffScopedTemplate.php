@@ -70,20 +70,47 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	processTokenOutsideScope(PHPCS\Files\File $File, $StackPtr):
 	Void {
 
+		$this->File = $File;
+		$this->StackPtr = $StackPtr;
+		$this->ScopePtr = NULL;
+		$this->Stack = $File->GetTokens();
+
+		if(!$this->AllowOther())
+		return;
+
+		$this->ExecuteOther();
 		return;
 	}
 
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
 
-	abstract public function
-	Execute(): Void;
+	public function
+	Execute():
+	Void {
+
+		return;
+	}
+
+	public function
+	ExecuteOther():
+	Void {
+
+		return;
+	}
 
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
 
 	protected function
 	Allow():
+	Bool {
+
+		return TRUE;
+	}
+
+	protected function
+	AllowOther():
 	Bool {
 
 		return TRUE;

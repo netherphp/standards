@@ -25,11 +25,11 @@ extends StdClass {
 	Void {
 
 		$this->GetSomeArray();
-		$this->uglyProperty = 8;
+		$this->UglyProperty = 8;
 
-		static::$staticProperty = 7;
-		self::$staticProperty = 6;
-		$this::$staticProperty = 5;
+		static::$StaticProperty = 7;
+		self::$StaticProperty = 6;
+		$this::$StaticProperty = 5;
 
 		return;
 	}
