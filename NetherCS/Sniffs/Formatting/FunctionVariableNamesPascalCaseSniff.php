@@ -37,9 +37,16 @@ extends NetherCS\SniffTemplate {
 			$Seek = $this->GetTypeFromStack($StackPtr);
 
 			if($Seek === T_VARIABLE) {
+
+				// don't rewrite static properties.
+				if($this->GetTypeFromStack($StackPtr-1) === T_PAAMAYIM_NEKUDOTAYIM) {
+					$StackPtr++;
+					continue;
+				}
+
 				$Current = $this->GetContentFromStack($StackPtr);
 				$Expected = NetherCS\SniffTemplate::ConvertVariableToPascalCase($Current);
-
+				
 				if($Current !== $Expected)
 				$this->SubmitFixAndShow(
 					static::FixReason,
