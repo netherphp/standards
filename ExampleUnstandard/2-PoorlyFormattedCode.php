@@ -4,6 +4,9 @@ class poorlyFormattedClass extends StdClass {
 
 	public $uglyProperty = 9;
 
+	static protected
+	$staticProperty;
+
 	function malformedMethod(string $input, bool $yeah_ok): void {
 
 		$uglyVariable = true;
@@ -15,6 +18,11 @@ class poorlyFormattedClass extends StdClass {
 	malformedMethod_reducedConcern():Void {
 
 		$this->GetSomeArray();
+		$this->uglyProperty = 8;
+
+		static::$staticProperty = 7;
+		self::$staticProperty = 6;
+		$this::$staticProperty = 5;
 
 		return;
 	}
