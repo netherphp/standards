@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason       = 'NN: Methods and Functions should be PascalCased';
+	FixReason       = 'NN: Methods and Functions musts be PascalCased';
 
 	public function
 	Execute():

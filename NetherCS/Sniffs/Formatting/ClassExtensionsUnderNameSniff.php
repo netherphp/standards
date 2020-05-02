@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_CLASS, T_INTERFACE, T_TRAIT ];
 
 	const
-	FixReason = 'NN: Class extends and implements should be underneath the class';
+	FixReason = 'NN: Class extends and implements must be underneath the class';
 
 	public function
 	Execute():

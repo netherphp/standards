@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Methods and Functions should explicitly return';
+	FixReason = 'NN: Methods and Functions must explicitly return';
 
 	public function
 	Execute():

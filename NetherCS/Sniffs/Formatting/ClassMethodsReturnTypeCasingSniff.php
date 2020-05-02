@@ -9,7 +9,7 @@ class ClassMethodsReturnTypeCasingSniff
 extends NetherCS\Sniffers\ScopeClassMethod {
 
 	const
-	FixReason       = 'NN: Class Methods returning core types should be Uppercased',
+	FixReason       = 'NN: Class Methods returning core types must be Uppercased',
 	MetricName      = 'Methods Returning Core Types Casing',
 	ResultIncorrect = 'Incorrect',
 	ResultProper    = 'Proper';

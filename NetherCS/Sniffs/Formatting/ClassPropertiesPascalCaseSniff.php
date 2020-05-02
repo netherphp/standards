@@ -8,7 +8,7 @@ class ClassPropertiesPascalCaseSniff
 extends NetherCS\Sniffers\ScopeClassProperties {
 
 	const
-	FixReason = 'NN: Class Properties should be PascalCased.',
+	FixReason = 'NN: Class Properties must be PascalCased.',
 	FixUpdate = 'NN: Update internal uses of altered Class Properties.';
 
 	public function
