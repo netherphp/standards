@@ -22,17 +22,22 @@ extends NetherCS\SniffGenericTemplate {
 
 		$StackPtr = $this->StackPtr;
 		$ReturnPtr = NULL;
+		$NamePtr = NULL;
 		$Seek = NULL;
 		$Indent = $this->GetCurrentIndent();
 		$Before = NULL;
 		$Whitespace = NULL;
 
 		// fast foward to the end of the definition.
-		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET) {
+		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET && $Seek !== T_SEMICOLON) {
 
 			// we found the start of the return type.
 			if($Seek === T_COLON)
 			$ReturnPtr = $StackPtr;
+
+			// we found the name of the func.
+			elseif($Seek === T_STRING && $ReturnPtr === NULL && $NamePtr === NULL)
+			$NamePtr = $StackPtr;
 
 			// we found the return type word.
 			elseif($Seek === T_STRING && $ReturnPtr !== NULL) {
@@ -47,6 +52,11 @@ extends NetherCS\SniffGenericTemplate {
 
 		if(!$ReturnPtr)
 		return;
+
+		// anon func
+
+		if(!$NamePtr)
+		$NamePtr = $this->StackPtr;
 
 		$Before = $this->GetTypeFromStack($ReturnPtr-1);
 		
@@ -66,7 +76,7 @@ extends NetherCS\SniffGenericTemplate {
 			$Whitespace = $this->GetContentFromStack($ReturnPtr-1);
 
 			// it is on the same line.
-			if($this->GetLineFromStack($this->StackPtr) === $this->GetLineFromStack($ReturnPtr))
+			if($this->GetLineFromStack($NamePtr) === $this->GetLineFromStack($ReturnPtr))
 			$this->SubmitFix(
 				sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
 				$Whitespace,
