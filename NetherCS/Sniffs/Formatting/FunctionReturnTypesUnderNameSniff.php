@@ -28,7 +28,7 @@ extends NetherCS\SniffGenericTemplate {
 		$Whitespace = NULL;
 
 		// fast foward to the end of the definition.
-		while(($Seek = $this->GetTypeFromStack($StackPtr)) !== T_OPEN_CURLY_BRACKET) {
+		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET) {
 
 			// we found the start of the return type.
 			if($Seek === T_COLON)

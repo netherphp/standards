@@ -23,7 +23,7 @@ extends NetherCS\SniffGenericTemplate {
 		$Next = NULL;
 		$Whitespace = NULL;
 
-		while(($Type = $this->GetTypeFromStack($StackPtr)) !== T_OPEN_CURLY_BRACKET) {
+		while(($Type = $this->GetTypeFromStack($StackPtr)) && $Type !== T_OPEN_CURLY_BRACKET) {
 			if($Type === T_EXTENDS || $Type === T_IMPLEMENTS)
 			if($this->GetTypeFromStack($StackPtr - 1) === T_WHITESPACE)
 			if(trim($this->GetContentFromStack($StackPtr - 1)," \r") !== "\n")
