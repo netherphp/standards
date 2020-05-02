@@ -16,18 +16,18 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	$Stack       = NULL,
 	$StackPtr    = NULL,
 	$ScopePtr    = NULL,
-	$TokensScope = NULL,
-	$TokensFind  = NULL;
+	$TokenScopes = NULL,
+	$TokenTypes  = NULL;
 
 	public function
 	__construct() {
 
-		if(!is_array($this->TokensScope) || !is_array($this->TokensFind))
-		throw new Exception('TokensScope or TokensFind lists are not defined.');
+		if(!is_array($this->TokenScopes) || !is_array($this->TokenTypes))
+		throw new Exception('TokenScopes or TokenTypes lists are not defined.');
 
 		parent::__construct(
-			$this->TokensScope,
-			$this->TokensFind
+			$this->TokenScopes,
+			$this->TokenTypes
 		);
 
 		return;
