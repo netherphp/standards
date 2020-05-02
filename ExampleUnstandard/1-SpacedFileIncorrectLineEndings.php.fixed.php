@@ -2,6 +2,7 @@
 
 class SpacedFileIncorrectLineEndings {
 
-	public $Spaced = TRUE;
+	public
+	$Spaced = TRUE;
 
 }

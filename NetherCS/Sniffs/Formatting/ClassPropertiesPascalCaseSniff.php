@@ -61,17 +61,14 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 			if($Seek === T_PAAMAYIM_NEKUDOTAYIM) {
 				$Before = $this->File->FindPrevious([T_STATIC,T_SELF,T_VARIABLE],($StackPtr-1),NULL);
 				$After = $this->File->FindNext([T_VARIABLE],($StackPtr+1),NULL);
-				var_dump("Static: {$this->GetContentFromStack($After)}");
 			}
 
 			elseif($Seek === T_OBJECT_OPERATOR) {
 				$Before = $this->File->FindPrevious([T_VARIABLE],($StackPtr-1),NULL);
 				$After = $this->File->FindNext([T_STRING],($StackPtr+1),NULL);
-				var_dump("Instance: {$this->GetContentFromStack($After)}");
 			}
 
 			if($Before) {
-				$Reference = $this->GetContentFromStack($Before);
 				$Property = $this->GetContentFromStack($After);
 				
 				switch($Seek) {

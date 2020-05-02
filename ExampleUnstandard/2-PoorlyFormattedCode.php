@@ -5,9 +5,14 @@ class poorlyFormattedClass extends StdClass {
 	var $superOldProperty = 'old';
 
 	public $uglyProperty = 9;
+	
+	protected $ProtInlineProp1 = 2, $ProtInlineProp2;
+
+	private $PrivInlineProp1,$ProtIlineProp2 = 7;
 
 	static protected
-	$staticProperty;
+	$staticProperty,
+	$anotherStatic;
 
 	function malformedMethod(string $input, bool $yeah_ok): void {
 

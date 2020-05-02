@@ -1,14 +1,29 @@
 <?php
 
+namespace ourVendor\ourPackage;
+
+use \Exception;
+
 class PoorlyFormattedClass
 extends StdClass {
 
-	var $SuperOldProperty = 'old';
+	var
+	$SuperOldProperty = 'old';
 
-	public $UglyProperty = 9;
+	public
+	$UglyProperty = 9;
+	
+	protected
+	$ProtInlineProp1 = 2,
+	$ProtInlineProp2;
+
+	private
+	$PrivInlineProp1,
+	$ProtIlineProp2 = 7;
 
 	static protected
-	$StaticProperty;
+	$StaticProperty,
+	$AnotherStatic;
 
 	public function
 	MalformedMethod(string $Input, bool $YeahOk):

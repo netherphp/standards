@@ -22,9 +22,18 @@ extends NetherCS\SniffScopedTemplate {
 		$StackPtr = $this->StackPtr;
 		$Before = NULL;
 
+		// it looks like we found some function args.
+
+		if(array_key_exists('nested_parenthesis',$this->Stack[$this->StackPtr]))
+		if(count($this->Stack[$this->StackPtr]['nested_parenthesis']))
+		return FALSE;
+
+		// if the above is a correct assumption about syntax the following
+		// checks may not even be needed.
+
 		do $Before = $this->GetTypeFromStack(--$StackPtr);
 		while($Before === T_WHITESPACE);
-
+		
 		switch($Before) {
 			case T_VAR:
 			case T_PUBLIC:
@@ -32,6 +41,7 @@ extends NetherCS\SniffScopedTemplate {
 			case T_PRIVATE:
 			case T_FINAL:
 			case T_STATIC:
+			case T_COMMA:
 				return TRUE;
 			break;
 		}
