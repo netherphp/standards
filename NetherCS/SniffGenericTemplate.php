@@ -52,7 +52,8 @@ implements PHPCS\Sniffs\Sniff {
 	////////////////////////////////////////////////////////////////
 
 	abstract public function
-	Execute(): Void;
+	Execute():
+	Void;
 
 }
 

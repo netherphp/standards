@@ -18,7 +18,7 @@ extends NetherCS\SniffGenericTemplate {
 	Execute():
 	Void {
 
-        $StackPtr = $this->StackPtr;
+		$StackPtr = $this->StackPtr;
 		$OpenPtr = NULL;
 		$ClosePtr = NULL;
 		$Indent = NULL;
@@ -26,7 +26,7 @@ extends NetherCS\SniffGenericTemplate {
 		$Seek = NULL;
 
 
-        while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET && $Seek !== T_SEMICOLON)
+		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET && $Seek !== T_SEMICOLON)
 		$StackPtr++;
 		
 		// now we know where this function body starts ane ends.

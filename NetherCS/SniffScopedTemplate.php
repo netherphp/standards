@@ -20,7 +20,7 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	$TokenTypes  = NULL;
 
 	public function
-	__construct() {
+	__Construct() {
 
 		if(!is_array($this->TokenScopes) || !is_array($this->TokenTypes))
 		throw new Exception('TokenScopes or TokenTypes lists are not defined.');
@@ -34,7 +34,7 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	}
 
 	public function
-	processTokenWithinScope(PHPCS\Files\File $File, $StackPtr, $ScopePtr):
+	ProcessTokenWithinScope(PHPCS\Files\File $File, $StackPtr, $ScopePtr):
 	Void {
 
 		$Cond = NULL;
@@ -67,7 +67,7 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	}
 
 	protected function
-	processTokenOutsideScope(PHPCS\Files\File $File, $StackPtr):
+	ProcessTokenOutsideScope(PHPCS\Files\File $File, $StackPtr):
 	Void {
 
 		$this->File = $File;
