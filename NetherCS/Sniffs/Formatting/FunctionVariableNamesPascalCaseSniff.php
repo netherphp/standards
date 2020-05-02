@@ -5,7 +5,7 @@ namespace NetherCS\Sniffs\Formatting;
 use \NetherCS;
 
 class FunctionVariableNamesPascalCaseSniff
-extends NetherCS\SniffTemplate {
+extends NetherCS\SniffGenericTemplate {
 
 	protected
 	$TokenTypes = [ T_FUNCTION ];
@@ -45,7 +45,7 @@ extends NetherCS\SniffTemplate {
 				}
 
 				$Current = $this->GetContentFromStack($StackPtr);
-				$Expected = NetherCS\SniffTemplate::ConvertVariableToPascalCase($Current);
+				$Expected = NetherCS\SniffGenericTemplate::ConvertVariableToPascalCase($Current);
 				
 				if($Current !== $Expected)
 				$this->SubmitFixAndShow(

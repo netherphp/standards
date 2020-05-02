@@ -5,7 +5,7 @@ namespace NetherCS\Sniffs\Formatting;
 use \NetherCS;
 
 class FunctionReturnTypesUnderNameSniff
-extends NetherCS\SniffTemplate {
+extends NetherCS\SniffGenericTemplate {
 
 	protected
 	$TokenTypes = [ T_FUNCTION ];

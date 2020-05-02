@@ -6,7 +6,7 @@ use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
 class ClassPropertiesPascalCaseSniff
-extends NetherCS\SniffTemplate {
+extends NetherCS\SniffGenericTemplate {
 
 	protected
 	$TokenTypes = [ T_PROPERTY ];

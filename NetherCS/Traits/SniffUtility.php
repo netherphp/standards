@@ -1,43 +1,8 @@
 <?php
 
-namespace NetherCS;
+namespace NetherCS\Traits;
 
-use \PHP_CodeSniffer as PHPCS;
-
-abstract class SniffTemplate
-implements PHPCS\Sniffs\Sniff {
-
-	protected
-	$TokenTypes = [];
-
-	protected
-	$Stack = NULL;
-
-	protected
-	$StackPtr = NULL;
-
-	public function
-	Register():
-	Array {
-
-		return $this->TokenTypes;
-	}
-
-	public function
-	Process(PHPCS\Files\File $File, $StackPtr):
-	Void {
-
-		$this->File = $File;
-		$this->StackPtr = $StackPtr;
-		$this->Stack = $File->GetTokens();
-
-		$this->Execute();
-
-		return;
-	}
-
-	////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////
+trait SniffUtility {
 
 	protected function
 	GetCurrentIndent($Ptr=NULL):
@@ -133,6 +98,9 @@ implements PHPCS\Sniffs\Sniff {
 		return;
 	}
 
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
 	protected function
 	SubmitFix(String $Reason, String $Old, String $New, Int $Ptr=NULL):
 	Void {
@@ -165,12 +133,6 @@ implements PHPCS\Sniffs\Sniff {
 
 		return;
 	}
-
-	////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////
-
-	abstract public function
-	Execute(): Void;
 
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
@@ -230,5 +192,3 @@ implements PHPCS\Sniffs\Sniff {
 	}
 
 }
-
-

@@ -6,7 +6,7 @@ use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
 class ClassNamesPascalCaseSniff
-extends NetherCS\SniffTemplate {
+extends NetherCS\SniffGenericTemplate {
 
 	protected
 	$TokenTypes = [ T_CLASS, T_INTERFACE, T_TRAIT ];
@@ -33,7 +33,7 @@ extends NetherCS\SniffTemplate {
 		return;
 
 		$Current = $this->GetContentFromStack($StackPtr);
-		$Expected = NetherCS\SniffTemplate::ConvertToPascalCase($Current);
+		$Expected = NetherCS\SniffGenericTemplate::ConvertToPascalCase($Current);
 
 		if($Current !== $Expected) {
 			$this->BumpMetric(static::MetricName,static::ResultIncorrect,$StackPtr);

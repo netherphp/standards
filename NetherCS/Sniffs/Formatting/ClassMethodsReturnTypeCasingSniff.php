@@ -6,7 +6,7 @@ use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
 class ClassMethodsReturnTypeCasingSniff
-extends NetherCS\SniffClassMethodTemplate {
+extends NetherCS\Sniffers\ScopeClassMethod {
 
 	const
 	FixReason       = 'NN: Class Methods returning core types should be Uppercased',

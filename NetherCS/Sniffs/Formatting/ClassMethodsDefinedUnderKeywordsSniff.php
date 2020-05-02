@@ -6,7 +6,7 @@ use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
 class ClassMethodsDefinedUnderKeywordsSniff
-extends NetherCS\SniffClassMethodTemplate {
+extends NetherCS\Sniffers\ScopeClassMethod {
 
 	const
 	FixReason       = 'NN: Class Methods must be defined under their keywords',

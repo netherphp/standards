@@ -6,7 +6,7 @@ use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
 class FunctionNamesPascalCaseSniff
-extends NetherCS\SniffTemplate {
+extends NetherCS\SniffGenericTemplate {
 
 	protected
 	$TokenTypes = [ T_FUNCTION ];
@@ -33,7 +33,7 @@ extends NetherCS\SniffTemplate {
 		$Type = $this->GetTypeFromStack(++$StackPtr);
 
 		$Current = $this->GetContentFromStack($StackPtr);
-		$Expected = NetherCS\SniffTemplate::ConvertMethodToPascalCase($Current);
+		$Expected = NetherCS\SniffGenericTemplate::ConvertMethodToPascalCase($Current);
 		
 		if($Current !== $Expected)
 		$this->SubmitFixAndShow(static::FixReason,$Current,$Expected,$StackPtr);

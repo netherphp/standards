@@ -6,7 +6,7 @@ use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
 class ClassMethodsMustHaveVisiblitySniff
-extends NetherCS\SniffClassMethodTemplate {
+extends NetherCS\Sniffers\ScopeClassMethod {
 
 	const
 	FixReason       = 'NN: Class Methods must have a visiblity keyword',
