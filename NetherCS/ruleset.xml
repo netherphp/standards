@@ -13,12 +13,12 @@
 
 	<!-- and now for the main event. -->
 	
+	<rule ref="NetherCS.Formatting.ConstantsBoolNullAllCaps" />
 	<rule ref="NetherCS.Formatting.ClassNamesPascalCase" />
 	<rule ref="NetherCS.Formatting.ClassExtensionsUnderName" />
 	<rule ref="NetherCS.Formatting.ClassPropertiesPascalCase" />
 	<rule ref="NetherCS.Formatting.ClassMethodsDefinedUnderKeywords" />
 	<rule ref="NetherCS.Formatting.ClassMethodsMustHaveVisiblity" />
-	<rule ref="NetherCS.Formatting.ConstantsBoolNullAllCaps" />
 	<rule ref="NetherCS.Formatting.FunctionNamesPascalCase" />
 	<rule ref="NetherCS.Formatting.FunctionExplicitReturn" />
 	<rule ref="NetherCS.Formatting.FunctionReturnTypesUnderName" />

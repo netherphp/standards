@@ -59,6 +59,9 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 		if($Cond[0] !== $this->ScopePtr)
 		return;
 
+		if(!$this->Allow())
+		return;
+
 		$this->Execute();
 		return;
 	}
@@ -75,6 +78,16 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 
 	abstract public function
 	Execute(): Void;
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	protected function
+	Allow():
+	Bool {
+
+		return TRUE;
+	}
 
 }
 

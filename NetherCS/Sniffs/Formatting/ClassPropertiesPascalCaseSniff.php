@@ -3,13 +3,9 @@
 namespace NetherCS\Sniffs\Formatting;
 
 use \NetherCS;
-use \PHP_CodeSniffer as PHPCS;
 
 class ClassPropertiesPascalCaseSniff
-extends NetherCS\SniffGenericTemplate {
-
-	protected
-	$TokenTypes = [ T_PROPERTY ];
+extends NetherCS\Sniffers\ScopeClassProperties {
 
 	const
 	FixReason = 'NN: Class Properties should be PascalCased.';
@@ -18,7 +14,16 @@ extends NetherCS\SniffGenericTemplate {
 	Execute():
 	Void {
 
-		var_dump($this->GetContentFromStack($this->StackPtr));
+		$Current = $this->GetContentFromStack($this->StackPtr);
+		$Expected = static::ConvertVariableToPascalCase($Current);
+
+		if($Current !== $Expected)
+		$this->SubmitFixAndShow(
+			static::FixReason,
+			$Current,
+			$Expected,
+			$this->StackPointer
+		);
 
 		return;
 	}

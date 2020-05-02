@@ -2,6 +2,8 @@
 
 class poorlyFormattedClass extends StdClass {
 
+	var $superOldProperty = 'old';
+
 	public $uglyProperty = 9;
 
 	static protected

@@ -3,7 +3,12 @@
 class PoorlyFormattedClass
 extends StdClass {
 
-	public $uglyProperty = 9;
+	var $SuperOldProperty = 'old';
+
+	public $UglyProperty = 9;
+
+	static protected
+	$StaticProperty;
 
 	public function
 	MalformedMethod(string $Input, bool $YeahOk):
@@ -20,6 +25,11 @@ extends StdClass {
 	Void {
 
 		$this->GetSomeArray();
+		$this->uglyProperty = 8;
+
+		static::$staticProperty = 7;
+		self::$staticProperty = 6;
+		$this::$staticProperty = 5;
 
 		return;
 	}
