@@ -26,14 +26,19 @@ extends NetherCS\SniffGenericTemplate {
 		$Seek = NULL;
 
 
-        while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET)
+        while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET && $Seek !== T_SEMICOLON)
 		$StackPtr++;
 		
 		// now we know where this function body starts ane ends.
 
 		$OpenPtr = $this->Stack[$StackPtr]['scope_opener'];
 		$ClosePtr = $this->Stack[$StackPtr]['scope_closer'];
-		
+
+		// don't mess around with prototype that have no bodies
+
+		if(!$OpenPtr)
+		return;
+	
 		// we can determine the indent for this function.
 
 		$Indent = $this->GetCurrentIndent($ClosePtr);

@@ -1,9 +1,5 @@
 <?php
 
-namespace ourVendor\ourPackage;
-
-use \Exception;
-
 class PoorlyFormattedClass
 extends StdClass {
 
