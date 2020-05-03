@@ -22,11 +22,13 @@ extends StdClass {
 	$AnotherStatic;
 
 	public function
-	MalformedMethod(string $Input, bool $YeahOk):
+	MalformedMethod(String $Input, Bool $YeahOk):
 	Void {
 
 		$UglyVariable = TRUE;
 		$UglyVariable = NULL;
+
+		$UglyVariable = str_replace('a','b','c');
 
 		return;
 	}
@@ -41,6 +43,25 @@ extends StdClass {
 		static::$StaticProperty = 7;
 		self::$StaticProperty = 6;
 		$this::$StaticProperty = 5;
+
+		return;
+	}
+
+	public function
+	MethodUsingVarsWithoutDeclaringThem():
+	Void {
+
+		for($Iter = 0; $Iter < 10; $Iter++) {
+			
+		}
+
+		foreach($this->GetSomeArray() as $Item) {
+
+		}
+
+		while($Row = $this->ProperMethod()) {
+			
+		}
 
 		return;
 	}

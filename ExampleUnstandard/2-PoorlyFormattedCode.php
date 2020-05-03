@@ -19,6 +19,8 @@ class poorlyFormattedClass extends StdClass {
 		$uglyVariable = true;
 		$uglyVariable = Null;
 
+		$uglyVariable = str_replace('a','b','c');
+
 	}
 
 	public function
@@ -30,6 +32,25 @@ class poorlyFormattedClass extends StdClass {
 		static::$staticProperty = 7;
 		self::$staticProperty = 6;
 		$this::$staticProperty = 5;
+
+		return;
+	}
+
+	public function
+	MethodUsingVarsWithoutDeclaringThem():
+	Void {
+
+		for($Iter = 0; $Iter < 10; $Iter++) {
+			
+		}
+
+		foreach($this->GetSomeArray() as $Item) {
+
+		}
+
+		while($Row = $this->ProperMethod()) {
+			
+		}
 
 		return;
 	}

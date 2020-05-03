@@ -23,11 +23,11 @@ extends NetherCS\Sniffers\ScopeClassMethod {
 		$Seek = NULL;
 		$Current = NULL;
 		$Expected = NULL;
+		$IsDefaultType = NULL;
 		$DefaultTypes = [
 			'Void', 'Int', 'Float', 'Double', 'String', 'Bool', 'Boolean', 'Array',
 			'Callable', 'self'
 		];
-		$IsDefaultType = NULL;
 
 		// fast foward to the end of the definition.
 		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET) {
