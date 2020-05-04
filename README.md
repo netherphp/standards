@@ -24,6 +24,20 @@ rules are based on the concept that the code can be as self documenting as
 possible to minimise the amount of metadata you need to write to describe
 various entities.
 
+## Automated Formatting
+
+This repository contains a `phpcs` standard for testing and automated
+reformatting of source to fit the standard.
+
+> Note: the phpcs rules are currently a WIP. These following instructions
+> are incomplete as this repo has yet to be posted to Packagist.
+
+* To install the standards into your project.
+* `composer require netherphp/standards`
+
+* To test your project against these standards.
+* `phpcs --standard=vendor/netherphp/standards/NetherCS <dir-or-file>`
+
 ## General Standards
 
 * PascalCaseAllTheThings except:
