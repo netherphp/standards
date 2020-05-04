@@ -8,7 +8,7 @@ extends StdClass {
 
 	public
 	$UglyProperty = 9;
-	
+
 	protected
 	$ProtInlineProp1 = 2,
 	$ProtInlineProp2;
@@ -52,7 +52,7 @@ extends StdClass {
 	Void {
 
 		for($Iter = 0; $Iter < 10; $Iter++) {
-			
+
 		}
 
 		foreach($this->GetSomeArray() as $Item) {
@@ -60,10 +60,30 @@ extends StdClass {
 		}
 
 		while($Row = $this->ProperMethod()) {
-			
+
 		}
 
 		return;
+	}
+
+	public function
+	SomeEmptyMethod():
+	Void { 	return;
+	}
+
+	public function
+	MethodWithBracesUnderneath() {
+		// ramseystien
+
+		return;
+	}
+
+	public function
+	MethodWithBracesUnderneathTyped():
+	Int {
+		// ramseystien
+
+		return 1;
 	}
 
 	public function

@@ -25,5 +25,6 @@
 	<rule ref="NetherCS.Formatting.FunctionReturnTypesUnderName" />
 	<rule ref="NetherCS.Formatting.FunctionVariableNamesPascalCase" />
 	<rule ref="NetherCS.Formatting.FunctionExplicitReturn" />
+	<rule ref="NetherCS.Formatting.FunctionBodyBracesSameLine" />
 
 </ruleset>

@@ -121,7 +121,7 @@ trait SniffUtility {
 
 		return;
 	}
-	
+
 	protected function
 	SubmitFixAndShow(String $Reason, String $Old, String $New, Int $Ptr=NULL):
 	Void {
@@ -130,6 +130,20 @@ trait SniffUtility {
 			sprintf('%s (%s)',$Reason,$Old),
 			$Old, $New, $Ptr
 		);
+
+		return;
+	}
+
+	protected function
+	SubmitFixSilent(String $New, Int $Ptr=NULL):
+	Void {
+
+		$Ptr ??= $this->StackPtr;
+		$Fix = $this->File->fixer->enabled;
+
+		if($Fix === TRUE)
+		($this->File->fixer)
+		->ReplaceToken($Ptr,$New);
 
 		return;
 	}

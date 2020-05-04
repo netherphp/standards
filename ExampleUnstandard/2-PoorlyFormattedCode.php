@@ -5,7 +5,7 @@ class poorlyFormattedClass extends StdClass {
 	var $superOldProperty = 'old';
 
 	public $uglyProperty = 9;
-	
+
 	protected $ProtInlineProp1 = 2, $ProtInlineProp2;
 
 	private $PrivInlineProp1,$ProtIlineProp2 = 7;
@@ -41,7 +41,7 @@ class poorlyFormattedClass extends StdClass {
 	Void {
 
 		for($Iter = 0; $Iter < 10; $Iter++) {
-			
+
 		}
 
 		foreach($this->GetSomeArray() as $Item) {
@@ -49,10 +49,29 @@ class poorlyFormattedClass extends StdClass {
 		}
 
 		while($Row = $this->ProperMethod()) {
-			
+
 		}
 
 		return;
+	}
+
+	public function
+	SomeEmptyMethod(): Void { }
+
+	public function
+	MethodWithBracesUnderneath()
+	{
+		// ramseystien
+
+		return;
+	}
+
+	public function
+	MethodWithBracesUnderneathTyped(): Int
+	{
+		// ramseystien
+
+		return 1;
 	}
 
 	public function
