@@ -31,6 +31,9 @@ extends NetherCS\SniffGenericTemplate {
 
 		// now we know where this function body starts ane ends.
 
+		if($this->GetTypeFromStack($StackPtr) === T_SEMICOLON)
+		return;
+
 		$OpenPtr = $this->Stack[$StackPtr]['scope_opener'];
 		$ClosePtr = $this->Stack[$StackPtr]['scope_closer'];
 

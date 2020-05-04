@@ -23,7 +23,7 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 				static::FixReason,
 				$Current,
 				$Expected,
-				$this->StackPointer
+				$this->StackPtr
 			);
 
 			$this->UpdateFoundUses($Current,$Expected);

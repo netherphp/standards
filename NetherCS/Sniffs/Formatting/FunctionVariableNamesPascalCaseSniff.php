@@ -24,11 +24,24 @@ extends NetherCS\SniffGenericTemplate {
 		$Current = NULL;
 		$Expected = NULL;
 
-		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET)
+		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET && $Seek !== T_SEMICOLON)
 		$StackPtr++;
 
-		$OpenPtr = $this->Stack[$StackPtr]['scope_opener'];
-		$ClosePtr = $this->Stack[$StackPtr]['scope_closer'];
+		// we have a function with a full body.
+
+		if($Seek === T_OPEN_CURLY_BRACKET) {
+			$OpenPtr = $this->Stack[$StackPtr]['scope_opener'];
+			$ClosePtr = $this->Stack[$StackPtr]['scope_closer'];
+		}
+
+		// we only have an abstract function.
+
+		else {
+			$ClosePtr = $StackPtr;
+		}
+
+		// but start from the declaration to hit the arguments too.
+
 		$StackPtr = $this->StackPtr;
 
 		////////
