@@ -11,7 +11,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method and Function open body brace must be on the same line.';
+	FixReason = 'NN: Method/Function open brace must be on the same line';
 
 	public function
 	Execute():
@@ -53,7 +53,7 @@ extends NetherCS\SniffGenericTemplate {
 
 					if(strpos($Whitespace,"\n") !== FALSE) {
 						$this->SubmitFix(
-							static::FixReason,
+							sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
 							$Whitespace,
 							' ',
 							$StackPtr

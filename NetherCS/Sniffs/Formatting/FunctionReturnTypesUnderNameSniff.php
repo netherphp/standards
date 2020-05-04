@@ -11,10 +11,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason       = 'NN: Method and Function Return Types underneath method name',
-	MetricName      = 'Methods Return Types Positioned Correctly',
-	ResultIncorrect = 'Incorrect',
-	ResultProper    = 'Proper';
+	FixReason = 'NN: Method/Function Return Types underneath method name';
 
 	public function
 	Execute():
@@ -59,7 +56,7 @@ extends NetherCS\SniffGenericTemplate {
 		$NamePtr = $this->StackPtr;
 
 		$Before = $this->GetTypeFromStack($ReturnPtr-1);
-		
+
 		// if the thing right before the return type is the colon then there is
 		// not any whitespace at all.
 
@@ -91,7 +88,7 @@ extends NetherCS\SniffGenericTemplate {
 					$Whitespace,
 					"{$Indent}",
 					($ReturnPtr-1)
-				);	
+				);
 			}
 		}
 

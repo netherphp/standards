@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_CLASS, T_INTERFACE, T_TRAIT ];
 
 	const
-	FixReason = 'NN: Class extends and implements must be underneath the class';
+	FixReason = 'NN: Class Extends/Implements must be underneath the class';
 
 	public function
 	Execute():
@@ -28,7 +28,7 @@ extends NetherCS\SniffGenericTemplate {
 			if($this->GetTypeFromStack($StackPtr - 1) === T_WHITESPACE)
 			if(trim($this->GetContentFromStack($StackPtr - 1)," \r") !== "\n")
 			$this->SubmitFix(
-				static::FixReason,
+				sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
 				$this->GetContentFromStack($StackPtr - 1),
 				"\n",
 				($StackPtr - 1)

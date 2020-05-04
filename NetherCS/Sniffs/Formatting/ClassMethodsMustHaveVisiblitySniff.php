@@ -9,10 +9,7 @@ class ClassMethodsMustHaveVisiblitySniff
 extends NetherCS\Sniffers\ScopeClassMethod {
 
 	const
-	FixReason       = 'NN: Class Methods must have a visiblity keyword',
-	MetricName      = 'Methods With Visiblity Keywords',
-	ResultIncorrect = 'Incorrect',
-	ResultProper    = 'Proper';
+	FixReason = 'NN: Class Methods must have a visiblity keyword';
 
 	public function
 	Execute():
@@ -36,7 +33,6 @@ extends NetherCS\Sniffers\ScopeClassMethod {
 		}
 
 		if(!$HasKeyword) {
-			$this->BumpMetric(static::MetricName,static::ResultIncorrect);
 			$this->SubmitFix(
 				sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($StackPtr)),
 				"function",
@@ -44,7 +40,6 @@ extends NetherCS\Sniffers\ScopeClassMethod {
 			);
 		}
 
-		$this->BumpMetric(static::MetricName,static::ResultProper);
 		return;
 	}
 

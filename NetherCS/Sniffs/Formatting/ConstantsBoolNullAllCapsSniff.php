@@ -12,11 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_TRUE, T_FALSE, T_NULL ];
 
 	const
-	FixReason = 'NN: TRUE, FALSE, and NULL must be uppercase',
-	MetricName = 'BOOL and NULL Constant Case',
-	ResultMixed = 'Mixed',
-	ResultLower = 'Lower',
-	ResultProper = 'Proper';
+	FixReason = 'NN: TRUE/FALSE/NULL must be uppercase';
 
 	public function
 	Execute():
@@ -26,16 +22,9 @@ extends NetherCS\SniffGenericTemplate {
 		$Expected = strtoupper($Current);
 
 		if($Current !== $Expected) {
-			if(preg_match('/[A-Z]/',$Current))
-			$this->BumpMetric(static::MetricName,static::ResultMixed);
-			else
-			$this->BumpMetric(static::MetricName,static::ResultLower);
-
 			$this->SubmitFixAndShow(static::FixReason,$Current,$Expected);
-			return;
 		}
 
-		$this->BumpMetric(static::MetricName,static::ResultProper);
 		return;
 	}
 

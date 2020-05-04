@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason       = 'NN: Methods and Functions musts be PascalCased';
+	FixReason       = 'NN: Method/Function must be PascalCased';
 
 	public function
 	Execute():
@@ -35,7 +35,7 @@ extends NetherCS\SniffGenericTemplate {
 
 		$Current = $this->GetContentFromStack($StackPtr);
 		$Expected = NetherCS\SniffGenericTemplate::ConvertMethodToPascalCase($Current);
-		
+
 		if($Current !== $Expected)
 		$this->SubmitFixAndShow(static::FixReason,$Current,$Expected,$StackPtr);
 

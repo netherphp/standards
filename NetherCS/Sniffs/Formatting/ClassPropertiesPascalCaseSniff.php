@@ -8,8 +8,8 @@ class ClassPropertiesPascalCaseSniff
 extends NetherCS\Sniffers\ScopeClassProperties {
 
 	const
-	FixReason = 'NN: Class Properties must be PascalCased.',
-	FixUpdate = 'NN: Update internal uses of altered Class Properties.';
+	FixReason = 'NN: Class Properties must be PascalCased',
+	FixUpdate = 'NN: Update internal use of altered Class Properties';
 
 	public function
 	Execute():
@@ -70,7 +70,7 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 
 			if($Before) {
 				$Property = $this->GetContentFromStack($After);
-				
+
 				switch($Seek) {
 					case T_PAAMAYIM_NEKUDOTAYIM:
 						if($Property === $Current)

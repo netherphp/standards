@@ -8,7 +8,7 @@ class ClassPropertiesDefinedUnderKeywordsSniff
 extends NetherCS\Sniffers\ScopeClassProperties {
 
 	const
-	FixReason = 'NN: Class Properties must be defined under their keywords.';
+	FixReason = 'NN: Class Properties must be defined under their keywords';
 
 	public function
 	Execute():
@@ -17,6 +17,7 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 		$StackPtr = $this->StackPtr;
 		$Indent = $this->GetCurrentIndent();
 		$Before = NULL;
+		$Current = NULL;
 
 		$Before = $this->File->FindPrevious(
 			[T_STATIC,T_VAR,T_PUBLIC,T_PROTECTED,T_PRIVATE,T_COMMA],
@@ -26,9 +27,11 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 
 		if($this->GetTypeFromStack($this->StackPtr-1) === T_WHITESPACE) {
 			if($this->GetLineFromStack($Before) === $this->GetLineFromStack($this->StackPtr)) {
+				$Current = $this->GetContentFromStack($this->StackPtr);
+
 				$this->SubmitFix(
-					static::FixReason,
-					$this->GetContentFromStack($this->StackPtr-1),
+					sprintf('%s (%s)',static::FixReason,$Current),
+					$Current,
 					"\n{$Indent}",
 					($this->StackPtr-1)
 				);
@@ -36,9 +39,11 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 		}
 
 		elseif($this->GetTypeFromStack($this->StackPtr-1) === T_COMMA) {
+			$Current = $this->GetContentFromStack($this->StackPtr);
+
 			$this->SubmitFix(
-				static::FixReason,
-				$this->GetContentFromStack($this->StackPtr-1),
+				sprintf('%s (%s)',static::FixReason,$Current),
+				$Current,
 				",\n{$Indent}",
 				($this->StackPtr-1)
 			);

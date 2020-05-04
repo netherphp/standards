@@ -11,7 +11,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Methods and Function scope vars must be PascalCase';
+	FixReason = 'NN: Method/Function scope vars must be PascalCase';
 
 	public function
 	Execute():
@@ -26,7 +26,7 @@ extends NetherCS\SniffGenericTemplate {
 
 		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET)
 		$StackPtr++;
-		
+
 		$OpenPtr = $this->Stack[$StackPtr]['scope_opener'];
 		$ClosePtr = $this->Stack[$StackPtr]['scope_closer'];
 		$StackPtr = $this->StackPtr;
@@ -46,7 +46,7 @@ extends NetherCS\SniffGenericTemplate {
 
 				$Current = $this->GetContentFromStack($StackPtr);
 				$Expected = NetherCS\SniffGenericTemplate::ConvertVariableToPascalCase($Current);
-				
+
 				if($Current !== $Expected)
 				$this->SubmitFixAndShow(
 					static::FixReason,

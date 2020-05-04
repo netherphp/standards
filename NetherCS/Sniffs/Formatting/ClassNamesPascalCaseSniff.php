@@ -12,10 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_CLASS, T_INTERFACE, T_TRAIT ];
 
 	const
-	FixReason       = 'NN: Classes, Interfaces, and Traits, must be PascalCased',
-	MetricName      = 'Pascal Cased Classes',
-	ResultIncorrect = 'Incorrect',
-	ResultProper    = 'Proper';
+	FixReason = 'NN: Classes/Interfaces/Traits must be PascalCased';
 
 	public function
 	Execute():
@@ -36,12 +33,15 @@ extends NetherCS\SniffGenericTemplate {
 		$Expected = NetherCS\SniffGenericTemplate::ConvertToPascalCase($Current);
 
 		if($Current !== $Expected) {
-			$this->BumpMetric(static::MetricName,static::ResultIncorrect,$StackPtr);
-			$this->SubmitFixAndShow(static::FixReason,$Current,$Expected,$StackPtr);
+			$this->SubmitFixAndShow(
+				static::FixReason,
+				$Current,
+				$Expected,
+				$StackPtr
+			);
 			return;
 		}
 
-		$this->BumpMetric(static::MetricName,static::ResultProper,$StackPtr);
 		return;
 	}
 

@@ -8,7 +8,7 @@ class ClassConstsDefinedUnderKeywordsSniff
 extends NetherCS\Sniffers\ScopeClassConsts {
 
 	const
-	FixReason = 'NN: Class Constants must be defined under their keywords.';
+	FixReason = 'NN: Class Consts must be defined under their keywords';
 
 	public function
 	Execute():
@@ -27,7 +27,7 @@ extends NetherCS\Sniffers\ScopeClassConsts {
 		if($this->GetTypeFromStack($this->StackPtr-1) === T_WHITESPACE) {
 			if($this->GetLineFromStack($Before) === $this->GetLineFromStack($this->StackPtr)) {
 				$this->SubmitFix(
-					static::FixReason,
+					sprintf('%s (%s)',static::FixReason,$this->GetContentfromStack($this->StackPtr)),
 					$this->GetContentFromStack($this->StackPtr-1),
 					"\n{$Indent}",
 					($this->StackPtr-1)
@@ -37,7 +37,7 @@ extends NetherCS\Sniffers\ScopeClassConsts {
 
 		elseif($this->GetTypeFromStack($this->StackPtr-1) === T_COMMA) {
 			$this->SubmitFix(
-				static::FixReason,
+				sprintf('%s (%s)',static::FixReason,$this->GetContentfromStack($this->StackPtr)),
 				$this->GetContentFromStack($this->StackPtr-1),
 				",\n{$Indent}",
 				($this->StackPtr-1)

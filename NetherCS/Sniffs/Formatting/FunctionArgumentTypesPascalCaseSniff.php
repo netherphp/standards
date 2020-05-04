@@ -11,7 +11,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Methods and Function argument types must be PascalCase';
+	FixReason = 'NN: Method/Function arg Types must be PascalCase';
 
 	public function
 	Execute():
