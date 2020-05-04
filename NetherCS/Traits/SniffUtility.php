@@ -159,10 +159,24 @@ trait SniffUtility {
 	are broken with underscores or spaces.
 	//*/
 
-		$Output = str_replace(' ','',ucwords(
-			str_replace( '_',' ',$Input)
-		));
+		$Output = $Input;
 
+		// a case for handling things that are all uppercase.
+		// COMMONLY_LIKE_THIS
+
+		if(!preg_match('/[a-z]/',$Output))
+		$Output = ucwords(strtolower(str_replace('_',' ',$Output)));
+
+		// handling everything else.
+		// SomethingLikeThis_AndMaybeHavingThis
+		// also_something_like_this
+
+		else
+		$Output = ucwords(str_replace('_',' ',$Output));
+
+		////////
+
+		$Output = str_replace(' ','',$Output);
 		return $Output;
 	}
 

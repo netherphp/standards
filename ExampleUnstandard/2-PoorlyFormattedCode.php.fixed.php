@@ -22,7 +22,7 @@ extends StdClass {
 	$AnotherStatic;
 
 	const
-	SameLineConst = 'one';
+	SameLineConsts = 'one';
 
 	const
 	SameLineConst2 = 'two',

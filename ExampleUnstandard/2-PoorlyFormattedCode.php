@@ -14,9 +14,9 @@ class poorlyFormattedClass extends StdClass {
 	$staticProperty,
 	$anotherStatic;
 
-	const SameLineConst = 'one';
+	const SAME_LINE_CONSTS = 'one';
 
-	const SameLineConst2 = 'two', SameLineConst3 = 'three';
+	const sameLineConst2 = 'two', SameLineConst3 = 'three';
 
 	const
 	ArrayConstsTho = [ T_WHITESPACE, T_CONST ];

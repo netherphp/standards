@@ -25,19 +25,6 @@ extends NetherCS\Sniffers\ScopeClassConsts {
 			NULL
 		);
 
-		// but don't catch const arrays.
-
-		$ArrayPtr = $this->File->FindPrevious(
-			[ T_OPEN_SQUARE_BRACKET, T_CONST, T_OPEN_SHORT_ARRAY, T_ARRAY ],
-			($StackPtr-1),
-			NULL
-		);
-
-		if($ArrayPtr && $this->GetTypeFromStack($ArrayPtr) !== T_CONST)
-		return;
-
-		////////
-
 		if($this->GetTypeFromStack($this->StackPtr-1) === T_WHITESPACE) {
 			if($this->GetLineFromStack($Before) === $this->GetLineFromStack($this->StackPtr)) {
 				$this->SubmitFix(

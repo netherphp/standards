@@ -16,6 +16,7 @@
 	<rule ref="NetherCS.Formatting.ConstantsBoolNullAllCaps" />
 	<rule ref="NetherCS.Formatting.ClassNamesPascalCase" />
 	<rule ref="NetherCS.Formatting.ClassExtensionsUnderName" />
+	<rule ref="NetherCS.Formatting.ClassConstsNamesPascalCase" />
 	<rule ref="NetherCS.Formatting.ClassConstsDefinedUnderKeywords" />
 	<rule ref="NetherCS.Formatting.ClassPropertiesPascalCase" />
 	<rule ref="NetherCS.Formatting.ClassPropertiesDefinedUnderKeywords" />
