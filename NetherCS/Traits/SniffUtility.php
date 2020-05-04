@@ -38,6 +38,9 @@ trait SniffUtility {
 
 		$Ptr ??= $this->StackPtr;
 
+		if(!$Ptr)
+		return NULL;
+
 		if(!array_key_exists($Ptr,$this->Stack))
 		return NULL;
 
@@ -115,9 +118,11 @@ trait SniffUtility {
 			[$Old,$New]
 		);
 
-		if($Fix === TRUE)
-		($this->File->fixer)
-		->ReplaceToken($Ptr,$New);
+		if($Fix === TRUE) {
+			var_dump("omg {$New}");
+			($this->File->fixer)
+			->ReplaceToken($Ptr,$New);
+		}
 
 		return;
 	}
@@ -141,9 +146,28 @@ trait SniffUtility {
 		$Ptr ??= $this->StackPtr;
 		$Fix = $this->File->fixer->enabled;
 
-		if($Fix === TRUE)
-		($this->File->fixer)
-		->ReplaceToken($Ptr,$New);
+		if($Fix === TRUE) {
+			($this->File->fixer)
+			->ReplaceToken($Ptr,$New);
+		}
+
+		return;
+	}
+
+	protected function
+	TransactionBegin():
+	Void {
+
+		$this->File->fixer->beginChangeset();
+
+		return;
+	}
+
+	protected function
+	TransactionCommit():
+	Void {
+
+		$this->File->fixer->endChangeset();
 
 		return;
 	}
