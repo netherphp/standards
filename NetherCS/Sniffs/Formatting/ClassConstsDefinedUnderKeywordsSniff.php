@@ -17,12 +17,26 @@ extends NetherCS\Sniffers\ScopeClassConsts {
 		$StackPtr = $this->StackPtr;
 		$Indent = $this->GetCurrentIndent();
 		$Before = NULL;
+		$ArrayPtr = NULL;
 
 		$Before = $this->File->FindPrevious(
 			[T_STATIC,T_PUBLIC,T_PROTECTED,T_PRIVATE,T_COMMA,T_CONST],
 			($StackPtr-1),
 			NULL
 		);
+
+		// but don't catch const arrays.
+
+		$ArrayPtr = $this->File->FindPrevious(
+			[ T_OPEN_SQUARE_BRACKET, T_CONST, T_OPEN_SHORT_ARRAY, T_ARRAY ],
+			($StackPtr-1),
+			NULL
+		);
+
+		if($ArrayPtr && $this->GetTypeFromStack($ArrayPtr) !== T_CONST)
+		return;
+
+		////////
 
 		if($this->GetTypeFromStack($this->StackPtr-1) === T_WHITESPACE) {
 			if($this->GetLineFromStack($Before) === $this->GetLineFromStack($this->StackPtr)) {

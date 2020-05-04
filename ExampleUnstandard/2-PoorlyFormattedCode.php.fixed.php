@@ -28,6 +28,35 @@ extends StdClass {
 	SameLineConst2 = 'two',
 	SameLineConst3 = 'three';
 
+	const
+	ArrayConstsTho = [ T_WHITESPACE, T_CONST ];
+
+	const
+	LongArrayConstsTho = [
+		T_WHITESPACE,
+		T_CONST
+	];
+
+	private
+	$ArrayInstance = [ 'one','two',T_EMPTY ];
+
+	private
+	$LongArrayInstance = [
+		'one',
+		'two',
+		T_EMPTY
+	];
+
+	static private
+	$ArrayStatic = [ 'one','two',T_EMPTY ];
+
+	static private
+	$LongArrayStatic = [
+		'one',
+		'two',
+		T_EMPTY
+	];
+
 	public function
 	MalformedMethod(String $Input, Bool $YeahOk):
 	Void {
