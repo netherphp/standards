@@ -21,6 +21,13 @@ extends StdClass {
 	$StaticProperty,
 	$AnotherStatic;
 
+	const
+	SameLineConst = 'one';
+
+	const
+	SameLineConst2 = 'two',
+	SameLineConst3 = 'three';
+
 	public function
 	MalformedMethod(String $Input, Bool $YeahOk):
 	Void {
@@ -81,6 +88,13 @@ extends StdClass {
 	public function
 	ThirdEmptyMethod():
 	Void {
+		return;
+	}
+
+	public function
+	MethodWithMalformedNullableDefaultType(?String $String):
+	Void {
+
 		return;
 	}
 

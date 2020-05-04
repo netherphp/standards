@@ -14,6 +14,10 @@ class poorlyFormattedClass extends StdClass {
 	$staticProperty,
 	$anotherStatic;
 
+	const SameLineConst = 'one';
+
+	const SameLineConst2 = 'two', SameLineConst3 = 'three';
+
 	function malformedMethod(string $input, bool $yeah_ok): void {
 
 		$uglyVariable = true;
@@ -66,6 +70,13 @@ class poorlyFormattedClass extends StdClass {
 	public function
 	ThirdEmptyMethod():
 	Void {
+	}
+
+	public function
+	MethodWithMalformedNullableDefaultType(?string $String):
+	Void {
+
+		return;
 	}
 
 	public function

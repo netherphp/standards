@@ -18,6 +18,7 @@
 	<rule ref="NetherCS.Formatting.ClassExtensionsUnderName" />
 	<rule ref="NetherCS.Formatting.ClassPropertiesPascalCase" />
 	<rule ref="NetherCS.Formatting.ClassPropertiesDefinedUnderKeywords" />
+	<rule ref="NetherCS.Formatting.ClassConstsDefinedUnderKeywords" />
 	<rule ref="NetherCS.Formatting.ClassMethodsMustHaveVisiblity" />
 	<rule ref="NetherCS.Formatting.ClassMethodsDefinedUnderKeywords" />
 	<rule ref="NetherCS.Formatting.FunctionNamesPascalCase" />
