@@ -11,7 +11,8 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function open brace must be on the same line';
+	FixReason = 'NN: Method/Function open brace must be on the same line',
+	FixUpdate = 'NN: Cleaning up extra spacing when fixing open brace line';
 
 	public function
 	Execute():
@@ -43,6 +44,7 @@ extends NetherCS\SniffGenericTemplate {
 		// are we on the same line?
 
 		if($this->GetLineFromStack($ReturnPtr) !== $this->GetLineFromStack($EndPtr)) {
+			$this->TransactionBegin();
 
 			$StackPtr = $ReturnPtr;
 			while($StackPtr < $EndPtr && ($Seek = $this->GetTypeFromStack($StackPtr))) {
@@ -50,7 +52,6 @@ extends NetherCS\SniffGenericTemplate {
 					$Whitespace = $this->GetContentFromStack($StackPtr);
 
 					// replace the newline with a single space.
-
 					if(strpos($Whitespace,"\n") !== FALSE) {
 						$this->SubmitFix(
 							sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
@@ -63,13 +64,15 @@ extends NetherCS\SniffGenericTemplate {
 					// replace any other whitespaces in the way with nothingness.
 
 					else {
-						$this->SubmitFixSilent('',$StackPtr);
+						$this->SubmitFixAndShow(static::FixUpdate,$Whitespace,'',$StackPtr);
 					}
 
 				}
 
 				$StackPtr++;
 			}
+
+			$this->TransactionCommit();
 		}
 
 		return;

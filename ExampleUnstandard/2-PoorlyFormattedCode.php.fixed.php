@@ -15,7 +15,7 @@ extends StdClass {
 
 	private
 	$PrivInlineProp1,
-	$ProtIlineProp2 = 7;
+	$ProtInlineProp2 = 7;
 
 	static protected
 	$StaticProperty,
@@ -68,6 +68,8 @@ extends StdClass {
 
 		$this->MalformedMethod_ReducedConcern();
 		static::MalformedStaticMethod();
+
+		echo static::SameLineConsts;
 
 		return;
 	}

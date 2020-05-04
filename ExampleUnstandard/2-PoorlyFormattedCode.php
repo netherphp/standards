@@ -8,7 +8,7 @@ class poorlyFormattedClass extends StdClass {
 
 	protected $ProtInlineProp1 = 2, $ProtInlineProp2;
 
-	private $PrivInlineProp1,$ProtIlineProp2 = 7;
+	private $PrivInlineProp1,$ProtInlineProp2 = 7;
 
 	static protected
 	$staticProperty,
@@ -56,6 +56,8 @@ class poorlyFormattedClass extends StdClass {
 
 		$this->malformedMethod_reducedConcern();
 		static::malformedStaticMethod();
+
+		echo static::SAME_LINE_CONSTS;
 
 	}
 
