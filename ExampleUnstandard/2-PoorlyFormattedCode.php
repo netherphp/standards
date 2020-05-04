@@ -54,6 +54,9 @@ class poorlyFormattedClass extends StdClass {
 
 		$uglyVariable = str_replace('a','b','c');
 
+		$this->malformedMethod_reducedConcern();
+		static::malformedStaticMethod();
+
 	}
 
 	public function
@@ -65,6 +68,13 @@ class poorlyFormattedClass extends StdClass {
 		static::$staticProperty = 7;
 		self::$staticProperty = 6;
 		$this::$staticProperty = 5;
+
+		return;
+	}
+
+	public function
+	malformedStaticMethod():
+	Void {
 
 		return;
 	}
@@ -111,7 +121,6 @@ class poorlyFormattedClass extends StdClass {
 	public function
 	MethodWithBracesUnderneath()
 	{
-		// ramseystien
 
 		return;
 	}
@@ -119,7 +128,6 @@ class poorlyFormattedClass extends StdClass {
 	public function
 	MethodWithBracesUnderneathTyped(): Int
 	{
-		// ramseystien
 
 		return 1;
 	}
