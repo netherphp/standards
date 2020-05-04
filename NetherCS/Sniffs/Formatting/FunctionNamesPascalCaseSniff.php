@@ -79,7 +79,6 @@ extends NetherCS\SniffGenericTemplate {
 			elseif($Seek === T_OBJECT_OPERATOR) {
 				$Before = $this->File->FindPrevious([T_VARIABLE],($StackPtr-1),NULL);
 				$After = $this->File->FindNext([T_STRING],($StackPtr+1),NULL);
-				var_dump($this->GetContentFromStack($After));
 			}
 
 			if($Before) {
