@@ -5,14 +5,14 @@ namespace NetherCS\Sniffs\Formatting;
 use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
-class ClassMethodsReturnTypeCasingSniff
-extends NetherCS\Sniffers\ScopeClassMethod {
+class FunctionReturnTypesCasingSniff
+extends NetherCS\SniffGenericTemplate {
+
+	protected
+	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason       = 'NN: Class Methods returning core types must be Uppercased',
-	MetricName      = 'Methods Returning Core Types Casing',
-	ResultIncorrect = 'Incorrect',
-	ResultProper    = 'Proper';
+	FixReason = 'NN: Methods and Functions returning core types must be Uppercased';
 
 	public function
 	Execute():
@@ -25,8 +25,8 @@ extends NetherCS\Sniffers\ScopeClassMethod {
 		$Expected = NULL;
 		$IsDefaultType = NULL;
 		$DefaultTypes = [
-			'Void', 'Int', 'Float', 'Double', 'String', 'Bool', 'Boolean', 'Array',
-			'Callable', 'self'
+			'Void', 'Int', 'Float', 'Double', 'String', 'Bool', 'Boolean',
+			'Array', 'Callable', 'Object'
 		];
 
 		// fast foward to the end of the definition.
@@ -69,7 +69,6 @@ extends NetherCS\Sniffers\ScopeClassMethod {
 			);
 		}
 
-		$this->BumpMetric(static::MetricName,static::ResultProper);
 		return;
 	}
 

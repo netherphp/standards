@@ -24,8 +24,8 @@ extends NetherCS\SniffGenericTemplate {
 		$Expected = NULL;
 		$IsDefaultType = NULL;
 		$DefaultTypes = [
-			'Void', 'Int', 'Float', 'Double', 'String', 'Bool', 'Boolean', 'Array',
-			'Callable', 'self'
+			'Void', 'Int', 'Float', 'Double', 'String', 'Bool', 'Boolean',
+			'Array', 'Callable', 'Object'
 		];
 
 		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_PARENTHESIS)

@@ -123,7 +123,7 @@ class poorlyFormattedClass extends StdClass {
 
 }
 
-function whyIsThereFunctionOutHere(): String {
+function whyIsThereFunctionOutHere(): string {
 
 	return 'whatever';
 }
