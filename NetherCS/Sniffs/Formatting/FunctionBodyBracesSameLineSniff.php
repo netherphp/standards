@@ -52,7 +52,6 @@ extends NetherCS\SniffGenericTemplate {
 					// replace the newline with a single space.
 
 					if(strpos($Whitespace,"\n") !== FALSE) {
-						var_dump("fix announce");
 						$this->SubmitFix(
 							static::FixReason,
 							$Whitespace,
@@ -64,7 +63,6 @@ extends NetherCS\SniffGenericTemplate {
 					// replace any other whitespaces in the way with nothingness.
 
 					else {
-						var_dump("fix silent");
 						$this->SubmitFixSilent('',$StackPtr);
 					}
 

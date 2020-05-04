@@ -68,7 +68,20 @@ extends StdClass {
 
 	public function
 	SomeEmptyMethod():
-	Void { 	return;
+	Void {
+		return;
+	}
+
+	public function
+	AnotherEmptyMethod():
+	Void {
+		return;
+	}
+
+	public function
+	ThirdEmptyMethod():
+	Void {
+		return;
 	}
 
 	public function

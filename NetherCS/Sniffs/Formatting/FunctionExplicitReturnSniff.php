@@ -28,7 +28,7 @@ extends NetherCS\SniffGenericTemplate {
 
 		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET && $Seek !== T_SEMICOLON)
 		$StackPtr++;
-		
+
 		// now we know where this function body starts ane ends.
 
 		$OpenPtr = $this->Stack[$StackPtr]['scope_opener'];
@@ -38,7 +38,7 @@ extends NetherCS\SniffGenericTemplate {
 
 		if(!$OpenPtr)
 		return;
-	
+
 		// we can determine the indent for this function.
 
 		$Indent = $this->GetCurrentIndent($ClosePtr);
@@ -55,14 +55,43 @@ extends NetherCS\SniffGenericTemplate {
 			$StackPtr++;
 		}
 
-		if(!$HasReturn)
-		$this->SubmitFix(
-			static::FixReason,
-			$this->GetContentFromStack($ClosePtr),
-			"\treturn;\n{$Indent}}",
-			$ClosePtr
-		);
-		
+		if(!$HasReturn) {
+
+			// if we found a really empty method.
+
+			if($this->GetLineFromStack($OpenPtr) === $this->GetLineFromStack($ClosePtr)) {
+				if($ClosePtr - $OpenPtr === 1) {
+					$this->SubmitFix(
+						static::FixReason,
+						$this->GetContentFromStack($ClosePtr),
+						"\n{$Indent}\treturn;\n{$Indent}}",
+						$ClosePtr
+					);
+				}
+
+				elseif($this->GetTypeFromStack($ClosePtr-1) === T_WHITESPACE) {
+					$this->SubmitFix(
+						static::FixReason,
+						$this->GetContentFromStack($ClosePtr),
+						"\n{$Indent}\treturn;\n{$Indent}",
+						($ClosePtr-1)
+					);
+				}
+			}
+
+			// normal methods.
+
+			else {
+				$this->SubmitFix(
+					static::FixReason,
+					$this->GetContentFromStack($ClosePtr),
+					"\treturn;\n{$Indent}}",
+					$ClosePtr
+				);
+			}
+
+		}
+
 		return;
 	}
 

@@ -56,7 +56,17 @@ class poorlyFormattedClass extends StdClass {
 	}
 
 	public function
-	SomeEmptyMethod(): Void { }
+	SomeEmptyMethod():
+	Void { }
+
+	public function
+	AnotherEmptyMethod():
+	Void {}
+
+	public function
+	ThirdEmptyMethod():
+	Void {
+	}
 
 	public function
 	MethodWithBracesUnderneath()
