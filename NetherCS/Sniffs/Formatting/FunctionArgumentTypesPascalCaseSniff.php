@@ -23,10 +23,6 @@ extends NetherCS\SniffGenericTemplate {
 		$Current = NULL;
 		$Expected = NULL;
 		$IsDefaultType = NULL;
-		$DefaultTypes = [
-			'Void', 'Int', 'Float', 'Double', 'String', 'Bool', 'Boolean',
-			'Array', 'Callable', 'Object'
-		];
 
 		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_PARENTHESIS)
 		$StackPtr++;
@@ -38,11 +34,7 @@ extends NetherCS\SniffGenericTemplate {
 				if($this->GetTypeFromStack($VarPtr) === T_STRING) {
 					$Current = $this->GetContentFromStack($VarPtr);
 					$Expected = static::ConvertToPascalCase($Current);
-
-					$IsDefaultType = array_search(
-						strtolower($Current),
-						array_map('strtolower',$DefaultTypes)
-					);
+					$IsDefaultType = static::GetDefaultType($Current);
 
 					if($IsDefaultType && $Current !== $Expected)
 					$this->SubmitFixAndShow(

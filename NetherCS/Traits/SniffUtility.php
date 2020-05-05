@@ -4,6 +4,32 @@ namespace NetherCS\Traits;
 
 trait SniffUtility {
 
+	static public
+	$DefaultTypes = [
+		'Void', 'Int', 'Float', 'Double', 'String', 'Bool', 'Boolean',
+		'Array', 'Callable', 'Object', 'Mixed'
+	];
+
+	static public function
+	GetDefaultType($Input):
+	Int {
+
+		return array_search(
+			strtolower($Input),
+			array_map('strtolower',static::$DefaultTypes)
+		);
+	}
+
+	static public function
+	IsDefaultType($Input):
+	Int {
+
+		return static::GetDefaultTypeKey($Input) === FALSE;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
 	protected function
 	GetCurrentIndent($Ptr=NULL):
 	?String {
@@ -49,9 +75,9 @@ trait SniffUtility {
 
 	protected function
 	GetTypeFromStack($Ptr=NULL) {
-	/*//
-	turns out not all the T_ consts are ints >_>
-	//*/
+
+		// turns out not all the types are ints as phpcs
+		// made a few up to fill in gaps. wtb mixed returns.
 
 		$Ptr ??= $this->StackPtr;
 

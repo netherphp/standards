@@ -22,12 +22,7 @@ extends NetherCS\SniffGenericTemplate {
 		$ReturnPtr = NULL;
 		$Seek = NULL;
 		$Current = NULL;
-		$Expected = NULL;
 		$IsDefaultType = NULL;
-		$DefaultTypes = [
-			'Void', 'Int', 'Float', 'Double', 'String', 'Bool', 'Boolean',
-			'Array', 'Callable', 'Object'
-		];
 
 		// fast foward to the end of the definition.
 		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET) {
@@ -50,21 +45,18 @@ extends NetherCS\SniffGenericTemplate {
 		return;
 
 		$Current = $this->GetContentFromStack($ReturnPtr);
-		$IsDefaultType = array_search(
-			strtoupper($Current),
-			array_map('strtoupper',$DefaultTypes)
-		);
+		$IsDefaultType = static::GetDefaultType($Current);
 
 		// if it is not one of the default types it is likely a class name
 		// and we cannot tell you how to type other people's clases.
 		if($IsDefaultType === FALSE)
 		return;
 
-		if($DefaultTypes[$IsDefaultType] !== $Current) {
+		if(static::$DefaultTypes[$IsDefaultType] !== $Current) {
 			$this->SubmitFixAndShow(
 				static::FixReason,
 				$Current,
-				$DefaultTypes[$IsDefaultType],
+				static::$DefaultTypes[$IsDefaultType],
 				$ReturnPtr
 			);
 		}
