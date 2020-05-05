@@ -19,6 +19,7 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 		$Expected = static::ConvertVariableToPascalCase($Current);
 
 		if($Current !== $Expected) {
+			$this->TransactionBegin();
 			$this->SubmitFixAndShow(
 				static::FixReason,
 				$Current,
@@ -27,6 +28,7 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 			);
 
 			$this->UpdateFoundUses($Current,$Expected);
+			$this->TransactionCommit();
 		}
 
 		return;

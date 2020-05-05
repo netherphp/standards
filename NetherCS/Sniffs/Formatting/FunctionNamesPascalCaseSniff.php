@@ -38,8 +38,10 @@ extends NetherCS\SniffGenericTemplate {
 		$Expected = NetherCS\SniffGenericTemplate::ConvertMethodToPascalCase($Current);
 
 		if($Current !== $Expected) {
+			$this->TransactionBegin();
 			$this->SubmitFixAndShow(static::FixReason,$Current,$Expected,$StackPtr);
 			$this->UpdateFoundUses($Current,$Expected);
+			$this->TransactionCommit();
 		}
 
 		return;
