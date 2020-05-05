@@ -8,7 +8,7 @@ class poorlyFormattedClass extends StdClass {
 
 	protected $ProtInlineProp1 = 2, $ProtInlineProp2;
 
-	private $PrivInlineProp1,$ProtInlineProp2 = 7;
+	private $PrivInlineProp1,$PrivInlineProp2 = 7;
 
 	static protected
 	$staticProperty,
