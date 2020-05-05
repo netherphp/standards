@@ -22,7 +22,13 @@ extends NetherCS\SniffScopedTemplate {
 		$StackPtr = $this->StackPtr;
 		$Before = NULL;
 
-		// it looks like we found some arraty values.
+		// it looks like we found some function args.
+
+		if(array_key_exists('nested_parenthesis',$this->Stack[$this->StackPtr]))
+		if(count($this->Stack[$this->StackPtr]['nested_parenthesis']))
+		return FALSE;
+
+		// it looks like we found some array values.
 
 		$ArrayPtr = $this->File->FindPrevious(
 			[ T_OPEN_SQUARE_BRACKET, T_CONST, T_OPEN_SHORT_ARRAY, T_ARRAY ],
