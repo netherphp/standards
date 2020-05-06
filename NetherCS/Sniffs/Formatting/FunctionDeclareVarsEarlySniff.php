@@ -99,6 +99,10 @@ whatever, they should be delcared before doing them.
 				if($Current === '$this')
 				goto FindMisusedVariablesTryNextVar;
 
+				// don't try to create static variables.
+				if($this->IsStaticReference($VarPtr))
+				goto FindMisusedVariablesTryNextVar;
+
 				// look to see if the var was defined prior to now.
 				if($this->FindSpecificVariable($this->StackPtr, ($VarPtr-1), $Current))
 				goto FindMisusedVariablesTryNextVar;
@@ -157,6 +161,20 @@ whatever, they should be delcared before doing them.
 			[T_WHITESPACE],
 			$Start, $Stop, TRUE
 		) ?: NULL;
+	}
+
+	protected function
+	IsStaticReference(Int $Ptr):
+	Bool {
+
+		$PaamNekoPtr = $this->File->FindPrevious(
+			[ T_WHITESPACE ],
+			($Ptr-1),
+			NULL,
+			TRUE
+		);
+
+		return ($this->GetTypeFromStack($PaamNekoPtr) === T_PAAMAYIM_NEKUDOTAYIM);
 	}
 
 }
