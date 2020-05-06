@@ -180,11 +180,71 @@ trait SniffUtility {
 		return;
 	}
 
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	protected function
+	FixBegin(String $Reason, Int $Ptr=NULL):
+	Bool {
+	/*//
+	this will open an error report without doing any fixes itself. in this
+	case the stack pointer is only used to report the original line that
+	the error occured on to make the report more readable.
+	//*/
+
+		$Ptr ??= $this->StackPtr;
+
+		$Result = $this->File->addFixableError(
+			$Reason,
+			$Ptr,
+			static::class
+		);
+
+		return $Result;
+	}
+
+	protected function
+	FixInsertBefore(String $Content, Int $Ptr=NULL):
+	Void {
+	/*//
+	insert a fix in front of the specified token. you should only be using
+	this after a successful call to FixBegin.
+	//*/
+
+		$Ptr ??= $this->StackPtr;
+
+		($this->File->fixer)
+		->addContentBefore($Ptr,$Content);
+
+		return;
+	}
+
+	protected function
+	FixReplace(String $Content, Int $Ptr=NULL):
+	Void {
+	/*//
+	replace a token with specified content. you should only be using
+	this after a successful call to FixBegin.
+	//*/
+
+		$Ptr ??= $this->StackPtr;
+
+		($this->File->fixer)
+		->replaceToken($Ptr,$Content);
+
+		return;
+	}
+
 	protected function
 	TransactionBegin():
 	Void {
+	/*//
+	tell the fixer we wish to perform a transaction based fix so that
+	everything happens together or fails together.
+	//*/
 
-		$this->File->fixer->beginChangeset();
+		($this->File->fixer)
+		->beginChangeset();
 
 		return;
 	}
@@ -192,8 +252,13 @@ trait SniffUtility {
 	protected function
 	TransactionCommit():
 	Void {
+	/*//
+	tell the fixer we wish to commit a transaction based fix so that
+	everything happens together or fails together.
+	//*/
 
-		$this->File->fixer->endChangeset();
+		($this->File->fixer)
+		->endChangeset();
 
 		return;
 	}

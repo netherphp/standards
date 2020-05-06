@@ -6,6 +6,12 @@ use \NetherCS;
 
 class FunctionDeclareVarsEarlySniff
 extends NetherCS\SniffGenericTemplate {
+/*//
+so the goal here is to find all variables which are invented in the
+middle of something and demand they be pre-declared. this means like
+variables should not be invented as part of a for, foreach, while, or
+whatever, they should be delcared before doing them.
+//*/
 
 	const
 	FixReason = 'NN: Variable used without prior declaration';
@@ -16,19 +22,41 @@ extends NetherCS\SniffGenericTemplate {
 	public function
 	Execute():
 	Void {
-	/*//
-	so the goal here is to find all variables which are invented in the
-	middle of something and demand they be pre-declared. this means like
-	variables should not be invented as part of a for, foreach, while, or
-	whatever, they should be delcared before doing them.
-	//*/
 
-
+		$Insert = $this->SearchForVarsToInsert();
 		$Indent = NULL;
+		$First = FALSE;
+
+		if(!$Insert['Ptr'] || !count($Insert['Vars']))
+		return;
+
+		$Indent = $this->GetCurrentIndent($Insert['Ptr']);
+
+		$this->TransactionBegin();
+		foreach(array_reverse($Insert['Vars']) as $Current => $VarPtr) {
+			if($this->FixBegin(sprintf('%s (%s)',static::FixReason,$Current),$VarPtr)) {
+
+				// insert another line before the first one.
+				if(!$First && ($First = !$First))
+				$this->FixInsertBefore("{$this->File->eolChar}{$Indent}",$Insert['Ptr']);
+
+				// write the variable into the source.
+				$this->FixInsertBefore("{$Current} = NULL;{$this->File->eolChar}{$Indent}",$Insert['Ptr']);
+
+			}
+		}
+		$this->TransactionCommit();
+
+		return;
+	}
+
+	protected function
+	SearchForVarsToInsert():
+	Array {
+
 		$StackPtr = $this->StackPtr;
 		$VarsToDefine = [];
 		$Current = NULL;
-		$Default = NULL;
 
 		$OpenPtr    = NULL; // open of the function
 		$ClosePtr   = NULL; // end of the function
@@ -36,107 +64,99 @@ extends NetherCS\SniffGenericTemplate {
 		$BeginPtr   = NULL; // the start of the control conditions
 		$EndPtr     = NULL; // the end of the control conditions
 		$VarPtr     = NULL; // the variable in a control conditoin
-		$VarSeekPtr = NULL; // the variable if defined prior to a control condition
-		$InsertPtr  = NULL;
-
-		$Find = function($Start,$Stop) {
-			return $this->File->FindNext(
-				[T_FOR,T_FOREACH,T_WHILE,T_IF],
-				$Start, $Stop
-			);
-		};
+		$InsertPtr  = NULL; // the location we should insert the variables.
 
 		// quit if we found an abstract method.
 
 		if(!array_key_exists('scope_opener',$this->Stack[$StackPtr]))
-		return;
+		goto FindMisusedVariablesEnd;
 
 		$OpenPtr = $this->Stack[$StackPtr]['scope_opener'];
 		$ClosePtr = $this->Stack[$StackPtr]['scope_closer'];
-		$StackPtr = $OpenPtr;
-		$StructPtr = $Find($OpenPtr,$ClosePtr);
-		$InsertPtr = $this->File->FindNext([T_WHITESPACE],($OpenPtr+1),$ClosePtr,TRUE);
-		$Indent = $this->GetCurrentIndent($InsertPtr);
+		$StructPtr = $this->FindStructsThatMightContainMisuse($OpenPtr,$ClosePtr);
+		$InsertPtr = $this->FindInsertionPoint(($OpenPtr+1),$ClosePtr);
 
 		// quit if we found a function that apparently does not do much.
 
-		if(!$StructPtr || $StructPtr === $ClosePtr)
-		return;
+		if(!$StructPtr)
+		goto FindMisusedVariablesEnd;
 
-		// now go through the code for real.
+		// now go through the code looking for the vars.
 
 		$StackPtr = $OpenPtr;
-		while(($StructPtr = $Find($StackPtr,$ClosePtr)) && $StructPtr < $ClosePtr) {
+
+		while($StructPtr = $this->FindStructsThatMightContainMisuse($StackPtr, $ClosePtr)) {
 			if(!array_key_exists('parenthesis_opener',$this->Stack[$StructPtr]))
-			continue;
+			goto FindMisusedVariablesTryNextStruct;
 
 			$BeginPtr = $this->Stack[$StructPtr]['parenthesis_opener'];
 			$EndPtr = $this->Stack[$StructPtr]['parenthesis_closer'];
 
-			// look for all variables within the control structure call.
-
-			while(($VarPtr = $this->File->FindNext([T_VARIABLE],$BeginPtr,$EndPtr)) && $VarPtr < $EndPtr) {
-
+			while($VarPtr = $this->FindVariables($BeginPtr, $EndPtr)) {
 				$Current = $this->GetContentFromStack($VarPtr);
 
-				// lol m8
+				// don't try to create $this
+				if($Current === '$this')
+				goto FindMisusedVariablesTryNextVar;
 
-				if($Current === '$this') {
-					$BeginPtr = $VarPtr + 1;
-					continue;
-				}
+				// look to see if the var was defined prior to now.
+				if($this->FindSpecificVariable($this->StackPtr, ($VarPtr-1), $Current))
+				goto FindMisusedVariablesTryNextVar;
 
-				// find if that variable has been defined prior to now. if not
-				// then add it to the list of vars to define after. start from
-				// the function pointer to catch any args or use.
+				// report this variable as needing defined.
+				if(!array_key_exists($Current, $VarsToDefine))
+				$VarsToDefine[$Current] = $VarPtr;
 
-				$VarSeekPtr = $this->File->FindNext(
-					[T_VARIABLE],
-					$this->StackPtr,
-					($VarPtr - 1),
-					FALSE,
-					$Current
-				);
-
-				fwrite(STDERR,"search for {$Current} = {$VarSeekPtr}\n");
-
-				if($VarSeekPtr) {
-					$BeginPtr = $VarPtr + 1;
-					continue;
-				}
-
-				if(!array_key_exists($Current,$VarsToDefine)) {
-					// todo - see how fancy we can get detecting what it was assigned
-					// to so that the define define can be the same type. that is why
-					// we keyed it and set null here so that it can be a different value
-					// later.
-					$VarsToDefine[$Current] = 'NULL';
-				}
-
-
+				FindMisusedVariablesTryNextVar:
 				$BeginPtr = $VarPtr + 1;
 			}
 
+			FindMisusedVariablesTryNextStruct:
 			$StackPtr = $StructPtr + 1;
 		}
 
-		// write the code for the variables we were missing.
+		FindMisusedVariablesEnd:
+		return [ 'Ptr' => $InsertPtr, 'Vars' => $VarsToDefine ];
+	}
 
-		if(count($VarsToDefine)) {
-			if($this->File->AddFixableError(static::FixReason,$this->StackPtr,'UndefVarUseMyDude')) {
+	protected function
+	FindStructsThatMightContainMisuse(Int $Start, Int $Stop):
+	?Int {
 
-				$Code = '';
-				foreach($VarsToDefine as $Current => $Default) {
-					$Code .= "{$Current} = {$Default};{$this->File->eolChar}{$Indent}";
-				}
-				$Code .= $this->File->eolChar.$Indent;
+		return $this->File->FindNext(
+			[ T_FOR, T_FOREACH, T_WHILE, T_IF ],
+			$Start, $Stop
+		) ?: NULL;
+	}
 
-				$this->File->fixer->addContentBefore($InsertPtr,$Code);
-			}
-		}
+	protected function
+	FindVariables(Int $Start, Int $Stop):
+	?Int {
 
+		return $this->File->FindNext(
+			[ T_VARIABLE ],
+			$Start ,$Stop
+		) ?: NULL;
+	}
 
-		return;
+	protected function
+	FindSpecificVariable(Int $Start, Int $Stop,$Which):
+	?Int {
+
+		return $this->File->FindNext(
+			[ T_VARIABLE ],
+			$Start, $Stop, FALSE, $Which
+		) ?: NULL;
+	}
+
+	protected function
+	FindInsertionPoint(Int $Start, Int $Stop):
+	?Int {
+
+		return $this->File->FindNext(
+			[T_WHITESPACE],
+			$Start, $Stop, TRUE
+		) ?: NULL;
 	}
 
 }
