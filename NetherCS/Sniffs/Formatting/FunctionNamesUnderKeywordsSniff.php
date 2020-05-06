@@ -5,11 +5,14 @@ namespace NetherCS\Sniffs\Formatting;
 use \NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
-class ClassMethodsDefinedUnderKeywordsSniff
-extends NetherCS\Sniffers\ScopeClassMethod {
+class FunctionNamesUnderKeywordsSniff
+extends NetherCS\SniffGenericTemplate {
+
+	protected
+	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Class Methods must be defined under their keywords (%s)';
+	FixReason = 'NN: Method/Function names must be defined under their keywords (%s)';
 
 	public function
 	Execute():

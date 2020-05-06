@@ -192,7 +192,8 @@ extends StdClass {
 
 }
 
-function WhyIsThereFunctionOutHere():
+function
+WhyIsThereFunctionOutHere():
 String {
 
 	return 'whatever';
