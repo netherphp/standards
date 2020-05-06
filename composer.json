@@ -1,5 +1,9 @@
 {
-    "require": {
-        "squizlabs/php_codesniffer": "^3.5"
-    }
+	"require": {
+		"squizlabs/php_codesniffer": "^3.5"
+	},
+	"bin": [
+		"bin/nethercs",
+		"bin/nethercbf"
+	]
 }
