@@ -41,7 +41,7 @@ trait SniffUtility {
 	GetCurrentIndent($Ptr=NULL):
 	?String {
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 		$Start = $Ptr;
 		$Type = '';
 		$Whitespace = NULL;
@@ -69,7 +69,7 @@ trait SniffUtility {
 	GetContentFromStack($Ptr=NULL):
 	?String {
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 
 		if(!$Ptr)
 		return NULL;
@@ -86,7 +86,7 @@ trait SniffUtility {
 		// turns out not all the types are ints as phpcs
 		// made a few up to fill in gaps. wtb mixed returns.
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 
 		if(!array_key_exists($Ptr,$this->Stack))
 		return NULL;
@@ -98,7 +98,7 @@ trait SniffUtility {
 	GetLineFromStack($Ptr=NULL):
 	?Int {
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 
 		if(!array_key_exists($Ptr,$this->Stack))
 		return NULL;
@@ -110,7 +110,7 @@ trait SniffUtility {
 	GetTypeStringFromStack($Ptr=NULL):
 	?String {
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 
 		if(!array_key_exists($Ptr,$this->Stack))
 		return NULL;
@@ -122,7 +122,7 @@ trait SniffUtility {
 	GetFunctionNamePtr($Ptr=NULL):
 	?Int {
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 		$NamePtr = $this->File->findNext([T_STRING,T_OPEN_CURLY_BRACKET,T_SEMICOLON],$Ptr,NULL);
 
 		if($this->GetTypeFromStack($NamePtr) !== T_STRING)
@@ -135,7 +135,7 @@ trait SniffUtility {
 	BumpMetric(String $MetricName,String $MetricValue, Int $Ptr=NULL):
 	Void {
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 
 		($this->File)
 		->RecordMetric(
@@ -154,7 +154,7 @@ trait SniffUtility {
 	SubmitFix(String $Reason, String $Old, String $New, Int $Ptr=NULL):
 	Void {
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 		$Fix = NULL;
 
 		$Fix = $this->File->AddFixableError(
@@ -189,7 +189,7 @@ trait SniffUtility {
 	SubmitFixSilent(String $New, Int $Ptr=NULL):
 	Void {
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 		$Fix = $this->File->fixer->enabled;
 
 		if($Fix === TRUE) {
@@ -214,8 +214,8 @@ trait SniffUtility {
 	second.
 	//*/
 
-		$ReportPtr ??= $this->StackPtr;
-		$FixPtr ??= $ReportPtr;
+		$ReportPtr = $ReportPtr ?? $this->StackPtr;
+		$FixPtr = $FixPtr ?? $ReportPtr;
 
 		if($this->FixBegin($Reason,$ReportPtr))
 		$this->FixReplace($Content,$FixPtr);
@@ -232,7 +232,7 @@ trait SniffUtility {
 	the error occured on to make the report more readable.
 	//*/
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 
 		$Result = $this->File->addFixableError(
 			$Reason,
@@ -251,7 +251,7 @@ trait SniffUtility {
 	this after a successful call to FixBegin.
 	//*/
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 
 		($this->File->fixer)
 		->addContentBefore($Ptr,$Content);
@@ -267,7 +267,7 @@ trait SniffUtility {
 	this after a successful call to FixBegin.
 	//*/
 
-		$Ptr ??= $this->StackPtr;
+		$Ptr = $Ptr ?? $this->StackPtr;
 
 		($this->File->fixer)
 		->replaceToken($Ptr,$Content);
