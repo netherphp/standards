@@ -26,6 +26,8 @@ whatever, they should be delcared before doing them.
 		$Insert = $this->SearchForVarsToInsert();
 		$Indent = NULL;
 		$First = FALSE;
+		$Current = NULL;
+		$VarPtr = NULL;
 
 		if(!$Insert['Ptr'] || !count($Insert['Vars']))
 		return;
