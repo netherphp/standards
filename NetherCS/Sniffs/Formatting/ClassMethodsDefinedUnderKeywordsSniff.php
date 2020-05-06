@@ -9,33 +9,26 @@ class ClassMethodsDefinedUnderKeywordsSniff
 extends NetherCS\Sniffers\ScopeClassMethod {
 
 	const
-	FixReason       = 'NN: Class Methods must be defined under their keywords',
-	MetricName      = 'Methods Defined Under Keywords',
-	ResultIncorrect = 'Incorrect',
-	ResultProper    = 'Proper';
+	FixReason = 'NN: Class Methods must be defined under their keywords (%s)';
 
 	public function
 	Execute():
 	Void {
 
-		$StackPtr = $this->StackPtr;
-		$Whitespace = $this->GetContentFromStack($StackPtr+1);
-		$Indent = NULL;
+		$Indent = $this->GetCurrentIndent($this->StackPtr);
+		$NamePtr = $this->GetFunctionNamePtr($this->StackPtr);
 
-		if(trim($Whitespace," \r") !== "\n") {
-			$Indent = $this->GetCurrentIndent($StackPtr);
+		// we found an lambda.
+		if(!$NamePtr)
+		return;
 
-			$this->BumpMetric(static::MetricName,static::ResultIncorrect);
-			$this->SubmitFix(
-				sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($StackPtr)),
-				$Whitespace,
-				"\n{$Indent}",
-				($StackPtr+1)
-			);
-		}
+		if($this->GetLineFromStack($this->StackPtr) === $this->GetLineFromStack($NamePtr))
+		$this->Fix(
+			sprintf(static::FixReason,$this->GetContentFromStack($NamePtr)),
+			"{$this->GetEOL()}{$Indent}",
+			($this->StackPtr+1)
+		);
 
-		$this->BumpMetric(static::MetricName,static::ResultProper);
 		return;
 	}
-
 }

@@ -31,6 +31,13 @@ trait SniffUtility {
 	////////////////////////////////////////////////////////////////
 
 	protected function
+	GetEOL():
+	String {
+
+		return $this->File->eolChar;
+	}
+
+	protected function
 	GetCurrentIndent($Ptr=NULL):
 	?String {
 
@@ -112,6 +119,19 @@ trait SniffUtility {
 	}
 
 	protected function
+	GetFunctionNamePtr($Ptr=NULL):
+	?Int {
+
+		$Ptr ??= $this->StackPtr;
+		$NamePtr = $this->File->findNext([T_STRING,T_OPEN_CURLY_BRACKET,T_SEMICOLON],$Ptr,NULL);
+
+		if($this->GetTypeFromStack($NamePtr) !== T_STRING)
+		return NULL;
+
+		return $NamePtr;
+	}
+
+	protected function
 	BumpMetric(String $MetricName,String $MetricValue, Int $Ptr=NULL):
 	Void {
 
@@ -182,6 +202,26 @@ trait SniffUtility {
 
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
+
+	protected function
+	Fix(String $Reason, String $Content, Int $ReportPtr=NULL, Int $FixPtr=NULL):
+	Void {
+	/*//
+	push a single simple fix into the source without having to manually do a
+	call to FixBegin and FixReplace. if one stack ptr is given then it will
+	report and replace at that ptr. if two stack ptrs are given then it will
+	report the problem as being at the first one, but submit the fix at the
+	second.
+	//*/
+
+		$ReportPtr ??= $this->StackPtr;
+		$FixPtr ??= $ReportPtr;
+
+		if($this->FixBegin($Reason,$ReportPtr))
+		$this->FixReplace($Content,$FixPtr);
+
+		return;
+	}
 
 	protected function
 	FixBegin(String $Reason, Int $Ptr=NULL):
