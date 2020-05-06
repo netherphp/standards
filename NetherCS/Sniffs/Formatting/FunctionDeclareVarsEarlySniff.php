@@ -23,10 +23,8 @@ extends NetherCS\SniffGenericTemplate {
 	whatever, they should be delcared before doing them.
 	//*/
 
-		$this->SubmitFix(static::FixReason,'function','function'.chr(10));
-		return;
 
-		$Indent = $this->GetCurrentIndent();
+		$Indent = NULL;
 		$StackPtr = $this->StackPtr;
 		$VarsToDefine = [];
 		$Current = NULL;
@@ -39,6 +37,7 @@ extends NetherCS\SniffGenericTemplate {
 		$EndPtr     = NULL; // the end of the control conditions
 		$VarPtr     = NULL; // the variable in a control conditoin
 		$VarSeekPtr = NULL; // the variable if defined prior to a control condition
+		$InsertPtr  = NULL;
 
 		$Find = function($Start,$Stop) {
 			return $this->File->FindNext(
@@ -56,6 +55,8 @@ extends NetherCS\SniffGenericTemplate {
 		$ClosePtr = $this->Stack[$StackPtr]['scope_closer'];
 		$StackPtr = $OpenPtr;
 		$StructPtr = $Find($OpenPtr,$ClosePtr);
+		$InsertPtr = $this->File->FindNext([T_WHITESPACE],($OpenPtr+1),$ClosePtr,TRUE);
+		$Indent = $this->GetCurrentIndent($InsertPtr);
 
 		// quit if we found a function that apparently does not do much.
 
@@ -89,19 +90,29 @@ extends NetherCS\SniffGenericTemplate {
 				// then add it to the list of vars to define after. start from
 				// the function pointer to catch any args or use.
 
-				$VarSeekPtr = $this->File->FindPrevious(
+				$VarSeekPtr = $this->File->FindNext(
 					[T_VARIABLE],
 					$this->StackPtr,
-					($VarPtr - 1)
+					($VarPtr - 1),
+					FALSE,
+					$Current
 				);
 
-				if(!$VarSeekPtr && !array_key_exists($Current,$VarsToDefine)) {
+				fwrite(STDERR,"search for {$Current} = {$VarSeekPtr}\n");
+
+				if($VarSeekPtr) {
+					$BeginPtr = $VarPtr + 1;
+					continue;
+				}
+
+				if(!array_key_exists($Current,$VarsToDefine)) {
 					// todo - see how fancy we can get detecting what it was assigned
 					// to so that the define define can be the same type. that is why
 					// we keyed it and set null here so that it can be a different value
 					// later.
 					$VarsToDefine[$Current] = 'NULL';
 				}
+
 
 				$BeginPtr = $VarPtr + 1;
 			}
@@ -111,11 +122,19 @@ extends NetherCS\SniffGenericTemplate {
 
 		// write the code for the variables we were missing.
 
-		//foreach($VarsToDefine as $Current => $Default) {
+		if(count($VarsToDefine)) {
+			if($this->File->AddFixableError(static::FixReason,$this->StackPtr,'UndefVarUseMyDude')) {
 
+				$Code = '';
+				foreach($VarsToDefine as $Current => $Default) {
+					$Code .= "{$Current} = {$Default};{$this->File->eolChar}{$Indent}";
+				}
+				$Code .= $this->File->eolChar.$Indent;
 
-			//break;
-		//}
+				$this->File->fixer->addContentBefore($InsertPtr,$Code);
+			}
+		}
+
 
 		return;
 	}

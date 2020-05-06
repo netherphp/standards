@@ -1,22 +1,32 @@
 <?php
 
-class poorlyFormattedClass extends StdClass {
+class PoorlyFormattedClass
+extends StdClass {
 
-	var $superOldProperty = 'old';
+	var
+	$SuperOldProperty = 'old';
 
-	public $uglyProperty = 9;
+	public
+	$UglyProperty = 9;
 
-	protected $ProtInlineProp1 = 2, $ProtInlineProp2;
+	protected
+	$ProtInlineProp1 = 2,
+	$ProtInlineProp2;
 
-	private $PrivInlineProp1,$PrivInlineProp2 = 7;
+	private
+	$PrivInlineProp1,
+	$PrivInlineProp2 = 7;
 
 	static protected
-	$staticProperty,
-	$anotherStatic;
+	$StaticProperty,
+	$AnotherStatic;
 
-	const SAME_LINE_CONSTS = 'one';
+	const
+	SameLineConsts = 'one';
 
-	const sameLineConst2 = 'two', SameLineConst3 = 'three';
+	const
+	SameLineConst2 = 'two',
+	SameLineConst3 = 'three';
 
 	const
 	ArrayConstsTho = [ T_WHITESPACE, T_CONST ];
@@ -47,35 +57,39 @@ class poorlyFormattedClass extends StdClass {
 		T_EMPTY
 	];
 
-	function malformedMethod(string $input, bool $yeah_ok): void {
-
-		$uglyVariable = true;
-		$uglyVariable = Null;
-
-		$uglyVariable = str_replace('a','b','c');
-
-		$this->malformedMethod_reducedConcern();
-		static::malformedStaticMethod();
-
-		echo static::SAME_LINE_CONSTS;
-
-	}
-
 	public function
-	malformedMethod_reducedConcern():Void {
+	MalformedMethod(String $Input, Bool $YeahOk):
+	Void {
 
-		$this->GetSomeArray();
-		$this->uglyProperty = 8;
+		$UglyVariable = TRUE;
+		$UglyVariable = NULL;
 
-		static::$staticProperty = 7;
-		self::$staticProperty = 6;
-		$this::$staticProperty = 5;
+		$UglyVariable = str_replace('a','b','c');
+
+		$this->MalformedMethod_ReducedConcern();
+		static::MalformedStaticMethod();
+
+		echo static::SameLineConsts;
 
 		return;
 	}
 
 	public function
-	malformedStaticMethod():
+	MalformedMethod_ReducedConcern():
+	Void {
+
+		$this->GetSomeArray();
+		$this->UglyProperty = 8;
+
+		static::$StaticProperty = 7;
+		self::$StaticProperty = 6;
+		$this::$StaticProperty = 5;
+
+		return;
+	}
+
+	public function
+	MalformedStaticMethod():
 	Void {
 
 		return;
@@ -85,6 +99,11 @@ class poorlyFormattedClass extends StdClass {
 	MethodUsingVarsWithoutDeclaringThem(Int $NotThisOneTho):
 	Void {
 
+		$Iter = NULL;
+		$Item = NULL;
+		$Row = NULL;
+		$Cond = NULL;
+		
 		for($Iter = 0; $Iter < 10; $Iter++) {
 
 		}
@@ -109,34 +128,38 @@ class poorlyFormattedClass extends StdClass {
 
 	public function
 	SomeEmptyMethod():
-	Void { }
+	Void {
+		return;
+	}
 
 	public function
 	AnotherEmptyMethod():
-	Void {}
+	Void {
+		return;
+	}
 
 	public function
 	ThirdEmptyMethod():
 	Void {
+		return;
 	}
 
 	public function
-	MethodWithMalformedNullableDefaultType(?string $String):
+	MethodWithMalformedNullableDefaultType(?String $String):
 	Void {
 
 		return;
 	}
 
 	public function
-	MethodWithBracesUnderneath()
-	{
+	MethodWithBracesUnderneath() {
 
 		return;
 	}
 
 	public function
-	MethodWithBracesUnderneathTyped(): Int
-	{
+	MethodWithBracesUnderneathTyped():
+	Int {
 
 		return 1;
 	}
@@ -145,7 +168,7 @@ class poorlyFormattedClass extends StdClass {
 	GetSomeArray():
 	Array {
 
-		$Array = array();
+		$Array = [];
 
 		return $Array;
 	}
@@ -169,7 +192,8 @@ class poorlyFormattedClass extends StdClass {
 
 }
 
-function whyIsThereFunctionOutHere(): string {
+function WhyIsThereFunctionOutHere():
+String {
 
 	return 'whatever';
 }
