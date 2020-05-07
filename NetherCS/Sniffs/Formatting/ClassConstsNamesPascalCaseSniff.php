@@ -8,8 +8,7 @@ class ClassConstsNamesPascalCaseSniff
 extends NetherCS\Sniffers\ScopeClassConsts {
 
 	const
-	FixReason = 'NN: Class Consts must be PascalCase',
-	FixUpdate = 'NN: Update internal use of altered Consts';
+	FixReason = 'NN: Class Consts must be PascalCase (%s)';
 
 	public function
 	Execute():
@@ -21,17 +20,12 @@ extends NetherCS\Sniffers\ScopeClassConsts {
 		$Expected = static::ConvertToPascalCase($Current);
 
 		if($Current !== $Expected) {
-			$this->TransactionBegin();
-
-			$this->SubmitFixAndShow(
-				static::FixReason,
-				$Current,
-				$Expected,
-				$this->StackPtr
-			);
-
-			$this->UpdateFoundUses($Current,$Expected);
-			$this->TransactionCommit();
+			if($this->FixBegin(sprintf(static::FixReason,$Current),$StackPtr)) {
+				$this->TransactionBegin();
+				$this->FixReplace($Expected,$StackPtr);
+				$this->UpdateFoundUses($Current,$Expected);
+				$this->TransactionCommit();
+			}
 		}
 
 		return;
@@ -71,9 +65,7 @@ extends NetherCS\Sniffers\ScopeClassConsts {
 				$Property = $this->GetContentFromStack($After);
 
 				if($Property === $Current)
-				$this->SubmitFixAndShow(
-					static::FixUpdate,
-					$Current,
+				$this->FixReplace(
 					$Expected,
 					$After
 				);

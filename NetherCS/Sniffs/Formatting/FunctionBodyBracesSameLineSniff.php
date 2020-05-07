@@ -21,6 +21,7 @@ extends NetherCS\SniffGenericTemplate {
 		$EndPtr = NULL;
 		$ReturnPtr = NULL;
 		$Seek = NULL;
+		$FuncName = $this->File->GetDeclarationName($this->StackPtr);
 
 		$EndPtr = $this->File->FindNext([T_OPEN_CURLY_BRACKET,T_SEMICOLON],($StackPtr+1),NULL);
 
@@ -42,28 +43,29 @@ extends NetherCS\SniffGenericTemplate {
 		// are we on the same line?
 
 		if($this->GetLineFromStack($ReturnPtr) !== $this->GetLineFromStack($EndPtr)) {
-			$this->FixBegin(sprintf(static::FixReason,$this->File->GetDeclarationName($this->StackPtr)));
-			$this->TransactionBegin();
+			if($this->FixBegin(sprintf(static::FixReason,$FuncName))) {
+				$this->TransactionBegin();
 
-			$StackPtr = $ReturnPtr;
-			while($StackPtr < $EndPtr && ($Seek = $this->GetTypeFromStack($StackPtr))) {
-				if($Seek === T_WHITESPACE) {
-					$Whitespace = $this->GetContentFromStack($StackPtr);
+				$StackPtr = $ReturnPtr;
+				while($StackPtr < $EndPtr && ($Seek = $this->GetTypeFromStack($StackPtr))) {
+					if($Seek === T_WHITESPACE) {
+						$Whitespace = $this->GetContentFromStack($StackPtr);
 
-					// replace whitespace with newline with a single space. any other whitespace
-					// will be made of up spaces or tabs shall be nullified.
+						// replace whitespace with newline with a single space. any other whitespace
+						// will be made of up spaces or tabs shall be nullified.
 
-					if(strpos($Whitespace,"\n") !== FALSE)
-					$this->FixReplace(' ',$StackPtr);
+						if(strpos($Whitespace,"\n") !== FALSE)
+						$this->FixReplace(' ',$StackPtr);
 
-					else
-					$this->FixReplace('',$StackPtr);
+						else
+						$this->FixReplace('',$StackPtr);
+					}
+
+					$StackPtr++;
 				}
 
-				$StackPtr++;
+				$this->TransactionCommit();
 			}
-
-			$this->TransactionCommit();
 		}
 
 		return;
