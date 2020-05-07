@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ruleset>
 	<rule ref="NetherCS" />
-	<file>ExampleUnstandard</file>
+	<file>TestCode</file>
 	<arg name="extensions" value="php" />
 	<arg phpcbf-only="true" name="suffix" value=".fixed.php" />
 </ruleset>

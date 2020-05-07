@@ -11,8 +11,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function open brace must be on the same line',
-	FixUpdate = 'NN: Cleaning up extra spacing when fixing open brace line';
+	FixReason = 'NN: Method/Function open brace must be on the same line (%s)';
 
 	public function
 	Execute():
@@ -21,7 +20,6 @@ extends NetherCS\SniffGenericTemplate {
 		$StackPtr = $this->StackPtr;
 		$EndPtr = NULL;
 		$ReturnPtr = NULL;
-		$WhiteSpace = NULL;
 		$Seek = NULL;
 
 		$EndPtr = $this->File->FindNext([T_OPEN_CURLY_BRACKET,T_SEMICOLON],($StackPtr+1),NULL);
@@ -44,6 +42,7 @@ extends NetherCS\SniffGenericTemplate {
 		// are we on the same line?
 
 		if($this->GetLineFromStack($ReturnPtr) !== $this->GetLineFromStack($EndPtr)) {
+			$this->FixBegin(sprintf(static::FixReason,$this->File->GetDeclarationName($this->StackPtr)));
 			$this->TransactionBegin();
 
 			$StackPtr = $ReturnPtr;
@@ -51,22 +50,14 @@ extends NetherCS\SniffGenericTemplate {
 				if($Seek === T_WHITESPACE) {
 					$Whitespace = $this->GetContentFromStack($StackPtr);
 
-					// replace the newline with a single space.
-					if(strpos($Whitespace,"\n") !== FALSE) {
-						$this->SubmitFix(
-							sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
-							$Whitespace,
-							' ',
-							$StackPtr
-						);
-					}
+					// replace whitespace with newline with a single space. any other whitespace
+					// will be made of up spaces or tabs shall be nullified.
 
-					// replace any other whitespaces in the way with nothingness.
+					if(strpos($Whitespace,"\n") !== FALSE)
+					$this->FixReplace(' ',$StackPtr);
 
-					else {
-						$this->SubmitFixAndShow(static::FixUpdate,$Whitespace,'',$StackPtr);
-					}
-
+					else
+					$this->FixReplace('',$StackPtr);
 				}
 
 				$StackPtr++;
