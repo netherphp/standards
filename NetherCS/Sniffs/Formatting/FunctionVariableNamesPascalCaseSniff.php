@@ -11,7 +11,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function scope vars must be PascalCase';
+	FixReason = 'NN: Method/Function scope vars must be PascalCase (%s)';
 
 	public function
 	Execute():
@@ -58,14 +58,20 @@ extends NetherCS\SniffGenericTemplate {
 				}
 
 				$Current = $this->GetContentFromStack($StackPtr);
+
+				// don't rewrite variable names that are all uppercase to allow you
+				// to have things like $SQL if you so wish.
+				if(!preg_match('/^\$[^A-Z]+/',$Current)) {
+					$StackPtr++;
+					continue;
+				}
+
 				$Expected = NetherCS\SniffGenericTemplate::ConvertVariableToPascalCase($Current);
 
 				if($Current !== $Expected)
-				$this->SubmitFixAndShow(
-					static::FixReason,
-					$Current,
-					$Expected,
-					$StackPtr
+				$this->Fix(
+					sprintf(static::FixReason,$Current),
+					$Expected, $StackPtr
 				);
 			}
 
