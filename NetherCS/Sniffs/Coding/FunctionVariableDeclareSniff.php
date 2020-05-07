@@ -1,6 +1,6 @@
 <?php
 
-namespace NetherCS\Sniffs\Formatting;
+namespace NetherCS\Sniffs\Coding;
 
 use \NetherCS;
 
