@@ -4,7 +4,7 @@ namespace NetherCS\Sniffs\Formatting;
 
 use \NetherCS;
 
-class FunctionDeclareVarsEarlySniff
+class FunctionVariableDeclareSniff
 extends NetherCS\SniffGenericTemplate {
 /*//
 so the goal here is to find all variables which are invented in the
