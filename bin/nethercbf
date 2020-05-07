@@ -1,24 +1,33 @@
 #!/usr/bin/env php
 <?php
 
-if(!array_key_exists('argv',$_SERVER))
-return;
+$PathCS = sprintf('%s%s%s',dirname(__FILE__,2),DIRECTORY_SEPARATOR,'NetherCS');
+$PathBin = 'vendor/squizlabs/php_codesniffer/bin/phpcbf';
+$_SERVER['argv'][] = "--standard={$PathCS}";
 
-$PathCS = sprintf(
-	'%s%s%s',
-	dirname(__FILE__,2),
-	DIRECTORY_SEPARATOR,
-	'NetherCS'
-);
+////////
 
-$Command = sprintf(
-	'phpcs --standard=%s %s',
-	$PathCS,
-	join(' ',array_map(
-		'escapeshellarg',
-		$_SERVER['argv']
-	))
-);
+$Argv = NULL;
+$Argi = 0;
+$Overwrite = FALSE;
+$Suffix = NULL;
 
-//echo $Command, PHP_EOL;
-system($Command);
+foreach($_SERVER['argv'] as $Argi => $Argv) {
+	if($Argv === '--overwrite') {
+		$Overwrite = TRUE;
+		unset($_SERVER['argv'][$Argi]);
+	}
+
+	elseif(strpos($Argv,'--suffix') !== FALSE) {
+		$Suffix = $Argi;
+	}
+}
+
+if(!$Overwrite) {
+	if($Suffix === NULL)
+	$_SERVER['argv'][] = '--suffix=.nethercs';
+}
+
+////////
+
+(function($Bin){ require($Bin); })($PathBin);
