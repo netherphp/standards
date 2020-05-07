@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 if(!array_key_exists('argv',$_SERVER))
