@@ -1,6 +1,7 @@
 <?php
 
-interface poorlyFormattedInterface {
+interface poorlyFormattedInterface
+{
 
 	public function DoSomething(): Float;
 
