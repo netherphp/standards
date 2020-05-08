@@ -24,6 +24,7 @@ extends NetherCS\SniffGenericTemplate {
 		$Indent = $this->GetCurrentIndent();
 		$Before = NULL;
 		$Whitespace = NULL;
+		$FuncName = $this->GetDeclarationName($this->StackPtr);
 
 		// fast foward to the end of the definition.
 		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET && $Seek !== T_SEMICOLON) {
@@ -62,7 +63,7 @@ extends NetherCS\SniffGenericTemplate {
 
 		if($Before === T_COLON) {
 			$this->SubmitFix(
-				sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
+				sprintf('%s (%s)',static::FixReason,$FuncName),
 				':',
 				":\n{$Indent}",
 				($ReturnPtr-1)
@@ -75,7 +76,7 @@ extends NetherCS\SniffGenericTemplate {
 			// it is on the same line.
 			if($this->GetLineFromStack($NamePtr) === $this->GetLineFromStack($ReturnPtr))
 			$this->SubmitFix(
-				sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
+				sprintf('%s (%s)',static::FixReason,$FuncName),
 				$Whitespace,
 				"\n{$Indent}",
 				($ReturnPtr-1)
@@ -84,7 +85,7 @@ extends NetherCS\SniffGenericTemplate {
 			// it is on the next line but the indent looks fucked.
 			elseif($Whitespace !== $Indent && $Whitespace !== "\n") {
 				$this->SubmitFix(
-					sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
+					sprintf('%s (%s)',static::FixReason,$FuncName),
 					$Whitespace,
 					"{$Indent}",
 					($ReturnPtr-1)

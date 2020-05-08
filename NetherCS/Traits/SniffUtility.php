@@ -119,7 +119,42 @@ trait SniffUtility {
 	}
 
 	protected function
-	GetFunctionNamePtr($Ptr=NULL):
+	GetCurrentScope($Ptr=NULL):
+	?Int {
+
+		$Ptr = $Ptr ?? $this->StackPtr;
+		$Result = NULL;
+
+		if(!array_key_exists('conditions',$this->Stack[$Ptr]))
+		return NULL;
+
+		if(!count($this->Stack[$Ptr]['conditions']))
+		return NULL;
+
+		$Result = array_keys(array_reverse(
+			$this->Stack[$Ptr]['conditions'],
+			TRUE
+		))[0];
+
+		return $Result;
+	}
+
+	protected function
+	GetDeclarationName($Ptr=NULL):
+	String {
+	/*//
+	use phpcs's declaration finder but return a default if not found due
+	to using this on various anonymous structures.
+	//*/
+
+		return (
+			$this->File->GetDeclarationName($this->StackPtr)
+			?? "λ:{$this->GetLineFromStack($this->StackPtr)}"
+		);
+	}
+
+	protected function
+	GetDeclarationNamePtr($Ptr=NULL):
 	?Int {
 
 		$Ptr = $Ptr ?? $this->StackPtr;

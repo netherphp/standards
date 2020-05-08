@@ -14,20 +14,23 @@ whatever, they should be delcared before doing them.
 //*/
 
 	const
-	FixReason = 'NN: Variable used without prior declaration (%s)';
+	FixReason = 'NN: Variable used without prior declaration (%s:%s)';
 
 	protected
-	$TokenTypes = [ T_FUNCTION ];
+	$TokenTypes = [ T_FUNCTION, T_CLOSURE ];
 
 	public function
 	Execute():
 	Void {
 
 		$Insert = $this->SearchForVarsToInsert();
+		$FuncName = $this->GetDeclarationName();
 		$Indent = NULL;
 		$First = FALSE;
 		$Current = NULL;
 		$VarPtr = NULL;
+
+		//var_dump($this->Stack[$this->StackPtr]);
 
 		if(!$Insert['Ptr'] || !count($Insert['Vars']))
 		return;
@@ -36,7 +39,7 @@ whatever, they should be delcared before doing them.
 
 		$this->TransactionBegin();
 		foreach(array_reverse($Insert['Vars']) as $Current => $VarPtr) {
-			if($this->FixBegin(sprintf(static::FixReason,$Current),$VarPtr)) {
+			if($this->FixBegin(sprintf(static::FixReason,$FuncName,$Current),$VarPtr)) {
 
 				// insert another line before the first one.
 				if(!$First && ($First = !$First))
@@ -71,7 +74,7 @@ whatever, they should be delcared before doing them.
 		// quit if we found an abstract method.
 
 		if(!array_key_exists('scope_opener',$this->Stack[$StackPtr]))
-		goto FindMisusedVariablesEnd;
+		goto TheEnd;
 
 		$OpenPtr = $this->Stack[$StackPtr]['scope_opener'];
 		$ClosePtr = $this->Stack[$StackPtr]['scope_closer'];
@@ -81,7 +84,7 @@ whatever, they should be delcared before doing them.
 		// quit if we found a function that apparently does not do much.
 
 		if(!$StructPtr)
-		goto FindMisusedVariablesEnd;
+		goto TheEnd;
 
 		// now go through the code looking for the vars.
 
@@ -89,7 +92,7 @@ whatever, they should be delcared before doing them.
 
 		while($StructPtr = $this->FindStructsThatMightContainMisuse($StackPtr, $ClosePtr)) {
 			if(!array_key_exists('parenthesis_opener',$this->Stack[$StructPtr]))
-			goto FindMisusedVariablesTryNextStruct;
+			goto TryNextStruct;
 
 			$BeginPtr = $this->Stack[$StructPtr]['parenthesis_opener'];
 			$EndPtr = $this->Stack[$StructPtr]['parenthesis_closer'];
@@ -99,29 +102,36 @@ whatever, they should be delcared before doing them.
 
 				// don't try to create $this
 				if($Current === '$this')
-				goto FindMisusedVariablesTryNextVar;
+				goto TryNextVar;
 
 				// don't try to create static variables.
 				if($this->IsStaticReference($VarPtr))
-				goto FindMisusedVariablesTryNextVar;
+				goto TryNextVar;
 
 				// look to see if the var was defined prior to now.
 				if($this->FindSpecificVariable($this->StackPtr, ($VarPtr-1), $Current))
-				goto FindMisusedVariablesTryNextVar;
+				goto TryNextVar;
+
+				// make sure this variable is actually still in the same scope.
+				// we don't want to catch variables in callables to define them outside
+				// of the callable.
+
+				if($this->GetCurrentScope($VarPtr) !== $this->StackPtr)
+				goto TryNextVar;
 
 				// report this variable as needing defined.
 				if(!array_key_exists($Current, $VarsToDefine))
 				$VarsToDefine[$Current] = $VarPtr;
 
-				FindMisusedVariablesTryNextVar:
+				TryNextVar:
 				$BeginPtr = $VarPtr + 1;
 			}
 
-			FindMisusedVariablesTryNextStruct:
+			TryNextStruct:
 			$StackPtr = $StructPtr + 1;
 		}
 
-		FindMisusedVariablesEnd:
+		TheEnd:
 		return [ 'Ptr' => $InsertPtr, 'Vars' => $VarsToDefine ];
 	}
 
@@ -159,10 +169,12 @@ whatever, they should be delcared before doing them.
 	FindInsertionPoint(Int $Start, Int $Stop):
 	?Int {
 
-		return $this->File->FindNext(
-			[T_WHITESPACE],
+		$Ptr = $this->File->FindNext(
+			[T_WHITESPACE,T_COMMENT],
 			$Start, $Stop, TRUE
-		) ?: NULL;
+		);
+
+		return $Ptr ?: NULL;
 	}
 
 	protected function

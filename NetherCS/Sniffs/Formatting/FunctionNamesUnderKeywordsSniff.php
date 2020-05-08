@@ -19,7 +19,7 @@ extends NetherCS\SniffGenericTemplate {
 	Void {
 
 		$Indent = $this->GetCurrentIndent($this->StackPtr);
-		$NamePtr = $this->GetFunctionNamePtr($this->StackPtr);
+		$NamePtr = $this->GetDeclarationNamePtr($this->StackPtr);
 
 		// we found an lambda.
 		if(!$NamePtr)
