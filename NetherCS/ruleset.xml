@@ -11,24 +11,28 @@
 		</properties>
 	</rule>
 
-	<!-- and now for the main event. -->
+	<!-- formatting rules to write code that is visually correct. -->
 
 	<rule ref="NetherCS.Formatting.ConstantsBoolNullAllCaps" />
 	<rule ref="NetherCS.Formatting.ClassNamesPascalCase" />
 	<rule ref="NetherCS.Formatting.ClassExtensionsUnderName" />
+	<rule ref="NetherCS.Formatting.ClassBodyBracesSameLine" />
 	<rule ref="NetherCS.Formatting.ClassConstsNamesPascalCase" />
 	<rule ref="NetherCS.Formatting.ClassConstsDefinedUnderKeywords" />
 	<rule ref="NetherCS.Formatting.ClassPropertiesPascalCase" />
 	<rule ref="NetherCS.Formatting.ClassPropertiesDefinedUnderKeywords" />
-	<rule ref="NetherCS.Formatting.ClassMethodsMustHaveVisiblity" />
 	<rule ref="NetherCS.Formatting.FunctionNamesPascalCase" />
 	<rule ref="NetherCS.Formatting.FunctionNamesUnderKeywords" />
 	<rule ref="NetherCS.Formatting.FunctionArgumentTypesPascalCase" />
 	<rule ref="NetherCS.Formatting.FunctionReturnTypesCasing" />
 	<rule ref="NetherCS.Formatting.FunctionReturnTypesUnderName" />
 	<rule ref="NetherCS.Formatting.FunctionVariableNamesPascalCase" />
-	<rule ref="NetherCS.Formatting.FunctionExplicitReturn" />
 	<rule ref="NetherCS.Formatting.FunctionBodyBracesSameLine" />
-	<rule ref="NetherCS.Formatting.FunctionDeclareVarsEarly" />
+
+	<!-- coding rules to write code that is intellectually correct. -->
+
+	<rule ref="NetherCS.Coding.ClassMethodsMustHaveVisiblity" />
+	<rule ref="NetherCS.Coding.FunctionExplicitReturn" />
+	<rule ref="NetherCS.Coding.FunctionVariableDeclare" />
 
 </ruleset>

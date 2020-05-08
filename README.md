@@ -3,40 +3,22 @@
 > *Located toward the bottom or more distant part of something.*
 > -- Merriam-Webster Dictionary
 
+
 # Nether Standards Project
 
 Known as Nether Notation, NN, N2, or N<sup>2</sup>
 
-This is a project to document the code conventions used by the Nether Project.
-As of the writing of this project there is a 99% chance you have never seen
-code formatted like this before - and that is O.K. - not everything needs to
-be cut with the same rules we used in 1972. These rules will typically depend
-on the flexiblity of PHP, but some of the general formatting may be portable
-to other languges depending on their parsers.
+This is a project to document the code conventions used by the Nether Project. As of the writing of this project there is a 99% chance you have never seen code formatted like this before - and that is O.K. - not everything needs to be cut with the same rules we used in 1972. These rules will typically depend on the flexiblity of PHP, but some of the general formatting may be portable to other languges depending on their parsers.
 
-A lot of the rules here are based on the concept of being explicit. The
-developer will always explictly state their intentions, never allowing for
-default behaviours. This is for a few reasons. First being it shows that the
-developer has actually thought about what their code is doing. Second, it
-helps lessen backwards compatbility issues in the future when a default
-behaviour changes. And yes, it does happen. Finally, the entire format and
-rules are based on the concept that the code can be as self documenting as
-possible to minimise the amount of metadata you need to write to describe
-various entities.
+A lot of the rules here are based on the concept of being explicit. The developer will always explictly state their intentions, never allowing for default behaviours. This is for a few reasons. First being it shows that the developer has actually thought about what their code is doing. Second, it helps lessen backwards compatbility issues in the future when a default behaviour changes. And yes, it does happen. Finally, the entire format and rules are based on the concept that the code can be as self documenting as possible to minimise the amount of metadata needed to describe various entities.
+
 
 ## Automated Formatting
 
-This repository contains a `phpcs` standard for testing and automated
-reformatting of source to fit the standard.
+This repository contains a `phpcs` standard for testing and automated reformatting of source to fit the standard. For instructions on installation and automated testing against this standard please refer to the Wiki page:
 
-> Note: the phpcs rules are currently a WIP. These following instructions
-> are incomplete as this repo has yet to be posted to Packagist.
+https://github.com/netherphp/standards/wiki/Nether-Notation-Coding-Standard-for-PHP_CodeSniffer
 
-* To install the standards into your project.
-* `composer require netherphp/standards`
-
-* To test your project against these standards.
-* `phpcs --standard=vendor/netherphp/standards/NetherCS <dir-or-file>`
 
 ## General Standards
 
@@ -54,21 +36,11 @@ reformatting of source to fit the standard.
 
 ## Inline Documentation.
 
-All symbol documentation is done with Nether Senpai format documentation.
-Unlike typical docblocks, these come after the symbol they define on the
-same indention level. Senpai blocks are opened with /\*// and closed with
-//\*/ - more on the documentation when I finish writing this document
-and start writing that one.
+All symbol documentation is done with Nether Senpai format documentation. Unlike typical docblocks, these come after the symbol they define on the same indention level. Senpai blocks are opened with /\*// and closed with //\*/ - more on the documentation when I finish writing this document and start writing that one.
 
-Nether Senpai generates as much documentation from the code itself before
-noticing the comment that describes it. This reduces the amount of junk
-you need to manually write in the documentation. Taking advantage of
-featured added in PHP 7.0+ 7.1 most code can be completely self document
-itself.
+Nether Senpai generates as much documentation from the code itself before noticing the comment that describes it. This reduces the amount of junk you need to manually write in the documentation. Taking advantage of featured added in PHP 7.0+ 7.1 most code can be completely self document itself.
 
-NN will use Senpai notation until the day PHP has real annotation support
-that is not via the slow Reflection system you do not want to use within
-a production project.
+NN will use Senpai notation until the day PHP has real annotation support that is not via the slow Reflection system you do not want to use within a production project.
 
 This means a typical method will look like this:
 
@@ -117,13 +89,7 @@ class Project {
 
 ## Logical Control Blocks
 
-Statements like IF or WHERE may be written with or without their braces
-that denote the block of code. It is your choice. Nether code prefers
-omitting the braces when the control block is super simple. When omitting the
-braces it is preferred that the code remains on the same indention level
-as the control structure. When braces are included, the opening brace will
-come after the control structure, and the code within indented to the next
-level. Structures with omitted braces will be isolated by empty lines.
+Statements like IF or WHERE may be written with or without their braces that denote the block of code. It is your choice. Nether code prefers omitting the braces when the control block is super simple. When omitting the braces it is preferred that the code remains on the same indention level as the control structure. When braces are included, the opening brace will come after the control structure, and the code within indented to the next level. Structures with omitted braces will be isolated by empty lines.
 
 **A WHILE with omitted braces.**
 
@@ -150,9 +116,7 @@ while($Row = $Query->Next()) {
 
 ## Argument Lists and Array Definitions
 
-If a call to a function or method requires multiple arguments, and that list
-may get lengthy or hard to read, arguments will be defined on new lines on the
-next level of indention.
+If a call to a function or method requires multiple arguments, and that list may get lengthy or hard to read, arguments will be defined on new lines on the next level of indention.
 
 ```php
 <?php
@@ -164,10 +128,7 @@ preg_match(
 );
 ```
 
-The same rules apply when defining an array with data, with the added feature
-that it is preferable to align the delimiters via extra space characters to
-pad the alignment. The alignment should match the longest element in that
-definition.
+The same rules apply when defining an array with data, with the added feature that it is preferable to align the delimiters via extra space characters to pad the alignment. The alignment should match the longest element in that definition.
 
 ```php
 <?php
@@ -179,8 +140,7 @@ $Dataset = [
 ];
 ```
 
-If items in the array are being grouped during their definition it is
-acceptable to have multiple levels of padding unique to each group.
+If items in the array are being grouped during their definition it is acceptable to have multiple levels of padding unique to each group.
 
 ```php
 <?php
@@ -200,10 +160,7 @@ $Dataset = [
 
 ## Strings
 
-If a string DOES NOT require data evaluation then single quotes will be used.
-If a string DOES require data evaluation then double quotes may be used, if the
-resulting string will not cause the line length to get unwieldy. The preferred
-method for building or concatinating long strings is via the `sprintf` function.
+If a string DOES NOT require data evaluation then single quotes will be used. If a string DOES require data evaluation then double quotes may be used, if the resulting string will not cause the line length to get unwieldy. The preferred method for building or concatinating long strings is via the `sprintf` function.
 
 ```php
 <?php
@@ -219,9 +176,7 @@ $PageURL = sprintf(
 );
 ```
 
-Even in simple cases, the overhead of `sprintf` is is preferred for readability
-when indecisive. Both evaluation and `sprintf` is acceptable so it is left to
-the author to determine the best choice based on what the code needs to do.
+Even in simple cases, the overhead of `sprintf` is is preferred for readability when indecisive. Both evaluation and `sprintf` is acceptable so it is left to the author to determine the best choice based on what the code needs to do.
 
 ```php
 <?php
@@ -230,8 +185,7 @@ $String = "User: {$Name}";
 $String = sprintf('User: %s',$Name);
 ```
 
-However, anytime it is needed to do something like call a method to build a string
-then the `sprintf` is the only acceptable choice.
+However, anytime it is needed to do something like call a method to build a string then the `sprintf` is the only acceptable choice.
 
 ```php
 <?php
@@ -242,8 +196,7 @@ $String = sprintf(
 );
 ```
 
-Literal concationation with the dot operator is not considered acceptable in any
-situation.
+Literal concationation with the dot operator is not considered acceptable in any situation.
 
 ```php
 <?php
@@ -253,21 +206,14 @@ $String = 'User: ' . $Name; // no.
 
 ## Files and Class Autoloading
 
-Each class will be in its own file. The fully qualified name of the class
-including the namespace will match the file path on disk. This allows use
-of either PSR-0 or PSR-4 style autoloading. File names are case sensitive
-and should match the namespace and class definition exactly.
+Each class will be in its own file. The fully qualified name of the class including the namespace will match the file path on disk. This allows use of either PSR-0 or PSR-4 style autoloading. File names are case sensitive and should match the namespace and class definition exactly.
 
 * File: Nether/OneScript/Project.php
 * Defines: Nether\OneScript\Project
 
 ## Namespace and Class definitions.
 
-Everything shall be namespaced. Namespace use declarations should be grouped
-with the namespace definition, while Class use declarations should be grouped
-separately a line away. Followed by the class definition provided by the file.
-Classes will be defined in PascalCase. Extension and Implementations will be
-described nether. Opening braces will be on the last line of the definition.
+Everything shall be namespaced. Namespace use declarations should be grouped with the namespace definition, while Class use declarations should be grouped separately a line away. Followed by the class definition provided by the file. Classes will be defined in PascalCase. Extension and Implementations will be described nether. Opening braces will be on the last line of the definition.
 
 ```php
 <?php
@@ -286,9 +232,7 @@ implements SomeInterface {
 }
 ```
 
-It is to be avoided using preceeding backslashes in main executing code
-to demote pulling from the root namespace PHP. Instead it is preferred
-to set up `use` statements accordingly for the access required.
+It is to be avoided using preceeding backslashes in main executing code to demote pulling from the root namespace PHP. Instead it is preferred to set up `use` statements accordingly for the access required.
 
 ```php
 <?php
@@ -297,24 +241,15 @@ namespace MyApp\Subspace;
 use \Nether;
 ```
 
-To provide access to the Nether namespace without having to include the `\`
-each time access a class in the Nether namespace is needed.
+To provide access to the Nether namespace without having to include the `\` each time access a class in the Nether namespace is needed.
 
 ## Method Definitions.
 
-Methods will be defined in PascalCase. The method name itself will be defined
-nether to the access keywords. Opening braces will be after the method identifier.
-Methods will always have an access keyword. If the access keyword was going to be
-omitted, then it will be unomitted with the keyword `public`.
+Methods will be defined in PascalCase. The method name itself will be defined nether to the access keywords. Opening braces will be after the method identifier. Methods will always have an access keyword. If the access keyword was going to be omitted, then it will be unomitted with the keyword `public`.
 
-Methods shall be declared as explicit as possible. Their arguments should have
-their accepted types declared as well as the return type of the method. The
-return type shall be placed nether the method with the opening brace after.
+Methods shall be declared as explicit as possible. Their arguments should have their accepted types declared as well as the return type of the method. The return type shall be placed nether the method with the opening brace after.
 
-Methods which return nothing, as in not an explicit NULL, will have their type
-declared as Void. Void methods and functions will not "just end", they will
-include explicit return when they are done. Nullable Types are encouraged where
-they could make an API more simple to check result against.
+Methods which return nothing, as in not an explicit NULL, will have their type declared as Void. Void methods and functions will not "just end", they will include explicit return when they are done. Nullable Types are encouraged where they could make an API more simple to check result against.
 
 ```php
 <?php
@@ -340,12 +275,7 @@ class Project {
 
 ## Methods with Variable or Optional Arguments
 
-If a method will take a lot of arguments, or has a handful of optional ones,
-it is preferable that instead of a long argument list that that method accept
-an object or array instead. Something like `Nether\Object` can be used to help
-ensure population for optional arguments with enforced defaults. This eliminates
-the constant nagging feeling of having forgot what order the arguments should
-be presented in as long as you can recall what it needs.
+If a method will take a lot of arguments, or has a handful of optional ones, it is preferable that instead of a long argument list that that method accept an object or array instead. Something like `Nether\Object` can be used to help ensure population for optional arguments with enforced defaults. This eliminates the constant nagging feeling of having forgot what order the arguments should be presented in as long as you can recall what it needs.
 
 ```php
 <?php
@@ -377,13 +307,9 @@ class Project {
 
 ## Method Reduction of Concerns
 
-The this naming convention would not be used if the split methods are to be
-reusable by many different processes. This section is mainly for separation
-of concerns where the separated actions are useless on their own.
+The this naming convention would not be used if the split methods are to be reusable by many different processes. This section is mainly for separation of concerns where the separated actions are useless on their own.
 
-To split a long method into smaller units of code, reduced concern methods shall
-be prefixed with the method name they are designed to work with, with the
-descriptive action being separated by a netherscore in the method name.
+To split a long method into smaller units of code, reduced concern methods shall be prefixed with the method name they are designed to work with, with the descriptive action being separated by a netherscore in the method name.
 
 ```php
 <?php
@@ -447,10 +373,7 @@ class Project {
 
 ## Method Chaining
 
-When using chained methods and the line may potentially become unwieldy, then
-each link in the chain will be placed on a new line at the same indention level
-as the symbol the chain originates from. Calls like this will be isolated by
-empty lines above and below them.
+When using chained methods and the line may potentially become unwieldy, then each link in the chain will be placed on a new line at the same indention level as the symbol the chain originates from. Calls like this will be isolated by empty lines above and below them.
 
 ```php
 <?php
@@ -467,22 +390,13 @@ $Query = NULL;
 $Result = $DB->Query($Query,$Input);
 ```
 
-It is preferred that you convey context awareness when chaining. In the above
-example all chained methods return the original object. Chaining should stop
-when the object returned is not the same object. The parens that wrap the first
-line of that query chain convey understanding by the authour of the context of
-this chain. This is the object, the following chain follows.
+It is preferred that you convey context awareness when chaining. In the above example all chained methods return the original object. Chaining should stop when the object returned is not the same object. The parens that wrap the first line of that query chain convey understanding by the authour of the context of this chain. This is the object, the following chain follows.
 
 ## Variable Scope Initialization.
 
-While not required by PHP variables will be declared prior to later use at the
-beginning of their parent scopes - meaning all variables are to be be declared
-at the top of functions and methods and not invented in the middle of logic. If
-their value cannot be detemrined at declaration time, then they should be
-initialized as NULL until then.
+While not required by PHP variables will be declared prior to later use at the beginning of their parent scopes - meaning all variables are to be be declared at the top of functions and methods and not invented in the middle of logic. If their value cannot be detemrined at declaration time, then they should be initialized as NULL until then.
 
-This includes, and even specifically is targeting, any variables that would normally
-be invented on the fly in `for` or `foreach` loops, `catch`, etc.
+This includes, and even specifically is targeting, any variables that would normally be invented on the fly in `for` or `foreach` loops, `catch`, etc.
 
 ```php
 <?php
@@ -509,8 +423,7 @@ class Project {
 
 ## HTML Templating
 
-When working within the scope of an HTML template file, code structures will be
-written using their Alternative Syntax. Short tag echo will not be used.
+When working within the scope of an HTML template file, code structures will be written using their Alternative Syntax. Short tag echo will not be used.
 
 ```php
 <?php if($Stuff): ?>

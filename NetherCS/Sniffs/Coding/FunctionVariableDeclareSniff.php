@@ -1,10 +1,10 @@
 <?php
 
-namespace NetherCS\Sniffs\Formatting;
+namespace NetherCS\Sniffs\Coding;
 
 use \NetherCS;
 
-class FunctionDeclareVarsEarlySniff
+class FunctionVariableDeclareSniff
 extends NetherCS\SniffGenericTemplate {
 /*//
 so the goal here is to find all variables which are invented in the
@@ -14,7 +14,7 @@ whatever, they should be delcared before doing them.
 //*/
 
 	const
-	FixReason = 'NN: Variable used without prior declaration';
+	FixReason = 'NN: Variable used without prior declaration (%s)';
 
 	protected
 	$TokenTypes = [ T_FUNCTION ];
@@ -36,7 +36,7 @@ whatever, they should be delcared before doing them.
 
 		$this->TransactionBegin();
 		foreach(array_reverse($Insert['Vars']) as $Current => $VarPtr) {
-			if($this->FixBegin(sprintf('%s (%s)',static::FixReason,$Current),$VarPtr)) {
+			if($this->FixBegin(sprintf(static::FixReason,$Current),$VarPtr)) {
 
 				// insert another line before the first one.
 				if(!$First && ($First = !$First))

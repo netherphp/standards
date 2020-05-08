@@ -4,14 +4,14 @@ namespace NetherCS\Sniffs\Formatting;
 
 use \NetherCS;
 
-class FunctionBodyBracesSameLineSniff
+class ClassBodyBracesSameLineSniff
 extends NetherCS\SniffGenericTemplate {
 
 	protected
-	$TokenTypes = [ T_FUNCTION ];
+	$TokenTypes = [ T_CLASS, T_INTERFACE, T_TRAIT ];
 
 	const
-	FixReason = 'NN: Method/Function open brace must be on the same line (%s)';
+	FixReason = 'NN: Class/Interface/Trait open brace must be on the same line (%s)';
 
 	public function
 	Execute():
@@ -21,21 +21,18 @@ extends NetherCS\SniffGenericTemplate {
 		$EndPtr = NULL;
 		$ReturnPtr = NULL;
 		$Seek = NULL;
-		$FuncName = $this->File->GetDeclarationName($this->StackPtr);
+		$ClassName = $this->File->GetDeclarationName($StackPtr);
 
-		$EndPtr = $this->File->FindNext([T_OPEN_CURLY_BRACKET,T_SEMICOLON],($StackPtr+1),NULL);
+		// find when the class definition ends.
+
+		$EndPtr = $this->File->FindNext([T_OPEN_CURLY_BRACKET],($StackPtr+1),NULL);
 
 		if(!$EndPtr)
 		return;
 
-		// we found an abstract function.
+		// find the next previous thing that is part of the definition.
 
-		if($this->GetTypeFromStack($EndPtr) === T_SEMICOLON)
-		return;
-
-		// find when this function ends its declaration.
-
-		$ReturnPtr = $this->File->FindPrevious([T_STRING,T_SELF,T_CLOSE_PARENTHESIS],($EndPtr-1),NULL);
+		$ReturnPtr = $this->File->FindPrevious([T_WHITESPACE],($EndPtr-1),NULL,TRUE);
 
 		if(!$ReturnPtr)
 		return;
@@ -43,7 +40,7 @@ extends NetherCS\SniffGenericTemplate {
 		// are we on the same line?
 
 		if($this->GetLineFromStack($ReturnPtr) !== $this->GetLineFromStack($EndPtr)) {
-			if($this->FixBegin(sprintf(static::FixReason,$FuncName))) {
+			if($this->FixBegin(sprintf(static::FixReason,$ClassName))) {
 				$this->TransactionBegin();
 
 				$StackPtr = $ReturnPtr;
