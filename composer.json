@@ -3,6 +3,7 @@
 	"description":"Documentation and PHPCS Standard for Nether Notation",
 	"keywords": [ "phpcs", "phpcbf", "nether", "coding-standard", "phpcodesniffer-standard" ],
 	"license":"BSD-3-Clause",
+	"type" : "phpcodesniffer-standard",
 	"authors":[
 		{ "name":"Bob Majdak Jr",
 		  "email":"bmajdak@php.net",
