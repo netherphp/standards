@@ -159,10 +159,12 @@ whatever, they should be delcared before doing them.
 	FindInsertionPoint(Int $Start, Int $Stop):
 	?Int {
 
-		return $this->File->FindNext(
-			[T_WHITESPACE],
+		$Ptr = $this->File->FindNext(
+			[T_WHITESPACE,T_COMMENT],
 			$Start, $Stop, TRUE
-		) ?: NULL;
+		);
+
+		return $Ptr ?: NULL;
 	}
 
 	protected function
