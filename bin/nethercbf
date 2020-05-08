@@ -34,7 +34,7 @@ if(!$Overwrite) {
 
 	exit(
 		(new PHP_CodeSniffer\Runner)
-		->RunPHPCS()
+		->RunPHPCBF()
 	);
 
 	return;
