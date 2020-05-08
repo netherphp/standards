@@ -21,7 +21,7 @@ extends NetherCS\SniffGenericTemplate {
 		$EndPtr = NULL;
 		$ReturnPtr = NULL;
 		$Seek = NULL;
-		$ClassName = $this->File->GetDeclarationName($StackPtr);
+		$ClassName = $this->GetDeclarationName($StackPtr);
 
 		// find when the class definition ends.
 

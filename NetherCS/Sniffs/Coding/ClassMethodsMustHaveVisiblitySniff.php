@@ -17,7 +17,7 @@ extends NetherCS\Sniffers\ScopeClassMethod {
 
 		$StackPtr = $this->StackPtr;
 		$HasKeyword = FALSE;
-		$FuncName = $this->File->GetDeclarationName($StackPtr);
+		$FuncName = $this->GetDeclarationName($StackPtr);
 
 		$Find = [ T_STATIC, T_PUBLIC, T_PROTECTED, T_PRIVATE, T_WHITESPACE, T_ABSTRACT, T_FINAL ];
 		$Start = $this->File->FindPrevious($Find,($StackPtr-1),NULL,TRUE) + 1;
