@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function must explicitly return';
+	FixReason = 'NN: Method/Function must explicitly return (%s)';
 
 	public function
 	Execute():
@@ -24,6 +24,7 @@ extends NetherCS\SniffGenericTemplate {
 		$Indent = NULL;
 		$HasReturn = FALSE;
 		$Seek = NULL;
+		$FuncName = $this->File->GetDeclarationName($this->StackPtr);
 
 
 		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET && $Seek !== T_SEMICOLON)
@@ -64,18 +65,16 @@ extends NetherCS\SniffGenericTemplate {
 
 			if($this->GetLineFromStack($OpenPtr) === $this->GetLineFromStack($ClosePtr)) {
 				if($ClosePtr - $OpenPtr === 1) {
-					$this->SubmitFix(
-						sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
-						$this->GetContentFromStack($ClosePtr),
+					$this->Fix(
+						sprintf(static::FixReason,$FuncName),
 						"\n{$Indent}\treturn;\n{$Indent}}",
 						$ClosePtr
 					);
 				}
 
 				elseif($this->GetTypeFromStack($ClosePtr-1) === T_WHITESPACE) {
-					$this->SubmitFix(
-						sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
-						$this->GetContentFromStack($ClosePtr),
+					$this->Fix(
+						sprintf('%s (%s)',static::FixReason,$FuncName),
 						"\n{$Indent}\treturn;\n{$Indent}",
 						($ClosePtr-1)
 					);
@@ -85,9 +84,8 @@ extends NetherCS\SniffGenericTemplate {
 			// normal methods.
 
 			else {
-				$this->SubmitFix(
-					sprintf('%s (%s)',static::FixReason,$this->File->GetDeclarationName($this->StackPtr)),
-					$this->GetContentFromStack($ClosePtr),
+				$this->Fix(
+					sprintf(static::FixReason,$FuncName),
 					"\treturn;\n{$Indent}}",
 					$ClosePtr
 				);

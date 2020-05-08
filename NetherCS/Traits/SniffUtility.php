@@ -165,7 +165,6 @@ trait SniffUtility {
 		);
 
 		if($Fix === TRUE) {
-			var_dump("omg {$New}");
 			($this->File->fixer)
 			->ReplaceToken($Ptr,$New);
 		}

@@ -14,7 +14,7 @@ whatever, they should be delcared before doing them.
 //*/
 
 	const
-	FixReason = 'NN: Variable used without prior declaration';
+	FixReason = 'NN: Variable used without prior declaration (%s)';
 
 	protected
 	$TokenTypes = [ T_FUNCTION ];
@@ -36,7 +36,7 @@ whatever, they should be delcared before doing them.
 
 		$this->TransactionBegin();
 		foreach(array_reverse($Insert['Vars']) as $Current => $VarPtr) {
-			if($this->FixBegin(sprintf('%s (%s)',static::FixReason,$Current),$VarPtr)) {
+			if($this->FixBegin(sprintf(static::FixReason,$Current),$VarPtr)) {
 
 				// insert another line before the first one.
 				if(!$First && ($First = !$First))
