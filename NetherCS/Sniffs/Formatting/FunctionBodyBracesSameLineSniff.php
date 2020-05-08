@@ -8,7 +8,7 @@ class FunctionBodyBracesSameLineSniff
 extends NetherCS\SniffGenericTemplate {
 
 	protected
-	$TokenTypes = [ T_FUNCTION ];
+	$TokenTypes = [ T_FUNCTION, T_CLOSURE ];
 
 	const
 	FixReason = 'NN: Method/Function open brace must be on the same line (%s)';

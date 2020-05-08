@@ -9,7 +9,7 @@ class FunctionExplicitReturnSniff
 extends NetherCS\SniffGenericTemplate {
 
 	protected
-	$TokenTypes = [ T_FUNCTION ];
+	$TokenTypes = [ T_FUNCTION, T_CLOSURE ];
 
 	const
 	FixReason = 'NN: Method/Function must explicitly return (%s)';
@@ -45,7 +45,7 @@ extends NetherCS\SniffGenericTemplate {
 
 		// we can determine the indent for this function.
 
-		$Indent = $this->GetCurrentIndent($ClosePtr);
+		$Indent = $this->GetCurrentIndent($this->StackPtr);
 
 		// now determine if this function ever returned a value.
 

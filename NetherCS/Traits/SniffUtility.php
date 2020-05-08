@@ -132,6 +132,27 @@ trait SniffUtility {
 	}
 
 	protected function
+	GetCurrentScope($Ptr=NULL):
+	?Int {
+
+		$Ptr = $Ptr ?? $this->StackPtr;
+		$Result = NULL;
+
+		if(!array_key_exists('conditions',$this->Stack[$Ptr]))
+		return NULL;
+
+		if(!count($this->Stack[$Ptr]['conditions']))
+		return NULL;
+
+		$Result = array_keys(array_reverse(
+			$this->Stack[$Ptr]['conditions'],
+			TRUE
+		))[0];
+
+		return $Result;
+	}
+
+	protected function
 	BumpMetric(String $MetricName,String $MetricValue, Int $Ptr=NULL):
 	Void {
 
