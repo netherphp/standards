@@ -1,7 +1,7 @@
+#!/usr/bin/env php
 <?php
 
 $PathCS = sprintf('%s%s%s',dirname(__FILE__,2),DIRECTORY_SEPARATOR,'NetherCS');
-$PathBin = 'vendor/squizlabs/php_codesniffer/bin/phpcbf';
 $_SERVER['argv'][] = "--standard={$PathCS}";
 
 ////////
@@ -29,4 +29,13 @@ if(!$Overwrite) {
 
 ////////
 
-(function($Bin){ require($Bin); })($PathBin);
+(function(){
+	require_once('vendor/squizlabs/php_codesniffer/autoload.php');
+
+	exit(
+		(new PHP_CodeSniffer\Runner)
+		->RunPHPCS()
+	);
+
+	return;
+})();
