@@ -14,7 +14,7 @@ whatever, they should be delcared before doing them.
 //*/
 
 	const
-	FixReason = 'NN: Variable used without prior declaration (%s)';
+	FixReason = 'NN: Variable used without prior declaration (%s:%s)';
 
 	protected
 	$TokenTypes = [ T_FUNCTION, T_CLOSURE ];
@@ -24,6 +24,7 @@ whatever, they should be delcared before doing them.
 	Void {
 
 		$Insert = $this->SearchForVarsToInsert();
+		$FuncName = $this->GetDeclarationName();
 		$Indent = NULL;
 		$First = FALSE;
 		$Current = NULL;
@@ -38,7 +39,7 @@ whatever, they should be delcared before doing them.
 
 		$this->TransactionBegin();
 		foreach(array_reverse($Insert['Vars']) as $Current => $VarPtr) {
-			if($this->FixBegin(sprintf(static::FixReason,$Current),$VarPtr)) {
+			if($this->FixBegin(sprintf(static::FixReason,$FuncName,$Current),$VarPtr)) {
 
 				// insert another line before the first one.
 				if(!$First && ($First = !$First))

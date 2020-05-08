@@ -24,7 +24,7 @@ extends NetherCS\SniffGenericTemplate {
 		$Indent = NULL;
 		$HasReturn = FALSE;
 		$Seek = NULL;
-		$FuncName = $this->File->GetDeclarationName($this->StackPtr);
+		$FuncName = $this->GetDeclarationName($this->StackPtr);
 
 
 		while(($Seek = $this->GetTypeFromStack($StackPtr)) && $Seek !== T_OPEN_CURLY_BRACKET && $Seek !== T_SEMICOLON)

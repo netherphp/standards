@@ -153,6 +153,20 @@ trait SniffUtility {
 	}
 
 	protected function
+	GetDeclarationName($Ptr=NULL):
+	String {
+	/*//
+	use phpcs's declaration finder but return a default if not found due
+	to using this on various anonymous structures.
+	//*/
+
+		return (
+			$this->File->GetDeclarationName($this->StackPtr)
+			?? "λ:{$this->GetLineFromStack($this->StackPtr)}"
+		);
+	}
+
+	protected function
 	BumpMetric(String $MetricName,String $MetricValue, Int $Ptr=NULL):
 	Void {
 
