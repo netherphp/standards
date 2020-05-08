@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function returning core Types must be Uppercased';
+	FixReason = 'NN: Method/Function returning core Types must be Uppercased (%s)';
 
 	public function
 	Execute():
@@ -32,7 +32,7 @@ extends NetherCS\SniffGenericTemplate {
 			$ReturnPtr = $StackPtr;
 
 			// we found the return type word.
-			elseif($Seek === T_STRING && $ReturnPtr !== NULL) {
+			elseif(($Seek === T_STRING || $Seek === T_SELF) && $ReturnPtr !== NULL) {
 				$ReturnPtr = $StackPtr;
 				break;
 			}
@@ -41,11 +41,17 @@ extends NetherCS\SniffGenericTemplate {
 		}
 
 		// bail if there is no return type.
+
 		if(!$ReturnPtr)
 		return;
 
 		$Current = $this->GetContentFromStack($ReturnPtr);
 		$IsDefaultType = static::GetDefaultType($Current);
+
+		// don't attack the self keyword.
+
+		if(strtolower($Current) === 'self')
+		return;
 
 		// if it is not one of the default types it is likely a class name
 		// and we cannot tell you how to type other people's clases.
@@ -53,9 +59,8 @@ extends NetherCS\SniffGenericTemplate {
 		return;
 
 		if(static::$DefaultTypes[$IsDefaultType] !== $Current) {
-			$this->SubmitFixAndShow(
-				static::FixReason,
-				$Current,
+			$this->Fix(
+				sprintf(static::FixReason,$Current),
 				static::$DefaultTypes[$IsDefaultType],
 				$ReturnPtr
 			);
