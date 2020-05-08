@@ -127,6 +127,28 @@ extends StdClass {
 	}
 
 	public function
+	MethodUsingVarsWithoutDeclaringThemDocblocked():
+	Void {
+	/*//
+	this method is totally documented.
+	//*/
+
+		$Iter = NULL;
+		
+		for($Iter = 0; $Iter < 10; $Iter++)
+		$Iter++;
+
+		return;
+	}
+
+	public function
+	MethodReturningSelf():
+	self {
+
+		return $this;
+	}
+
+	public function
 	SomeEmptyMethod():
 	Void {
 		return;
