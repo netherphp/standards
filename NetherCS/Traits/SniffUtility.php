@@ -119,19 +119,6 @@ trait SniffUtility {
 	}
 
 	protected function
-	GetFunctionNamePtr($Ptr=NULL):
-	?Int {
-
-		$Ptr = $Ptr ?? $this->StackPtr;
-		$NamePtr = $this->File->findNext([T_STRING,T_OPEN_CURLY_BRACKET,T_SEMICOLON],$Ptr,NULL);
-
-		if($this->GetTypeFromStack($NamePtr) !== T_STRING)
-		return NULL;
-
-		return $NamePtr;
-	}
-
-	protected function
 	GetCurrentScope($Ptr=NULL):
 	?Int {
 
@@ -164,6 +151,19 @@ trait SniffUtility {
 			$this->File->GetDeclarationName($this->StackPtr)
 			?? "λ:{$this->GetLineFromStack($this->StackPtr)}"
 		);
+	}
+
+	protected function
+	GetDeclarationNamePtr($Ptr=NULL):
+	?Int {
+
+		$Ptr = $Ptr ?? $this->StackPtr;
+		$NamePtr = $this->File->findNext([T_STRING,T_OPEN_CURLY_BRACKET,T_SEMICOLON],$Ptr,NULL);
+
+		if($this->GetTypeFromStack($NamePtr) !== T_STRING)
+		return NULL;
+
+		return $NamePtr;
 	}
 
 	protected function
