@@ -5,6 +5,8 @@ namespace someProjectVendor;
 use \Nether;
 use \Exception;
 
+use Imagick;
+
 class SomeProjectClass {
 
 	public function
@@ -40,6 +42,20 @@ class SomeProjectClass {
 		};
 
 		return;
+	}
+
+	public function
+	GetImagick():
+	\Imagick {
+
+		return new \Imagick;
+	}
+
+	public function
+	AlsoGetImagick():
+	Imagick {
+
+		return $this->GetImagick();
 	}
 
 }

@@ -6,25 +6,28 @@ trait SniffUtility {
 
 	static public
 	$DefaultTypes = [
-		'Void', 'Int', 'Float', 'Double', 'String', 'Bool', 'Boolean',
-		'Array', 'Callable', 'Object', 'Mixed'
+		'void', 'int', 'float', 'double', 'string', 'bool', 'boolean',
+		'array', 'callable', 'object', 'mixed'
 	];
 
 	static public function
 	GetDefaultType($Input):
-	Int {
+	?Int {
 
-		return array_search(
+		$Result = array_search(
 			strtolower($Input),
-			array_map('strtolower',static::$DefaultTypes)
+			static::$DefaultTypes,
+			TRUE
 		);
+
+		return ($Result !== FALSE)?($Result):(NULL);
 	}
 
 	static public function
 	IsDefaultType($Input):
 	Int {
 
-		return static::GetDefaultTypeKey($Input) === FALSE;
+		return static::GetDefaultTypeKey($Input) !== FALSE;
 	}
 
 	////////////////////////////////////////////////////////////////

@@ -22,6 +22,7 @@ extends NetherCS\SniffGenericTemplate {
 		$ReturnPtr = NULL;
 		$Seek = NULL;
 		$Current = NULL;
+		$Expected = NULL;
 		$IsDefaultType = NULL;
 
 		// fast foward to the end of the definition.
@@ -45,8 +46,9 @@ extends NetherCS\SniffGenericTemplate {
 		if(!$ReturnPtr)
 		return;
 
-		$Current = $this->GetContentFromStack($ReturnPtr);
+		$Current = trim($this->GetContentFromStack($ReturnPtr));
 		$IsDefaultType = static::GetDefaultType($Current);
+		$Expected = $this->ConvertToPascalCase($Current);
 
 		// don't attack the self keyword.
 
@@ -55,16 +57,17 @@ extends NetherCS\SniffGenericTemplate {
 
 		// if it is not one of the default types it is likely a class name
 		// and we cannot tell you how to type other people's clases.
-		if($IsDefaultType === FALSE)
+		if($IsDefaultType === NULL)
 		return;
 
-		if(static::$DefaultTypes[$IsDefaultType] !== $Current) {
-			$this->Fix(
-				sprintf(static::FixReason,$Current),
-				static::$DefaultTypes[$IsDefaultType],
-				$ReturnPtr
-			);
-		}
+		if($Current === $Expected)
+		return;
+
+		$this->Fix(
+			sprintf(static::FixReason,$Current),
+			$Expected,
+			$ReturnPtr
+		);
 
 		return;
 	}

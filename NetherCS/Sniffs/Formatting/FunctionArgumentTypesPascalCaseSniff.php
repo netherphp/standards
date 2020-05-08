@@ -36,7 +36,7 @@ extends NetherCS\SniffGenericTemplate {
 					$Expected = static::ConvertToPascalCase($Current);
 					$IsDefaultType = static::GetDefaultType($Current);
 
-					if($IsDefaultType && $Current !== $Expected)
+					if($IsDefaultType !== NULL && $Current !== $Expected)
 					$this->SubmitFixAndShow(
 						static::FixReason,
 						$Current,
