@@ -1,7 +1,7 @@
 name: PHPCBF Test
 on: [push]
 jobs:
-	name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+	- name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
 	runs-on: ubuntu-latest
 		strategy:
 			matrix:
