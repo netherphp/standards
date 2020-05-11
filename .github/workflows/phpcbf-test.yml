@@ -17,13 +17,6 @@ jobs:
           coverage: none
           extensions: mbstring, intl
           tools: phpcs
-      - name: PHPCS on Linux
-        if: matrix.operating-system == 'ubuntu-latest'
+      - name: PHPCS
         run: |
-          phpcs TestCode/*.fixed.php
-      - name: PHPCS on Windows
-        if: matrix.operating-system == 'windows-latest'
-        shell: cmd
-        run: |
-          phpcs TestCode\*.fixed.php
-
+          phpcbf TestCode --extensions=.fixed.php
