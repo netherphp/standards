@@ -19,10 +19,10 @@ jobs:
           tools: phpcs
       - name: PHPCS on Linux
         if: matrix.os == 'ubuntu-latest'
-          run: |
-            phpcs TestCode/*.fixed.php
+        run: |
+          phpcs TestCode/*.fixed.php
       - name: PHPCS on Windows
         if: matrix.os == 'windows-latest'
-          run: |
-            phpcs TestCode\*.fixed.php
+        run: |
+          phpcs TestCode\*.fixed.php
 
