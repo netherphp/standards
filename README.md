@@ -1,5 +1,7 @@
 # Nether [ˈne-thər]
 
+![PHPCS Tests](https://github.com/netherphp/standards/workflows/PHPCS%20Test/badge.svg)
+
 > *Located toward the bottom or more distant part of something.*
 > -- Merriam-Webster Dictionary
 
