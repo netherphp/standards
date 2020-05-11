@@ -23,6 +23,7 @@ jobs:
           phpcs TestCode/*.fixed.php
       - name: PHPCS on Windows
         if: matrix.operating-system == 'windows-latest'
+        shell: cmd
         run: |
           phpcs TestCode\*.fixed.php
 
