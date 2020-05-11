@@ -9,9 +9,7 @@ use Imagick;
 
 class SomeProjectClass {
 
-	public function
-	SomeLambdaWambas():
-	Void {
+	public function 	SomeLambdaWambas(): 	Void {
 
 		$List = [];
 
@@ -27,7 +25,7 @@ class SomeProjectClass {
 
 		$Callable = function(Array $Input){
 			$Arg = NULL;
-			
+
 			foreach($Input as $Arg)
 			echo $Arg;
 
