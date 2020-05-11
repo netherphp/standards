@@ -18,5 +18,4 @@ jobs:
           extensions: mbstring, intl
           tools: phpcs
       - name: PHPCS
-        run: |
-          phpcbf TestCode --extensions=.fixed.php
+        run: phpcbf TestCode --extensions=.fixed.php
