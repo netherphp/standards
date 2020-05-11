@@ -9,7 +9,7 @@ jobs:
         operating-system: [ 'ubuntu-latest', 'windows-latest' ]
         php-versions: [ '7.1', '7.4' ]
     steps:
-      - name: Checkout
+      - name: Checkout Source.
         uses: actions/checkout@v2
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -17,6 +17,6 @@ jobs:
           coverage: none
           extensions: mbstring, intl
           tools: phpcs
-      - name: PHPCS on Windows
+      - name: Run PHPCS on the Pre-Fixed files
         run: |
           phpcs TestCode --extensions=.fixed.php
