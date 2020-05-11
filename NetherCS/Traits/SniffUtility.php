@@ -352,12 +352,16 @@ trait SniffUtility {
 	//*/
 
 		$Output = $Input;
+		$UnderPos = FALSE;
 
 		// a case for handling things that are all uppercase.
 		// COMMONLY_LIKE_THIS
 
 		if(!preg_match('/[a-z]/',$Output)) {
-			if(strpos($Output,'_') === FALSE)
+
+			// if it is ALLCAPS or _LOOKSLIKEAGLOBAL we will let these slide.
+
+			if(($UnderPos = strpos($Output,'_')) === FALSE || ($UnderPos === 0))
 			return $Input;
 
 			$Output = ucwords(strtolower(str_replace('_',' ',$Output)));
