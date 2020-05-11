@@ -1,19 +1,20 @@
 name: PHPCS Test
 on: [push]
 jobs:
-  build:
+  run:
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
-    runs-on:
-      strategy:
-        matrix:
-          operating-system: [ 'ubuntu-latest', 'windows-latest' ]
-          php-versions: [ '7.1', '7.4' ]
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ 'ubuntu-latest', 'windows-latest' ]
+        php-versions: [ '7.1', '7.4' ]
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
+          coverage: none
           extensions: mbstring, intl
           tools: phpcs
       - name: PHPCBF
