@@ -356,8 +356,12 @@ trait SniffUtility {
 		// a case for handling things that are all uppercase.
 		// COMMONLY_LIKE_THIS
 
-		if(!preg_match('/[a-z]/',$Output))
-		$Output = ucwords(strtolower(str_replace('_',' ',$Output)));
+		if(!preg_match('/[a-z]/',$Output)) {
+			if(strpos($Output,'_') === FALSE)
+			return $Input;
+
+			$Output = ucwords(strtolower(str_replace('_',' ',$Output)));
+		}
 
 		// handling everything else.
 		// SomethingLikeThis_AndMaybeHavingThis
