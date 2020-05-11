@@ -18,11 +18,11 @@ jobs:
           extensions: mbstring, intl
           tools: phpcs
       - name: PHPCS on Linux
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == "ubuntu-latest"
         run: |
           phpcs TestCode/*.fixed.php
       - name: PHPCS on Windows
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == "windows-latest"
         run: |
           phpcs TestCode\*.fixed.php
 
