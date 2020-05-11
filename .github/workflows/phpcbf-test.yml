@@ -17,5 +17,6 @@ jobs:
           coverage: none
           extensions: mbstring, intl
           tools: phpcs
-      - name: PHPCS
-        run: phpcbf TestCode --extensions=.fixed.php
+      - name: PHPCS on Windows
+        run: |
+          phpcs TestCode --extensions=.fixed.php
