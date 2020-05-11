@@ -1,6 +1,6 @@
 # Nether [ˈne-thər]
 
-![PHPCS Tests](https://github.com/netherphp/standards/workflows/PHPCS%20Test/badge.svg)
+[![PHPCS Test](https://github.com/netherphp/standards/workflows/PHPCS%20Test/badge.svg)](https://github.com/netherphp/standards/actions?query=workflow%3A%22PHPCS+Test%22)
 
 > *Located toward the bottom or more distant part of something.*
 > -- Merriam-Webster Dictionary
