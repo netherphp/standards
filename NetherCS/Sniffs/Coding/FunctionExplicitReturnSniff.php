@@ -2,7 +2,7 @@
 
 namespace NetherCS\Sniffs\Coding;
 
-use \NetherCS;
+use \NetherCS as NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
 class FunctionExplicitReturnSniff

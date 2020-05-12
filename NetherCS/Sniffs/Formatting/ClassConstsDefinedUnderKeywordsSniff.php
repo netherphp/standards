@@ -2,7 +2,7 @@
 
 namespace NetherCS\Sniffs\Formatting;
 
-use \NetherCS;
+use \NetherCS as NetherCS;
 
 class ClassConstsDefinedUnderKeywordsSniff
 extends NetherCS\Sniffers\ScopeClassConsts {

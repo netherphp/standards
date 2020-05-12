@@ -2,7 +2,7 @@
 
 namespace NetherCS\Sniffs\Coding;
 
-use \NetherCS;
+use \NetherCS as NetherCS;
 
 class FunctionVariableDeclareSniff
 extends NetherCS\SniffGenericTemplate {
