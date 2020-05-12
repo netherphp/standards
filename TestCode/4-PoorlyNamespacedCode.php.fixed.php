@@ -2,12 +2,14 @@
 
 namespace someProjectVendor;
 
-use \Nether;
-use \Exception;
+use \NetherCS as NetherCS;
+use \Imagick as Imagick;
 
-use Imagick;
+use \Throwable as Throwable, \Exception as Exception;
 
 class SomeProjectClass {
+
+	use NetherCS\Traits\SniffUtility;
 
 	public function
 	SomeLambdaWambas():
@@ -22,12 +24,9 @@ class SomeProjectClass {
 
 		$Callable = function(){
 			// this function should get a return added to it.
-			return;
 		};
 
 		$Callable = function(Array $Input){
-			$Arg = NULL;
-			
 			foreach($Input as $Arg)
 			echo $Arg;
 
@@ -36,7 +35,8 @@ class SomeProjectClass {
 			return;
 		};
 
-		$Callable = function() {
+		$Callable = function()
+		{
 			// this function should get its brace moved up.
 			return;
 		};

@@ -191,6 +191,9 @@ trait SniffUtility {
 	protected function
 	SubmitFix(String $Reason, String $Old, String $New, Int $Ptr=NULL):
 	Void {
+	/*//
+	@deprecated 2020-05-12
+	//*/
 
 		$Ptr = $Ptr ?? $this->StackPtr;
 		$Fix = NULL;
@@ -213,6 +216,9 @@ trait SniffUtility {
 	protected function
 	SubmitFixAndShow(String $Reason, String $Old, String $New, Int $Ptr=NULL):
 	Void {
+	/*//
+	@deprecated 2020-05-12
+	//*/
 
 		$this->SubmitFix(
 			sprintf('%s (%s)',$Reason,$Old),
@@ -225,6 +231,9 @@ trait SniffUtility {
 	protected function
 	SubmitFixSilent(String $New, Int $Ptr=NULL):
 	Void {
+	/*//
+	@deprecated 2020-05-12
+	//*/
 
 		$Ptr = $Ptr ?? $this->StackPtr;
 		$Fix = $this->File->fixer->enabled;
@@ -235,6 +244,65 @@ trait SniffUtility {
 		}
 
 		return;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	protected function
+	FindNext(Array $Tokens, Int $Start, ?Int $Stop=NULL):
+	?Int {
+
+		$Result = $this->File->FindNext(
+			$Tokens,
+			($Start+1),
+			$Stop,
+			FALSE
+		);
+
+		return $Result ?: NULL;
+	}
+
+	protected function
+	FindNextNot(Array $Tokens, Int $Start, ?Int $Stop=NULL):
+	?Int {
+
+		$Result = $this->File->FindNext(
+			$Tokens,
+			($Start+1),
+			$Stop,
+			TRUE
+		);
+
+		return $Result ?: NULL;
+	}
+
+	protected function
+	FindPrev(Array $Tokens, Int $Start, ?Int $Stop=NULL):
+	?Int {
+
+		$Result = $this->File->FindPrevious(
+			$Tokens,
+			($Start-1),
+			$Stop,
+			FALSE
+		);
+
+		return $Result ?: NULL;
+	}
+
+	protected function
+	FindPrevNot(Array $Tokens, Int $Start, ?Int $Stop=NULL):
+	?Int {
+
+		$Result = $this->File->FindPrevious(
+			$Tokens,
+			($Start-1),
+			$Stop,
+			TRUE
+		);
+
+		return $Result ?: NULL;
 	}
 
 	////////////////////////////////////////////////////////////////

@@ -2,12 +2,14 @@
 
 namespace someProjectVendor;
 
-use \Nether;
-use \Exception;
+use \NetherCS;
+use \Imagick;
 
-use Imagick;
+use \Throwable, \Exception;
 
 class SomeProjectClass {
+
+	use NetherCS\Traits\SniffUtility;
 
 	public function
 	SomeLambdaWambas():
