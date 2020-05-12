@@ -9,7 +9,11 @@ use \Throwable, \Exception;
 
 class SomeProjectClass {
 
-	use NetherCS\Traits\SniffUtility;
+	use Trait1;
+
+	use Trait2,Trait3,  Trait4;
+
+	use Trait5 { }
 
 	public function
 	SomeLambdaWambas():
@@ -59,3 +63,9 @@ class SomeProjectClass {
 	}
 
 }
+
+trait Trait1 { }
+trait Trait2 { }
+trait Trait3 { }
+trait Trait4 { }
+trait Trait5 { }
