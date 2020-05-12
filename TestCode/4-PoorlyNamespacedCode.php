@@ -1,6 +1,6 @@
 <?php
 
-namespace someProjectVendor;
+namespace someProjectVendor\someProject;
 
 use \NetherCS;
 use \Imagick;
