@@ -37,30 +37,22 @@ extends PHPCS\Sniffs\AbstractScopeSniff {
 	ProcessTokenWithinScope(PHPCS\Files\File $File, $StackPtr, $ScopePtr):
 	Void {
 
-		$Cond = NULL;
-		$DeepEnd = NULL;
-
 		$this->File = $File;
 		$this->StackPtr = $StackPtr;
 		$this->ScopePtr = $ScopePtr;
 		$this->Stack = $File->GetTokens();
 
-		// check that we're really where we expect to be for dicking around
-		// with a class method.
+		// check we are in the expected scope.
 
-		$Cond = array_reverse(
-			array_keys($this->Stack[$this->StackPtr]['conditions']),
-			FALSE
-		);
-
-		if(!count($Cond))
+		if($this->GetCurrentScope() !== $this->ScopePtr)
 		return;
 
-		if($Cond[0] !== $this->ScopePtr)
-		return;
+		// allow filtering.
 
 		if(!$this->Allow())
 		return;
+
+		// process element.
 
 		$this->Execute();
 		return;
