@@ -43,17 +43,29 @@ implements PHPCS\Sniffs\Sniff {
 		$this->StackPtr = $StackPtr;
 		$this->Stack = $File->GetTokens();
 
-		$this->Execute();
+		if(!$this->Allow())
+		return;
 
+		$this->Execute();
 		return;
 	}
 
 	////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
 
-	abstract public function
+	protected function
+	Allow():
+	Bool {
+
+		return TRUE;
+	}
+
+	public function
 	Execute():
-	Void;
+	Void {
+
+		return;
+	}
 
 }
 
