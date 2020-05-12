@@ -5,7 +5,9 @@ namespace someProjectVendor;
 use \NetherCS as NetherCS;
 use \Imagick as Imagick;
 
-use \Throwable as Throwable, \Exception as Exception;
+use
+\Throwable as Throwable,
+\Exception as Exception;
 
 class SomeProjectClass {
 
@@ -24,9 +26,12 @@ class SomeProjectClass {
 
 		$Callable = function(){
 			// this function should get a return added to it.
+			return;
 		};
 
 		$Callable = function(Array $Input){
+			$Arg = NULL;
+
 			foreach($Input as $Arg)
 			echo $Arg;
 
@@ -35,8 +40,7 @@ class SomeProjectClass {
 			return;
 		};
 
-		$Callable = function()
-		{
+		$Callable = function() {
 			// this function should get its brace moved up.
 			return;
 		};
