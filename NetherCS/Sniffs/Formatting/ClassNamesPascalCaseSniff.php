@@ -12,16 +12,13 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_CLASS, T_INTERFACE, T_TRAIT ];
 
 	const
-	FixReason = 'NN: Classes/Interfaces/Traits must be PascalCased';
+	FixReason = 'NN: Classes/Interfaces/Traits must be PascalCased (%s)';
 
 	public function
 	Execute():
 	Void {
 
-		// T_CLASS T_WHITESPACE T_STRING
-		// This    +1          +2
-
-		$StackPtr = $this->StackPtr + 2;
+		$StackPtr = $this->GetDeclarationNamePtr($this->StackPtr);
 		$Type = $this->GetTypeFromStack($StackPtr);
 		$Current = NULL;
 		$Expected = NULL;
@@ -32,15 +29,12 @@ extends NetherCS\SniffGenericTemplate {
 		$Current = $this->GetContentFromStack($StackPtr);
 		$Expected = NetherCS\SniffGenericTemplate::ConvertToPascalCase($Current);
 
-		if($Current !== $Expected) {
-			$this->SubmitFixAndShow(
-				static::FixReason,
-				$Current,
-				$Expected,
-				$StackPtr
-			);
-			return;
-		}
+		if($Current !== $Expected)
+		$this->Fix(
+			sprintf(static::FixReason,$Current),
+			$Expected,
+			$StackPtr
+		);
 
 		return;
 	}
