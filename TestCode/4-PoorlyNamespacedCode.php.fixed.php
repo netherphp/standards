@@ -71,6 +71,45 @@ class SomeProjectClass {
 		return $this->GetImagick();
 	}
 
+	public function
+	DerpComma():
+	Void {
+
+		$Array = [1,2,3];
+
+		$Array = [
+			[ 1,2,3 ],
+			[ 4,5,6 ]
+		];
+
+		$Array = [
+			1,
+			3,
+			4
+		];
+
+		$Array = [ 1,2,3 ];
+
+		$Array = [
+			1,
+			2,
+			3
+		];
+
+		$Array = [
+			[ 1, 2, 3 ],
+			[ 4, 5, 6 ]
+		];
+
+		$this->GetImagick($Array,);
+
+		$this->GetImagick(
+			$Array,
+		);
+
+		return;
+	}
+
 }
 
 trait Trait1 { }

@@ -309,6 +309,69 @@ trait SniffUtility {
 	////////////////////////////////////////////////////////////////
 
 	protected function
+	TokenGetCloseParen(?Int $Ptr=NULL):
+	?Int {
+
+		$Ptr = $Ptr ?? $this->StackPtr;
+		$Output = NULL;
+
+		$this->TokenHasCloseParen($Ptr,$Output);
+
+		return $Output;
+	}
+
+	protected function
+	TokenHasCloseParen(?Int $Ptr=NULL, &$Output=FALSE):
+	Bool {
+
+		$Ptr = $Ptr ?? $this->StackPtr;
+
+		if(!array_key_exists('parenthesis_closer',$this->Stack[$Ptr]))
+		return FALSE;
+
+		if(!$this->Stack[$Ptr]['parenthesis_closer'])
+		return FALSE;
+
+		if($Output !== FALSE)
+		$Output = $this->Stack[$Ptr]['parenthesis_closer'];
+
+		return TRUE;
+	}
+
+	protected function
+	TokenGetCloseBrack(?Int $Ptr=NULL):
+	?Int {
+
+		$Ptr = $Ptr ?? $this->StackPtr;
+		$Output = NULL;
+
+		$this->TokenHasCloseBrack($Ptr,$Output);
+
+		return $Output;
+	}
+
+	protected function
+	TokenHasCloseBrack(?Int $Ptr=NULL, &$Output=NULL):
+	Bool {
+
+		$Ptr = $Ptr ?? $this->StackPtr;
+
+		if(!array_key_exists('bracket_closer',$this->Stack[$Ptr]))
+		return FALSE;
+
+		if(!$this->Stack[$Ptr]['bracket_closer'])
+		return FALSE;
+
+		if($Output !== FALSE)
+		$Output = $this->Stack[$Ptr]['bracket_closer'];
+
+		return TRUE;
+	}
+
+	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	protected function
 	Fix(String $Reason, String $Content, Int $ReportPtr=NULL, Int $FixPtr=NULL):
 	Void {
 	/*//
