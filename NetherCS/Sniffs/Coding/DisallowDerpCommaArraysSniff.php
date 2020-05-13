@@ -5,7 +5,7 @@ namespace NetherCS\Sniffs\Coding;
 use \NetherCS as NetherCS;
 use \PHP_CodeSniffer as PHPCS;
 
-class DisallowArrayDerpCommaSniff
+class DisallowDerpCommaArrays
 extends NetherCS\SniffGenericTemplate {
 
 	protected

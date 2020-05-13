@@ -38,6 +38,7 @@
 	<rule ref="NetherCS.Coding.ClassMethodsMustHaveVisiblity" />
 	<rule ref="NetherCS.Coding.FunctionExplicitReturn" />
 	<rule ref="NetherCS.Coding.FunctionVariableDeclare" />
-	<rule ref="NetherCS.Coding.DisallowArrayDerpComma" />
+	<rule ref="NetherCS.Coding.DisallowDerpCommaArrays" />
+	<rule ref="NetherCS.Coding.DisallowDerpCommaFunctionCalls" />
 
 </ruleset>

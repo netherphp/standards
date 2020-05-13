@@ -101,10 +101,16 @@ class SomeProjectClass {
 			[ 4, 5, 6 ]
 		];
 
-		$this->GetImagick($Array,);
+		$this->GetImagick($Array);
 
 		$this->GetImagick(
-			$Array,
+			$Array
+		);
+
+		str_replace(
+			'one',
+			'two',
+			'three'
 		);
 
 		return;

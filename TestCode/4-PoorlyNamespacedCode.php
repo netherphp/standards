@@ -98,6 +98,12 @@ class SomeProjectClass {
 			$Array,
 		);
 
+		str_replace(
+			'one',
+			'two',
+			'three',
+		);
+
 		return;
 	}
 

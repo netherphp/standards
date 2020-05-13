@@ -34,7 +34,7 @@ https://github.com/netherphp/standards/wiki/Nether-Notation-Coding-Standard-for-
 * attempt to keep lines shorter than 80 characters.
 * prefer single quotes when not using string evaluation.
 * anything that can have a type, should have a type.
-* no trailing commas.
+* no derp commas (trailing commas at the end of arrays, etc).
 
 ## Inline Documentation.
 
