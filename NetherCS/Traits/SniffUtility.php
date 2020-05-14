@@ -189,67 +189,6 @@ trait SniffUtility {
 	////////////////////////////////////////////////////////////////
 
 	protected function
-	SubmitFix(String $Reason, String $Old, String $New, Int $Ptr=NULL):
-	Void {
-	/*//
-	@deprecated 2020-05-12
-	//*/
-
-		$Ptr = $Ptr ?? $this->StackPtr;
-		$Fix = NULL;
-
-		$Fix = $this->File->AddFixableError(
-			$Reason,
-			$Ptr,
-			'Found',
-			[$Old,$New]
-		);
-
-		if($Fix === TRUE) {
-			($this->File->fixer)
-			->ReplaceToken($Ptr,$New);
-		}
-
-		return;
-	}
-
-	protected function
-	SubmitFixAndShow(String $Reason, String $Old, String $New, Int $Ptr=NULL):
-	Void {
-	/*//
-	@deprecated 2020-05-12
-	//*/
-
-		$this->SubmitFix(
-			sprintf('%s (%s)',$Reason,$Old),
-			$Old, $New, $Ptr
-		);
-
-		return;
-	}
-
-	protected function
-	SubmitFixSilent(String $New, Int $Ptr=NULL):
-	Void {
-	/*//
-	@deprecated 2020-05-12
-	//*/
-
-		$Ptr = $Ptr ?? $this->StackPtr;
-		$Fix = $this->File->fixer->enabled;
-
-		if($Fix === TRUE) {
-			($this->File->fixer)
-			->ReplaceToken($Ptr,$New);
-		}
-
-		return;
-	}
-
-	////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////
-
-	protected function
 	FindNext(Array $Tokens, Int $Start, ?Int $Stop=NULL):
 	?Int {
 

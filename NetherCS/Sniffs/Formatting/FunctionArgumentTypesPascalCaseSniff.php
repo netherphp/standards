@@ -11,7 +11,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function arg Types must be PascalCase';
+	FixReason = 'NN: Method/Function arg Types must be PascalCase (%s)';
 
 	public function
 	Execute():
@@ -37,9 +37,8 @@ extends NetherCS\SniffGenericTemplate {
 					$IsDefaultType = static::GetDefaultType($Current);
 
 					if($IsDefaultType !== NULL && $Current !== $Expected)
-					$this->SubmitFixAndShow(
-						static::FixReason,
-						$Current,
+					$this->Fix(
+						sprintf(static::FixReason,$Current),
 						$Expected,
 						$VarPtr
 					);

@@ -8,8 +8,8 @@ class ClassPropertiesPascalCaseSniff
 extends NetherCS\Sniffers\ScopeClassProperties {
 
 	const
-	FixReason = 'NN: Class Properties must be PascalCased',
-	FixUpdate = 'NN: Update internal use of altered Class Properties';
+	FixReason = 'NN: Class Properties must be PascalCased (%s)',
+	FixUpdate = 'NN: Update internal use of altered Class Properties (%s)';
 
 	public function
 	Execute():
@@ -20,9 +20,8 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 
 		if($Current !== $Expected) {
 			$this->TransactionBegin();
-			$this->SubmitFixAndShow(
-				static::FixReason,
-				$Current,
+			$this->Fix(
+				sprintf(static::FixReason,$Current),
 				$Expected,
 				$this->StackPtr
 			);
@@ -76,17 +75,15 @@ extends NetherCS\Sniffers\ScopeClassProperties {
 				switch($Seek) {
 					case T_PAAMAYIM_NEKUDOTAYIM:
 						if($Property === $Current)
-						$this->SubmitFixAndShow(
-							static::FixUpdate,
-							$Current,
+						$this->Fix(
+							sprintf(static::FixUpdate,$Current),
 							$Expected,
 							$After
 						);
 					case T_OBJECT_OPERATOR:
 						if($Property === substr($Current,1))
-						$this->SubmitFixAndShow(
-							static::FixUpdate,
-							substr($Current,1),
+						$this->Fix(
+							sprintf(static::FixUpdate,substr($Current,1)),
 							substr($Expected,1),
 							$After
 						);

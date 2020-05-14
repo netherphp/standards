@@ -11,7 +11,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function Return Types underneath method name';
+	FixReason = 'NN: Method/Function Return Types underneath method name (%s)';
 
 	public function
 	Execute():
@@ -62,9 +62,8 @@ extends NetherCS\SniffGenericTemplate {
 		// not any whitespace at all.
 
 		if($Before === T_COLON) {
-			$this->SubmitFix(
-				sprintf('%s (%s)',static::FixReason,$FuncName),
-				':',
+			$this->Fix(
+				sprintf(static::FixReason,$FuncName),
 				":\n{$Indent}",
 				($ReturnPtr-1)
 			);
@@ -75,18 +74,16 @@ extends NetherCS\SniffGenericTemplate {
 
 			// it is on the same line.
 			if($this->GetLineFromStack($NamePtr) === $this->GetLineFromStack($ReturnPtr))
-			$this->SubmitFix(
-				sprintf('%s (%s)',static::FixReason,$FuncName),
-				$Whitespace,
+			$this->Fix(
+				sprintf(static::FixReason,$FuncName),
 				"\n{$Indent}",
 				($ReturnPtr-1)
 			);
 
 			// it is on the next line but the indent looks fucked.
 			elseif($Whitespace !== $Indent && $Whitespace !== "\n") {
-				$this->SubmitFix(
-					sprintf('%s (%s)',static::FixReason,$FuncName),
-					$Whitespace,
+				$this->Fix(
+					sprintf(static::FixReason,$FuncName),
 					"{$Indent}",
 					($ReturnPtr-1)
 				);

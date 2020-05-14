@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_TRUE, T_FALSE, T_NULL ];
 
 	const
-	FixReason = 'NN: TRUE/FALSE/NULL must be uppercase';
+	FixReason = 'NN: TRUE/FALSE/NULL must be uppercase (%s)';
 
 	public function
 	Execute():
@@ -21,9 +21,8 @@ extends NetherCS\SniffGenericTemplate {
 		$Current = $this->GetContentFromStack();
 		$Expected = strtoupper($Current);
 
-		if($Current !== $Expected) {
-			$this->SubmitFixAndShow(static::FixReason,$Current,$Expected);
-		}
+		if($Current !== $Expected)
+		$this->Fix(sprintf(static::FixReason,$Current),$Expected);
 
 		return;
 	}

@@ -12,8 +12,8 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function names must be PascalCased',
-	FixUpdate = 'NN: Update internal use of altered Method Names';
+	FixReason = 'NN: Method/Function names must be PascalCased (%s)',
+	FixUpdate = 'NN: Update internal use of altered Method Names (%s)';
 
 	public function
 	Execute():
@@ -39,7 +39,7 @@ extends NetherCS\SniffGenericTemplate {
 
 		if($Current !== $Expected) {
 			$this->TransactionBegin();
-			$this->SubmitFixAndShow(static::FixReason,$Current,$Expected,$StackPtr);
+			$this->Fix(sprintf(static::FixReason,$Current),$Expected,$StackPtr);
 			$this->UpdateFoundUses($Current,$Expected);
 			$this->TransactionCommit();
 		}
@@ -87,9 +87,8 @@ extends NetherCS\SniffGenericTemplate {
 				$Property = $this->GetContentFromStack($After);
 
 				if($Property === $Current)
-				$this->SubmitFixAndShow(
-					static::FixUpdate,
-					$Current,
+				$this->Fix(
+					sprintf(static::FixUpdate,$Current),
 					$Expected,
 					$After
 				);
