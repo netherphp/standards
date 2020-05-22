@@ -104,6 +104,10 @@ whatever, they should be delcared before doing them.
 				if($Current === '$this')
 				goto TryNextVar;
 
+				// don't try to create superglobals.
+				if(strpos($Current,'$_') === 0)
+				goto TryNextVar;
+
 				// don't try to create static variables.
 				if($this->IsStaticReference($VarPtr))
 				goto TryNextVar;

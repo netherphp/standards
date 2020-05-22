@@ -101,8 +101,11 @@ class poorlyFormattedClass extends StdClass {
 
 		}
 
-		While($NotThisOneTho > 0)
+		while($NotThisOneTho > 0)
 		$NotThisOneTho--;
+
+		if(count($_SERVER['argv']))
+		$NotThisOneTho++;
 
 		return;
 	}
