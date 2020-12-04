@@ -34,7 +34,6 @@
 
 	<!-- coding rules to write code that is intellectually correct. -->
 
-	<rule ref="NetherCS.Coding.NamespaceExplicitUse" />
 	<rule ref="NetherCS.Coding.ClassMethodsMustHaveVisiblity" />
 	<rule ref="NetherCS.Coding.FunctionExplicitReturn" />
 	<rule ref="NetherCS.Coding.FunctionVariableDeclare" />
