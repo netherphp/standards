@@ -35,7 +35,7 @@ extends NetherCS\SniffGenericTemplate {
 
 		// find when this function ends its declaration.
 
-		$ReturnPtr = $this->File->FindPrevious([T_STRING,T_SELF,T_CLOSE_PARENTHESIS],($EndPtr-1),NULL);
+		$ReturnPtr = $this->File->FindPrevious([T_STRING,T_STATIC,T_SELF,T_CLOSE_PARENTHESIS],($EndPtr-1),NULL);
 
 		if(!$ReturnPtr)
 		return;
