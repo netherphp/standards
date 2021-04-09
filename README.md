@@ -323,7 +323,7 @@ To split a long method into smaller units of code, reduced concern methods shall
 class Project {
 
 	public function
-	GetFileContents(String $Filename) {
+	GetFileContents(string $Filename) {
 	/*//
 	@return ?StdClass
 	given a filename return the object built from the contents of that file.
@@ -455,12 +455,12 @@ public function AddTwo(int $Input): int;
 * It has been decided the rule surrounding namespace/class `use` calls should no longer be followed. It is now preferred that `use` calls are only single line and without any leading slashing.
 
 ```php
-namespace
+use
 \Nether as Nether,
 \Local as Local;
 
-namespace Nether;
-namespace Local;
+use Nether;
+use Local;
 ```
 
 ## 2020-05-13
