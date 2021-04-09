@@ -107,6 +107,13 @@ class SomeProjectClass {
 		return;
 	}
 
+	public function
+	NullableTypeTho(?string $What):
+	?int {
+
+		return 1;
+	}
+
 }
 
 trait Trait1 { }
