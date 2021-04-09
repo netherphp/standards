@@ -58,8 +58,8 @@ extends StdClass {
 	];
 
 	public function
-	MalformedMethod(String $Input, Bool $YeahOk):
-	Void {
+	MalformedMethod(string $Input, bool $YeahOk):
+	void {
 
 		$UglyVariable = TRUE;
 		$UglyVariable = NULL;
@@ -76,7 +76,7 @@ extends StdClass {
 
 	public function
 	MalformedMethod_ReducedConcern():
-	Void {
+	void {
 
 		$this->GetSomeArray();
 		$this->UglyProperty = 8;
@@ -90,14 +90,14 @@ extends StdClass {
 
 	public function
 	MalformedStaticMethod():
-	Void {
+	void {
 
 		return;
 	}
 
 	public function
-	MethodUsingVarsWithoutDeclaringThem(Int $NotThisOneTho):
-	Void {
+	MethodUsingVarsWithoutDeclaringThem(int $NotThisOneTho):
+	void {
 
 		$Iter = NULL;
 		$Item = NULL;
@@ -131,7 +131,7 @@ extends StdClass {
 
 	public function
 	MethodUsingVarsWithoutDeclaringThemDocblocked():
-	Void {
+	void {
 	/*//
 	this method is totally documented.
 	//*/
@@ -153,25 +153,25 @@ extends StdClass {
 
 	public function
 	SomeEmptyMethod():
-	Void {
+	void {
 		return;
 	}
 
 	public function
 	AnotherEmptyMethod():
-	Void {
+	void {
 		return;
 	}
 
 	public function
 	ThirdEmptyMethod():
-	Void {
+	void {
 		return;
 	}
 
 	public function
-	MethodWithMalformedNullableDefaultType(?String $String):
-	Void {
+	MethodWithMalformedNullableDefaultType(?string $String):
+	void {
 
 		return;
 	}
@@ -184,14 +184,14 @@ extends StdClass {
 
 	public function
 	MethodWithBracesUnderneathTyped():
-	Int {
+	int {
 
 		return 1;
 	}
 
 	public function
 	GetSomeArray():
-	Array {
+	array {
 
 		$Array = [];
 
@@ -203,14 +203,14 @@ extends StdClass {
 
 	public function
 	ProperMethod():
-	Void {
+	void {
 
 		return;
 	}
 
 	public function
 	ProperMethod_ReducedConcern():
-	Void {
+	void {
 
 		return;
 	}
@@ -219,7 +219,7 @@ extends StdClass {
 
 function
 WhyIsThereFunctionOutHere():
-String {
+string {
 
 	return 'whatever';
 }

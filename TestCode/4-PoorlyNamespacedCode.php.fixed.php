@@ -1,13 +1,13 @@
 <?php
 
-namespace SomeProjectVendor\SomeProject;
+namespace someProjectVendor\someProject;
 
-use \NetherCS as NetherCS;
-use \Imagick as Imagick;
+use \NetherCS;
+use \Imagick;
 
 use
-\Throwable as Throwable,
-\Exception as Exception;
+\Throwable,
+\Exception;
 
 class SomeProjectClass {
 
@@ -24,7 +24,7 @@ class SomeProjectClass {
 
 	public function
 	SomeLambdaWambas():
-	Void {
+	void {
 
 		$List = [];
 
@@ -58,8 +58,7 @@ class SomeProjectClass {
 	}
 
 	public function
-	GetImagick():
-	\Imagick {
+	GetImagick(): \Imagick{
 
 		return new \Imagick;
 	}
@@ -73,7 +72,7 @@ class SomeProjectClass {
 
 	public function
 	DerpComma():
-	Void {
+	void {
 
 		$Array = [1,2,3];
 
