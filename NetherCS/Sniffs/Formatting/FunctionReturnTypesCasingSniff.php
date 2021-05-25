@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function returning core Types must be Uppercased (%s)';
+	FixReason = 'NN: Method/Function returning core Types must be lowercased (%s)';
 
 	public function
 	Execute():
@@ -48,6 +48,10 @@ extends NetherCS\SniffGenericTemplate {
 
 		$Current = trim($this->GetContentFromStack($ReturnPtr));
 		$IsDefaultType = static::GetDefaultType($Current);
+
+		if($IsDefaultType)
+		$Expected = strtolower($Current);
+		else
 		$Expected = $this->ConvertToPascalCase($Current);
 
 		// don't attack the self keyword.
