@@ -33,8 +33,12 @@ extends NetherCS\SniffGenericTemplate {
 
 				if($this->GetTypeFromStack($VarPtr) === T_STRING) {
 					$Current = $this->GetContentFromStack($VarPtr);
-					$Expected = static::ConvertToPascalCase($Current);
 					$IsDefaultType = static::GetDefaultType($Current);
+
+					if($IsDefaultType)
+					$Expected = strtolower($Current);
+					else
+					$Expected = static::ConvertToPascalCase($Current);
 
 					if($IsDefaultType !== NULL && $Current !== $Expected)
 					$this->Fix(

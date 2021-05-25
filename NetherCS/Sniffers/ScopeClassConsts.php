@@ -13,7 +13,7 @@ extends NetherCS\SniffScopedTemplate {
 
 	protected function
 	Allow():
-	Bool {
+	bool {
 	/*//
 	the T_VARIABLE token will also catch function arguments since they are
 	technically in the same scope in a way. filter those out.
@@ -21,6 +21,19 @@ extends NetherCS\SniffScopedTemplate {
 
 		$StackPtr = $this->StackPtr;
 		$Before = NULL;
+		$StackAdv = 0;
+
+		// typed properties in php 8, types apparently are also just T_STRING
+		// because making something like T_DATATYPE would be too clever. so we
+		// need to scan ahead a little just to make sure this isn't really a
+		// typed property.
+
+		for($StackAdv = 1; $StackAdv < 10; $StackAdv++)
+		if($this->GetTypeFromStack($StackPtr+$StackAdv) !== T_WHITESPACE)
+		break;
+
+		if(str_starts_with($this->GetContentFromStack($StackPtr+$StackAdv),'$'))
+		return FALSE;
 
 		// it looks like we found some function args.
 
