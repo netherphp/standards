@@ -49,7 +49,7 @@ extends NetherCS\SniffGenericTemplate {
 		$Current = trim($this->GetContentFromStack($ReturnPtr));
 		$IsDefaultType = static::GetDefaultType($Current);
 
-		if($IsDefaultType)
+		if($IsDefaultType !== NULL)
 		$Expected = strtolower($Current);
 		else
 		$Expected = $this->ConvertToPascalCase($Current);

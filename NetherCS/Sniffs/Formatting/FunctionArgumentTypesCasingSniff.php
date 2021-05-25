@@ -36,7 +36,7 @@ extends NetherCS\SniffGenericTemplate {
 					$Expected = strtolower($Current);
 					$IsDefaultType = static::GetDefaultType($Current);
 
-					if($IsDefaultType)
+					if($IsDefaultType !== NULL)
 					$Expected = strtolower($Current);
 					else
 					$Expected = static::ConvertToPascalCase($Current);
