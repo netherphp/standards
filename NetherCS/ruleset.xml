@@ -26,7 +26,7 @@
 	<rule ref="NetherCS.Formatting.ClassPropertiesDefinedUnderKeywords" />
 	<rule ref="NetherCS.Formatting.FunctionNamesPascalCase" />
 	<rule ref="NetherCS.Formatting.FunctionNamesUnderKeywords" />
-	<rule ref="NetherCS.Formatting.FunctionArgumentTypesPascalCase" />
+	<rule ref="NetherCS.Formatting.FunctionArgumentTypesCasing" />
 	<rule ref="NetherCS.Formatting.FunctionReturnTypesCasing" />
 	<rule ref="NetherCS.Formatting.FunctionReturnTypesUnderName" />
 	<rule ref="NetherCS.Formatting.FunctionVariableNamesPascalCase" />

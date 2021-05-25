@@ -24,7 +24,7 @@ foreach($_SERVER['argv'] as $Argi => $Argv) {
 
 if(!$Overwrite) {
 	if($Suffix === NULL)
-	$_SERVER['argv'][] = '--suffix=.nethercs';
+	$_SERVER['argv'][] = '--suffix=.fixed.php';
 }
 
 ////////

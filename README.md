@@ -6,6 +6,7 @@
 > -- Merriam-Webster Dictionary
 
 
+
 # Nether Standards Project
 
 Known as Nether Notation, NN, N2, or N<sup>2</sup>
@@ -25,7 +26,8 @@ https://github.com/netherphp/standards/wiki/Nether-Notation-Coding-Standard-for-
 ## General Standards
 
 * PascalCaseAllTheThings except:
-* UPPERCASE for boolean constants (TRUE, FALSE) and NULL.
+	- UPPERCASE for boolean constants (TRUE, FALSE) and NULL.
+	- lowercase for core types (int, float, etc...)
 * Tabs for indenting.
 * \n for new lines.
 * initialize variables in scopes prior to use.
@@ -52,8 +54,8 @@ This means a typical method will look like this:
 class Project {
 
 	public function
-	DoSomething(Int $Count):
-	Void {
+	DoSomething(int $Count):
+	void {
 	/*//
 	this method does something. we do not know exactly because this example
 	is not important enough to fill with an implementation.
@@ -78,8 +80,8 @@ And when code folded in an editor like Sublime Text....
 class Project {
 
 	public function
-	DoSomething(Int $Count):
-	Void {
+	DoSomething(int $Count):
+	void {
 	/*//
 	this method does something. we do not know exactly because this example
 	is not important enough to fill with an implementation.
@@ -221,11 +223,11 @@ Everything shall be namespaced. Namespace use declarations should be grouped wit
 <?php
 
 namespace Nether\OneScript;
-use \ThirdParty1;
-use \ThirdParty2;
+use ThirdParty1;
+use ThirdParty2;
 
-use \ThirdParty3\Somespace\SomeClass;
-use \ThirdParty3\Filterspace\SomeInterface;
+use ThirdParty3\Somespace\SomeClass;
+use ThirdParty3\Filterspace\SomeInterface;
 
 class Project
 extends SomeClass
@@ -236,11 +238,13 @@ implements SomeInterface {
 
 It is to be avoided using preceeding backslashes in main executing code to demote pulling from the root namespace PHP. Instead it is preferred to set up `use` statements accordingly for the access required.
 
+Aliases bound with `use` should only contain one reference per `use`.
+
 ```php
 <?php
 
 namespace MyApp\Subspace;
-use \Nether;
+use Nether;
 ```
 
 To provide access to the Nether namespace without having to include the `\` each time access a class in the Nether namespace is needed.
@@ -260,14 +264,14 @@ class Project {
 
 	public function
 	SetSomething():
-	Void {
+	void {
 		// ...
 		return;
 	}
 
 	static public function
-	GetFromFile(String $Filename):
-	String {
+	GetFromFile(string $Filename):
+	string {
 		// ...
 		return $Contents;
 	}
@@ -285,7 +289,7 @@ If a method will take a lot of arguments, or has a handful of optional ones, it 
 class Project {
 
 	public function
-	Search($Input=NULL):
+	Search(array|object $Input=NULL):
 	SearchResult {
 	/*//
 	@argv object Input
@@ -319,7 +323,7 @@ To split a long method into smaller units of code, reduced concern methods shall
 class Project {
 
 	public function
-	GetFileContents(String $Filename) {
+	GetFileContents(string $Filename) {
 	/*//
 	@return ?StdClass
 	given a filename return the object built from the contents of that file.
@@ -343,8 +347,8 @@ class Project {
 	}
 
 	protected function
-	GetFileContents_ReadFile(String $Filename):
-	String {
+	GetFileContents_ReadFile(string $Filename):
+	string {
 	/*//
 	check that the file is readable from the filesystem.
 	//*/
@@ -356,7 +360,7 @@ class Project {
 	}
 
 	protected function
-	GetFileContents_ParseData(String $Data):
+	GetFileContents_ParseData(string $Data):
 	StdClass {
 	/*//
 	check that the file was parsable.
@@ -407,7 +411,7 @@ class Project {
 
 	public function
 	DetermineThisValue():
-	Int {
+	int {
 
 		$Output = 0;
 		$Child = NULL;
@@ -433,3 +437,32 @@ When working within the scope of an HTML template file, code structures will be 
 <?php endif; ?>
 ```
 
+
+# Changelogue
+
+## 2021-04-09
+
+* It has been decided to reverse a decision about the casing of built in core types (int, float, etc) such that they should not be PascalCased anymore. All other PascalCase rules still apply elsewhere.
+
+```php
+public function AddTwo(Int $Input): Int;
+
+public function AddTwo(int $Input): int;
+```
+
+## 2020-12-04
+
+* It has been decided the rule surrounding namespace/class `use` calls should no longer be followed. It is now preferred that `use` calls are only single line and without any leading slashing.
+
+```php
+use
+\Nether as Nether,
+\Local as Local;
+
+use Nether;
+use Local;
+```
+
+## 2020-05-13
+
+* Add rule that denies derp commas in arrays and function argument lists

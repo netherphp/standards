@@ -4,14 +4,14 @@ namespace NetherCS\Sniffs\Formatting;
 
 use \NetherCS as NetherCS;
 
-class FunctionArgumentTypesPascalCaseSniff
+class FunctionArgumentTypesCasingSniff
 extends NetherCS\SniffGenericTemplate {
 
 	protected
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function arg Types must be PascalCase (%s)';
+	FixReason = 'NN: Method/Function arg of core types must be lowercased (%s)';
 
 	public function
 	Execute():
@@ -33,6 +33,7 @@ extends NetherCS\SniffGenericTemplate {
 
 				if($this->GetTypeFromStack($VarPtr) === T_STRING) {
 					$Current = $this->GetContentFromStack($VarPtr);
+					$Expected = strtolower($Current);
 					$IsDefaultType = static::GetDefaultType($Current);
 
 					if($IsDefaultType)

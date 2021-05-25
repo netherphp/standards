@@ -12,7 +12,7 @@ extends NetherCS\SniffGenericTemplate {
 	$TokenTypes = [ T_FUNCTION ];
 
 	const
-	FixReason = 'NN: Method/Function returning core Types must be lowercased (%s)';
+	FixReason = 'NN: Method/Function returning core types must be lowercased (%s)';
 
 	public function
 	Execute():
