@@ -15,13 +15,21 @@ extends NetherCS\SniffGenericTemplate {
 
 	public function
 	Execute():
-	Void {
+	void {
 
 		$StackPtr = $this->StackPtr;
-		$EndPtr = $this->FindNext([T_SEMICOLON],$StackPtr);
+		$EndPtr = $this->FindNext([T_SEMICOLON,T_OPEN_PARENTHESIS],$StackPtr);
 		$Indent = $this->GetCurrentIndent();
 		$NextPtr = NULL;
 		$Fixed = FALSE;
+
+		// check if we actually found lambda use statement rather than a
+		// namespace use alias or class use trait.
+
+		if($this->GetTypeFromStack($EndPtr) === T_OPEN_PARENTHESIS)
+		return;
+
+		// loop over the remaining.
 
 		$this->TransactionBegin();
 
@@ -62,7 +70,7 @@ extends NetherCS\SniffGenericTemplate {
 
 	protected function
 	Allow():
-	Bool {
+	bool {
 	/*//
 	we cannot use the scoped template here because the namespace clause without braces
 	(e.g. the one you should be using) does not register as a scope. so we only want
