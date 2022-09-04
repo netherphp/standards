@@ -28,7 +28,7 @@ extends NetherCS\Sniffers\ScopeClassConsts {
 
 		// make sure its not actually a typed property.
 
-		while($ReallyTho && $this->GetTypeFromStack($Seeker) !== T_SEMICOLON)
+		while(!$ReallyTho && $this->GetTypeFromStack($Seeker) !== T_SEMICOLON)
 		if($this->GetTypeFromStack($Seeker++) === T_CONST)
 		$ReallyTho = TRUE;
 
@@ -45,6 +45,24 @@ extends NetherCS\Sniffers\ScopeClassConsts {
 			}
 		}
 
+		$Endpoint = $this->FindNext([T_SEMICOLON], $Seeker);
+		$Array = $this->FindNext([T_OPEN_SHORT_ARRAY], $Seeker, $Endpoint);
+
+		if($Array === NULL)
+		while($Endpoint >= $Seeker) {
+			if($this->GetTypeFromStack($Endpoint) === T_WHITESPACE) {
+				if($this->GetTypeFromStack(--$Endpoint) === T_COMMA)
+				$this->Fix(
+					sprintf(static::FixReason, $this->GetContentFromStack($Endpoint)),
+					"\n{$Indent}",
+					($Endpoint+1)
+				);
+			}
+
+			--$Endpoint;
+		}
+
+		/*
 		elseif($this->GetTypeFromStack($this->StackPtr-1) === T_COMMA) {
 			$this->Fix(
 				sprintf(static::FixReason,$this->GetContentfromStack($this->StackPtr)),
@@ -52,6 +70,7 @@ extends NetherCS\Sniffers\ScopeClassConsts {
 				($this->StackPtr-1)
 			);
 		}
+		*/
 
 		return;
 	}
