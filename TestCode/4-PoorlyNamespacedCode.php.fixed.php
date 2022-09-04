@@ -1,6 +1,6 @@
 <?php
 
-namespace someProjectVendor\someProject;
+namespace SomeProjectVendor\SomeProject;
 
 use \NetherCS;
 use \Imagick;
@@ -58,7 +58,8 @@ class SomeProjectClass {
 	}
 
 	public function
-	GetImagick(): \Imagick{
+	GetImagick():
+	\Imagick {
 
 		return new \Imagick;
 	}
@@ -113,6 +114,13 @@ class SomeProjectClass {
 		);
 
 		return;
+	}
+
+	public function
+	NullableTypeTho(?string $What):
+	?int {
+
+		return 1;
 	}
 
 }

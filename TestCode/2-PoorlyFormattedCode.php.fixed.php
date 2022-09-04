@@ -152,6 +152,13 @@ extends StdClass {
 	}
 
 	public function
+	MethodReturningStatic():
+	static {
+
+		return $this;
+	}
+
+	public function
 	SomeEmptyMethod():
 	void {
 		return;
