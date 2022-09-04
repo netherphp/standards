@@ -38,7 +38,7 @@ extends NetherCS\SniffGenericTemplate {
 			$NamePtr = $StackPtr;
 
 			// we found the return type word.
-			elseif(($Seek === T_STRING || $Seek === T_SELF) && $ReturnPtr !== NULL) {
+			elseif(($Seek === T_STRING || $Seek === T_STATIC || $Seek === T_SELF) && $ReturnPtr !== NULL) {
 				$ReturnPtr = $StackPtr;
 				break;
 			}
