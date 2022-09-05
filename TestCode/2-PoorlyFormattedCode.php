@@ -136,6 +136,19 @@ class poorlyFormattedClass extends StdClass {
 	}
 
 	public function
+	MethodReturningNever1(): never {
+
+		exit(0);
+	}
+
+	public function
+	MethodReturningNever2():
+	never {
+
+		exit(0);
+	}
+
+	public function
 	SomeEmptyMethod():
 	Void { }
 

@@ -43,6 +43,22 @@ extends NetherCS\SniffGenericTemplate {
 		if(!$OpenPtr)
 		return;
 
+		// don't mess around with never functions.
+
+		$Never = $this->FindNext([ T_COLON ], $this->StackPtr, $ClosePtr);
+		if($Never) {
+			$NeverEnd = $this->FindNext([ T_OPEN_CURLY_BRACKET, T_SEMICOLON ], $Never) ?? $ClosePtr;
+
+			if($NeverEnd);
+			while($Never < $NeverEnd) {
+				$Never += 1;
+
+				if($this->GetTypeFromStack($Never) === T_STRING)
+				if($this->GetContentFromStack($Never) === 'never')
+				return;
+			}
+		}
+
 		// we can determine the indent for this function.
 
 		$Indent = $this->GetCurrentIndent($this->StackPtr);
