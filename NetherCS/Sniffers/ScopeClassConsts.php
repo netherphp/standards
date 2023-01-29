@@ -23,6 +23,12 @@ extends NetherCS\SniffScopedTemplate {
 		$Before = NULL;
 		$StackAdv = 0;
 
+		// in hindsight this seemed kinda obvious.
+		// bob from 2023-01-23
+
+		if($this->GetContentFromStack($StackPtr) !== 'const')
+		return FALSE;
+
 		// typed properties in php 8, types apparently are also just T_STRING
 		// because making something like T_DATATYPE would be too clever. so we
 		// need to scan ahead a little just to make sure this isn't really a
@@ -31,9 +37,6 @@ extends NetherCS\SniffScopedTemplate {
 		for($StackAdv = 1; $StackAdv < 10; $StackAdv++)
 		if($this->GetTypeFromStack($StackPtr+$StackAdv) !== T_WHITESPACE)
 		break;
-
-		if(str_starts_with($this->GetContentFromStack($StackPtr+$StackAdv),'$'))
-		return FALSE;
 
 		// it looks like we found some function args.
 
