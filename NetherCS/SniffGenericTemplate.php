@@ -10,6 +10,9 @@ implements PHPCS\Sniffs\Sniff {
 	use
 	Traits\SniffUtility;
 
+	protected PHPCS\Files\File
+	$File;
+
 	protected
 	$TokenTypes = [];
 

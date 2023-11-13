@@ -8,6 +8,9 @@ use \PHP_CodeSniffer as PHPCS;
 class ClassMethodsMustHaveVisiblitySniff
 extends NetherCS\Sniffers\ScopeClassMethod {
 
+	protected mixed
+	$File;
+
 	const
 	FixReason = 'NN: Class Methods must have a visiblity keyword (%s)';
 

@@ -7,6 +7,9 @@ use \NetherCS as NetherCS;
 abstract class ScopeClassConsts
 extends NetherCS\SniffScopedTemplate {
 
+	protected mixed
+	$File;
+
 	protected
 	$TokenScopes = [ T_CLASS, T_ANON_CLASS, T_INTERFACE, T_TRAIT ],
 	$TokenTypes  = [ T_STRING ];

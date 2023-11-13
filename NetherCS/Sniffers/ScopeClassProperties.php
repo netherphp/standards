@@ -7,6 +7,9 @@ use \NetherCS as NetherCS;
 abstract class ScopeClassProperties
 extends NetherCS\SniffScopedTemplate {
 
+	protected mixed
+	$File;
+
 	protected
 	$TokenScopes = [ T_CLASS, T_ANON_CLASS, T_INTERFACE, T_TRAIT ],
 	$TokenTypes  = [ T_VARIABLE ];
@@ -33,7 +36,7 @@ extends NetherCS\SniffScopedTemplate {
 
 		do $Before = $this->GetTypeFromStack(--$StackPtr);
 		while($Before === T_WHITESPACE);
-		
+
 		switch($Before) {
 			case T_VAR:
 			case T_PUBLIC:
@@ -45,7 +48,7 @@ extends NetherCS\SniffScopedTemplate {
 				return TRUE;
 			break;
 		}
-		
+
 		return FALSE;
 	}
 
