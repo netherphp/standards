@@ -9,6 +9,9 @@ use \Exception as Exception;
 abstract class SniffScopedTemplate
 extends PHPCS\Sniffs\AbstractScopeSniff {
 
+	protected mixed
+	$File;
+
 	use
 	Traits\SniffUtility;
 
