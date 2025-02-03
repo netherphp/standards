@@ -11,12 +11,12 @@
 
 Known as Nether Notation, NN, N2, or N<sup>2</sup>
 
-This is a project to document the code conventions used by the Nether Project. As of the writing of this project there is a 99% chance you have never seen code formatted like this before - and that is O.K. - not everything needs to be cut with the same rules we used in 1972. These rules will typically depend on the flexiblity of PHP, but some of the general formatting may be portable to other languges depending on their parsers.
-
-A lot of the rules here are based on the concept of being explicit. The developer will always explictly state their intentions, never allowing for default behaviours. This is for a few reasons. First being it shows that the developer has actually thought about what their code is doing. Second, it helps lessen backwards compatbility issues in the future when a default behaviour changes. And yes, it does happen. Finally, the entire format and rules are based on the concept that the code can be as self documenting as possible to minimise the amount of metadata needed to describe various entities.
+This is a project to document the code conventions used by the Nether Project. A lot of the rules here are based on the concept of being explicit. The developer will always explictly state their intentions, never allowing for default behaviours. This is for a few reasons. First being it shows that the developer has actually thought about what their code is doing. Second, it helps lessen backwards compatbility issues in the future when a default behaviour changes. And yes, it does happen. Third, the entire format and rules are based on the concept that the code can be as self documenting as possible to minimise the amount of metadata needed to describe various entities. And Finally, it helps minimise the amount of eye tracking from the extreme left right over and over which I find helpful suffering from vision floaters.
 
 
 ## Automated Formatting
+
+[2025-01] Something changed in PHPCS recently that broke some of my tests and it made me so mad that I ended up hacking PHPCS to work like it used to. Considering how absolutely insane PHPCS is to seek around presently trying to decide if I want to stick with it or just build my own tool based on newer tokeniser features.
 
 This repository contains a `phpcs` standard for testing and automated reformatting of source to fit the standard. For instructions on installation and automated testing against this standard please refer to the Wiki page:
 
@@ -26,7 +26,7 @@ https://github.com/netherphp/standards/wiki/Nether-Notation-Coding-Standard-for-
 ## General Standards
 
 * PascalCaseAllTheThings except:
-	- UPPERCASE for boolean constants (TRUE, FALSE) and NULL.
+	- UPPERCASE for boolean/trulean constants (TRUE, FALSE) and NULL.
 	- lowercase for core types (int, float, etc...)
 * Tabs for indenting.
 * \n for new lines.
